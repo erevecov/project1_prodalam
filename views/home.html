@@ -1,0 +1,213 @@
+{{!< layout/default}}
+
+{{#extend "css"}}
+<style>
+
+#pagination-main {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.card-custom {
+    border: none;
+    cursor: pointer;
+}
+
+.btn-custom {
+    color: #025DB8;
+    background: white;
+    border: 1px solid #025DB8;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.addToFavBtn {
+    background: #025DB8;
+    text-align: center;
+    color: white;
+    border: none;
+    position: absolute;
+    right: 0;
+    /* display: none; */
+}
+
+.addToFavBtn:hover {
+    color: white;
+}
+
+.btn-custom span {
+    font-size: 20px;
+}
+
+.card-body-custom {
+    text-align: center !important;
+    color: #025DB8;
+    font-weight: bold;
+}
+
+.title1 {
+    margin-top:20px;
+    color: #025DB8;
+    font-weight: bold;
+    text-align:center;
+}
+
+.carousel-item {
+    /* width: 100vh !important; */
+    height: 90vh;
+    align-items: center;
+}
+</style>
+{{/extend}}
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/public/img/clavos-fijaciones.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Prodalam</h5>
+                <p>Conoce toda la variedad de Clavos y Fijaciones que tenemos para ti</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/public/img/clavos-fijaciones.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Prodalam</h5>
+                <p>Conoce toda la variedad de Clavos y Fijaciones que tenemos para ti</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/public/img/clavos-fijaciones.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Prodalam</h5>
+                <p>Conoce toda la variedad de Clavos y Fijaciones que tenemos para ti</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="container">
+
+    <h1 class="title1">CATÁLOGO</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
+                <div class="card-body card-body-custom">
+                    <p class="card-text">Descripcion del producto en 250mg</p>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-custom"><span>$</span>2.490</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
+                <div class="card-body card-body-custom">
+                    <p class="card-text">Descripcion del producto en 250mg</p>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-custom"><span>$</span>2.490</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
+                <div class="card-body card-body-custom">
+                    <p class="card-text">Descripcion del producto en 250mg</p>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-custom"><span>$</span>2.490</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
+                <div class="card-body card-body-custom">
+                    <p class="card-text">Descripcion del producto en 250mg</p>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-custom"><span>$</span>2.490</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
+                <div class="card-body card-body-custom">
+                    <p class="card-text">Descripcion del producto en 250mg</p>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-custom"><span>$</span>2.490</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
+                <div class="card-body card-body-custom">
+                    <p class="card-text">Descripcion del producto en 250mg</p>
+                    <div class="d-grid gap-2">
+                        <a href="#" class="btn btn-custom"><span>$</span>2.490</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav id="pagination-main" aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{{#extend "js"}}
+<script>
+
+Array.from(document.querySelectorAll('.card-custom')).forEach(el=> {
+    el.addEventListener('mouseover', function() {
+        this.style.border = '1px solid #025DB8'
+    })
+
+    el.addEventListener('mouseout', function() {
+        this.style.border = 'none'
+    })
+})
+</script>
+{{/extend}}

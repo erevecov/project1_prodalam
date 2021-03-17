@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+{{! Document Layout}}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link rel="stylesheet" href="/public/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/fontawesome-free-5.15.2-web/css/all.min.css">
+    <style>
+        .backToTop {
+            width: 100%;
+            background: #025DB8;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 0;
+            margin: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .backToTop:hover {
+            color:#ecf0f1;
+        }
+
+    </style>
+
+    {{#block "css"}}
+    {{/block}}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/public/img/logo.svg" alt="" width="100" height="50">
+            </a>
+
+            <form class="d-flex">
+                <input class="form-control" type="search" placeholder="¿Qué estás buscando?" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <div class="me-auto"></div>
+
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Catálogo</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categorias
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Categoria 1</a></li>
+                            <li><a class="dropdown-item" href="#">Categoria 2</a></li>
+                            <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary btn-block"><i class="far fa-star"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {{{ content }}}
+
+    <div class="d-grid gap-2">
+        <a class="btn btn-primary backToTop" href="#" role="button">VOLVER ARRIBA</a>
+    </div>
+
+    <script src="/public/bootstrap-5.0.0-beta2-dist/js/bootstrap.bundle.min.js"></script>
+    {{#block "js"}}
+    {{/block}}
+</body>
+</html>
