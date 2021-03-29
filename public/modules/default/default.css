@@ -1,0 +1,16 @@
+.backToTop {
+    width: 100%;
+    background: #025DB8;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 0;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.backToTop:hover {
+    color:#ecf0f1;
+}

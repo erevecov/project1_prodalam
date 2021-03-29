@@ -16,7 +16,7 @@ dotEnv.config()
 const internals = {}
 // const swaggerOptions = {
 //     info: {
-//         title: 'Movitronia API Documentation',
+//         title: 'API Documentation',
 //         version: Pack.version,
 //     }
 // }
