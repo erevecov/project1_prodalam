@@ -5,9 +5,9 @@ export default {
     method: ['GET', 'POST'],
     path: '/login',
     options: {
-        auth: {
-            mode: 'try'
-        },
+        // auth: {
+        //     mode: 'try'
+        // },
         plugins: {
             '@hapi/cookie': {
                 redirectTo: false
@@ -27,7 +27,7 @@ export default {
                     {
                         message: 'Debe ingresar su rut y contraseña'
                     },
-                    { layout: 'no-loged-layout' }
+                    { layout: 'no-logged' }
                 )
             }
 
@@ -45,7 +45,7 @@ export default {
                     {
                         message: 'Rut o contraseña incorrectos'
                     },
-                    { layout: 'no-loged-layout' }
+                    { layout: 'no-logged' }
                 )
             }
 
@@ -53,13 +53,13 @@ export default {
 
             delete account.password
 
-            await request.server.app.cache.set(sid, { account }, 0)
+            //await request.server.app.cache.set(sid, { account }, 0)
 
-            request.cookieAuth.set({ sid })
+            //request.cookieAuth.set({ sid })
 
             return h.redirect('/')
         }
-        return h.view('login', {}, { layout: 'no-loged-layout' })
+        return h.view('login', {}, { layout: 'no-logged' })
     }
 }
 

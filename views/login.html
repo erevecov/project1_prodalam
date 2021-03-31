@@ -1,4 +1,4 @@
-{{!< layout/no-loged-layout}}
+{{!< layout/no-logged}}
 
 <!--<title>Iniciar Sesión</title>-->
 
@@ -19,7 +19,7 @@
           <div class="form-group">
             <label for="ruttext"><i class="fas fa-user"></i> Rut</label>
             <div class="input-group mb-3">
-              <input name="rut" id="user" type="text" class="form-control" aria-label="rut"
+              <input name="rut" id="user" type="text" onfocus="apiTes()" class="form-control" aria-label="rut"
                 placeholder="Ej:12345678-9">
             </div>
           </div>
@@ -52,5 +52,17 @@
   </form>
 </div>
 {{#extend "js"}}
+<script>
+async function apiTes() {
+  try {
+    let result = await axios.get('api/testo');
+    console.log("res", result.data);
+  } catch (error) {
+    console.log("wat", error);
+  }
+}
+
+</script>
     <!-- <script src="/public/modules/login/default.js"></script> -->
+    <script src="public/axios/axios.min.js"></script>
 {{/extend}}

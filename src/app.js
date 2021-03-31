@@ -10,6 +10,7 @@ import HandlebarsExtendBlock from 'handlebars-extend-block'
 import dotEnv from 'dotenv'
 
 // import './database'
+require('../config/mongodb.js');
 
 dotEnv.config()
 
@@ -89,7 +90,7 @@ internals.server = async () => {
 
         // server.auth.strategy('session', 'cookie', {
         //     cookie: {
-        //         name: 'sid-movitronia',
+        //         name: 'sid-prodalam',
         //         password: process.env.SECRET_KEY,
         //         isSecure: false,
         //     },
