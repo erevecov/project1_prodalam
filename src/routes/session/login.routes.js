@@ -1,4 +1,4 @@
-//import User from '../../models/User'
+const User = require('../../models/userModel');
 import { clean } from 'rut.js'
 
 export default {
@@ -64,13 +64,25 @@ export default {
 }
 
 async function findUserByRutAndPassword(userRut, userPassword) {
-    if (userRut === '111111111' && userPassword === '1234') {
-        return {
-            _id: '12312312213123123123',
-            rut: '111111111',
-            name: 'admin',
-            password: 'leica666'
+    // if (userRut === '111111111' && userPassword === '1234') {
+    //     return {
+    //         _id: '12312312213123123123',
+    //         rut: '111111111',
+    //         name: 'admin',
+    //         password: 'leica666'
+    //     }
+    // }
+
+    let userExist = await User.find({
+        rut: userRut,
+        password: userPassword,
+        status: 'enabled',
+        scope: {
+            $in: ['admin', 'user']
         }
-    }
+    }).lean();
+
+    if (userExist[0]) return userExist[0];
+
     return null
 }

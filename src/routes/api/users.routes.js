@@ -11,15 +11,13 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    console.log("req",request.payload);
                     let user = await User(request.payload);
                     let userSaved = await user.save();
-                    console.log("reso", userSaved);
+
+                    userSaved.password = '';
+
                     return userSaved
-                    // return userSaved.map(el => {
-                    //     delete el.password;
-                    //     return el;
-                    // });
+
                 } catch (error) {
                     console.log(error);
 
@@ -42,18 +40,17 @@ module.exports = [
             handler: async (request, h) => {
                 try {
                     let result = await User.find({}).lean();
-                    console.log("user", result);
-    
-                    return result.map(el=> {
+
+                    return result.map(el => {
                         delete el.password;
                         return el;
                     });
                 } catch (error) {
                     console.log(error);
-    
+
                     return h.response({
                         error: 'Ha ocurrido un error al buscar usuarios, por favor recargue la página e intentelo nuevamente.'
-                    }).code(500);  
+                    }).code(500);
                 }
             }
         }
