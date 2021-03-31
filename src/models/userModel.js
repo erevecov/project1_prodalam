@@ -9,8 +9,9 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     scope: { type: String, required: true },
     phone: { type: String },
-    //createdAt: { type: Date, default: Date.now()},
     status: { type: String, required: true, default: 'enabled' }
+},{
+    timestamps: true
 });
 
 const User = mongoose.model('Users', userSchema);
