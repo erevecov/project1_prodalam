@@ -1,39 +1,10 @@
 {{!< layout/admin-nav}}
 
 {{#extend "css"}}
+<script src="https://unpkg.com/read-excel-file@4.1.0/bundle/read-excel-file.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/public/modules/admin/admin.css">
 {{/extend}}
-
-<!--<hr> 
-<div class="row">
-  <div class="col-md-5">
-    <div class="form-group">
-      <fieldset>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="codeFilterRadio" name="productFilterRadio" class="custom-control-input productFilterRadio">
-          <label class="custom-control-label" for="codeFilterRadio">Buscar por codigo</label>
-        </div>
-
-        <input class="form-control productsFilters" id="codeFilter" type="text" placeholder="Codigo del producto">
-      </fieldset>
-    </div>
-  </div>
-  <div class="col-md-5">
-    <div class="form-group">
-      <fieldset>
-        <div class="custom-control custom-radio">
-          <input type="radio" id="descriptionFilterRadio" name="productFilterRadio" class="custom-control-input productFilterRadio" checked="">
-          <label class="custom-control-label" for="descriptionFilterRadio">Buscar por descripcion</label>
-        </div>
-
-        <input class="form-control productsFilters" id="descriptionFilter" type="text" placeholder="Descripcion del producto">
-      </fieldset>
-    </div>
-  </div>
-  <div class="col-md-2">
-    <button type="button" class="btn btn-lg btn-block" id="filterBtn">Buscar</button>
-  </div>
-</div> -->
+<br>
 <h3>Administrador de Productos</h3>
 
 <button id="nuevaCargaBtn" type="button" class="btn btn-lg"><i class="fas fa-plus"></i> Nueva Carga Excel</button>

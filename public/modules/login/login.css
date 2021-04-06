@@ -1,3 +1,8 @@
+@font-face { 
+    font-family: SFProDisplay; 
+    src: url('/public/fonts/SFProDisplay.ttc');
+    font-weight: lighter;
+}
 :root {
     --blue: #005EB8;
     --dark:#222222;
@@ -11,14 +16,16 @@ html {
     padding: 0;
 }
 body {
+    font-family: SFProDisplay;
     height: 100%;
     margin: 0;
     padding: 0;
     background-color:var(--blue);
-    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
 }
 
 #loginCardContainer {
+    font-family: SFProDisplay;
     height: 100% !important;
     display: flex;
     justify-content: center;
@@ -26,6 +33,7 @@ body {
 }
 
 #loginCard {
+    font-family: SFProDisplay;
     width: 23rem;
     height: 100% !important;
     background-color:  var(--grey) !important;
@@ -36,6 +44,7 @@ body {
 }
 
 #loginCardFooter {
+    font-family: SFProDisplay;
     font-size: 20px;
     padding: 0;
     margin: 0;
@@ -44,6 +53,7 @@ body {
 }
 
 #loginCardFooter button {
+    font-family: SFProDisplay;
     background-color: var(--blue);
     color:var(--dark);
     height: 70px;
@@ -52,21 +62,25 @@ body {
 }
 
 #loginCardFooter button:hover {
+    font-family: SFProDisplay;
     cursor: pointer;
     font-size: 21px;
 }
 label{
+    font-family: SFProDisplay;
     color: var(--dark);
 }
 a {
     color:var(--dark);
 }
 a:hover{
+    font-family: SFProDisplay;
     text-decoration: none;
     color: var(--dark);
 }
 @media (max-width: 600px) {
     #loginCard {
+        font-family: SFProDisplay;
         height: 100% !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -74,16 +88,19 @@ a:hover{
     }
 
     #loginCardFooter {
+        font-family: SFProDisplay;
         font-size: 20px;
         bottom: 0;
     }
 
     #loginCardContainer {
+        font-family: SFProDisplay;
         height: 100% !important;
         display: block;
     }
 
     #loginCardContainer form {
+        font-family: SFProDisplay;
         height: 100% !important;
     }
 }
@@ -95,6 +112,7 @@ a:hover{
 }
 
 input {
+    font-family: SFProDisplay;
     background-color:  var(--white) !important;
     color: var(--dark1) !important;
     border: 50px !important;

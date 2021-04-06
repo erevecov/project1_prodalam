@@ -1,10 +1,17 @@
+@font-face { 
+    font-family: SFProDisplay; 
+    src: url('/public/fonts/SFProDisplay.ttc');
+    font-weight: lighter;
+}
+
 .backToTop {
     width: 100%;
     background-color: #005EB8;
     text-align: center;
     text-decoration: none;
     color: white;
-    font-weight: bold;
+    font-family: SFProDisplay;
+    font-weight: lighter;
     border-radius: 0;
     margin: 0;
     padding-top: 10px;
@@ -14,6 +21,7 @@
     background-color: #dc952f!important;
 }
 .navbar {
+    font-family: SFProDisplay;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -26,6 +34,7 @@
     color:#dc952f;
 } */
 .container-fluid{
+    font-family: SFProDisplay;
     padding-bottom: 20px;
     background-color: #005EB8;
 }
