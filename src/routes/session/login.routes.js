@@ -1,5 +1,8 @@
 const User = require('../../models/userModel');
+var Excel = require('exceljs');
 import { clean } from 'rut.js'
+//import parseXlsx from 'excel'
+
 
 export default {
     method: ['GET', 'POST'],
@@ -81,8 +84,39 @@ async function findUserByRutAndPassword(userRut, userPassword) {
             $in: ['admin', 'user']
         }
     }).lean();
-
+    // console.log("cargando excel");
+    // apiTes()
     if (userExist[0]) return userExist[0];
 
     return null
+}
+
+async function apiTes() {
+
+    // read from a file
+    var workbook = new Excel.Workbook();
+    workbook.xlsx.readFile('prodaProd.xlsx')
+        .then(function() {
+            //console.log("excelaaaaa", workbook._worksheets[13])
+            let arreglo=[];
+            let data = workbook._worksheets[13]._rows._cells
+            console.log("data", data);
+            // array.forEach(element => {
+                
+            // });
+            // data.forEach((el,i) => {
+            //     if(i<2){
+            //         arreglo.push(el._cells)
+            //     }
+            // });
+            // use workbook
+            //console.log("excelaaaaa", arreglo)
+        });
+    
+    // pipe from stream
+    // var workbook = new Excel.Workbook();
+    // stream.pipe(workbook.xlsx.createInputStream());
+
+
+
 }

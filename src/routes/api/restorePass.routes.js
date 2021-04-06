@@ -1,25 +1,25 @@
 import Joi from 'joi'
 import jwt from 'jsonwebtoken'
 import dotEnv from 'dotenv'
-import sgMail from '@sendgrid/mail'
+//import sgMail from '@sendgrid/mail'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
-import User from '../../models/User'
+import User from '../../models/userModel'
 import { hashPassword } from '../../utils/passwordHandler'
 
 dotEnv.config()
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+//sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 module.exports = [
 {
     method: 'POST',
-    path: '/restore_password',
+    path: '/api/restore_password',
     options: {
         description: 'Restore user password',
         notes: 'Send email to user and restore password',
         tags: ['api'],
-        auth: false,
+        // auth: false,
         handler: async (request, h) => {
             try {
                 let payload = request.payload
@@ -97,9 +97,9 @@ module.exports = [
 },
 {
     method: 'POST',
-    path: '/restore_password_step_2',
+    path: '/api/restore_password_step_2',
     options: {
-        auth: 'jwt',
+        // auth: 'jwt',
         description: 'restore password change password',
         notes: 'restore password change password',
         tags: ['api'],
@@ -158,6 +158,63 @@ module.exports = [
                 password1: Joi.string(),
                 password2: Joi.string()
             })
+        }
+    }
+},
+{
+    method: 'GET',
+    path: '/api/restore_password',
+    options: {
+        // auth: {
+        //     mode: 'try'
+        // },
+        handler: (request, h) => {
+            if (request.auth.isAuthenticated) return h.redirect('/')
+
+            return h.view('restore-password', {}, { layout: 'no-loged-layout' })
+        }
+    }
+},
+{
+    method: ['GET'],
+    path: '/api/restore_password_step_2',
+    options: {
+        // auth: 'jwt',
+        handler: async (request, h) => {
+            try {
+                const credentials = request.auth.credentials
+                const token = request.auth.token
+
+                // let decoded = jwt.verify(params.restorePasswordToken, process.env.SECRET_KEY)
+
+                // let verifyTokenRedis = await request.redis.client.get(`movitroniarestorepassword-${decoded.id}`)
+
+                // if (!verifyTokenRedis) {
+                //     return h.redirect('/restore-password')
+                // }
+
+                return h.view(
+                    'restore-password-step-2',
+                    {
+                        iss: credentials.iss,
+                        aud: credentials.aud,
+                        id: credentials.id,
+                        name: credentials.name.split(' ')[0].toUpperCase(),
+                        rut: credentials.rut || '',
+                        email: credentials.email,
+                        scope: credentials.scope,
+                        restorePasswordToken: token
+                    },
+                    {
+                        layout: 'no-loged-layout'
+                    }
+                )
+
+            } catch (error) {
+                console.log(error)
+
+                return h.redirect('/restore-password')
+            }
         }
     }
 }
