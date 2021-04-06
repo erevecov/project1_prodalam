@@ -3,7 +3,7 @@ export default {
     path: '/admin',
     options: {
         handler: (request, h) => {
-            return h.view('admin')
+            return h.view('admin', {}, { layout: 'admin-layout' })
         }
     }
 }
