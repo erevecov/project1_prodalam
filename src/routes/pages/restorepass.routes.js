@@ -7,9 +7,9 @@ export default [
     method: ['GET'],
     path: '/restore_password',
     options: {
-        auth: {
-            mode: 'try'
-        },
+        // auth: {
+        //     mode: 'try'
+        // },
         handler: (request, h) => {
             if (request.auth.isAuthenticated) return h.redirect('/')
 
@@ -21,7 +21,7 @@ export default [
     method: ['GET'],
     path: '/restore_password_step_2',
     options: {
-        auth: 'jwt',
+        // auth: 'jwt',
         handler: async (request, h) => {
             try {
                 const credentials = request.auth.credentials

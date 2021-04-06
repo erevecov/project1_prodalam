@@ -48,14 +48,14 @@ body {
     font-size: 20px;
     padding: 0;
     margin: 0;
-    border-top: 1px #1E3274 solid;
+    border-top: 1px #dc952f solid;
     height: 70px;
 }
 
 #loginCardFooter button {
     font-family: SFProDisplay;
-    background-color: var(--blue);
-    color:var(--dark);
+    background-color: #dc952f;
+    color: var(--dark);
     height: 70px;
     font-size: 20px;
     padding: 0;

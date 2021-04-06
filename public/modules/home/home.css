@@ -1,3 +1,12 @@
+p{
+    display: flex;
+    justify-content: flex-start;
+}
+
+h5{
+    display: flex;
+    justify-content: flex-start;
+}
 
 #pagination-main {
     margin-top: 50px;

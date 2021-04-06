@@ -30,7 +30,7 @@ export default {
                     {
                         message: 'Debe ingresar su rut y contraseña'
                     },
-                    { layout: 'no-logged' }
+                    { layout: 'no-loged' }
                 )
             }
 
@@ -48,7 +48,7 @@ export default {
                     {
                         message: 'Rut o contraseña incorrectos'
                     },
-                    { layout: 'no-logged' }
+                    { layout: 'no-loged' }
                 )
             }
 
@@ -62,7 +62,7 @@ export default {
 
             return h.redirect('/admin')
         }
-        return h.view('login', {}, { layout: 'no-logged' })
+        return h.view('login', {}, { layout: 'no-loged' })
     }
 }
 
