@@ -1,0 +1,71 @@
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--blue) !important;
+    color: white !important;
+}
+
+#restorePasswordCardContainer {
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#restorePasswordCard {
+    width: 30rem;
+    height: 100% !important;
+    background-color:  var(--blue) !important;
+    border-radius: 10px;
+    -webkit-box-shadow: 7px 3px 18px 14px rgba(0,0,0,0.26);
+    -moz-box-shadow: 7px 3px 18px 14px rgba(0,0,0,0.26);
+    box-shadow: 7px 3px 18px 14px rgba(0,0,0,0.26);
+}
+
+#restorePasswordCardFooter {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    border-top: 1px #1E3274 solid;
+    height: 70px;
+}
+
+#restorePasswordCardFooter button {
+    color: white;
+    height: 70px;
+    font-size: 20px;
+    padding: 0;
+}
+
+#restorePasswordCardFooter button:hover {
+    cursor: pointer;
+    font-size: 21px;
+}
+
+a {
+    color: white;
+}
+
+.logo {
+    width: 50%;
+    margin-bottom: 40px;
+}
+
+.restore-form {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+input {
+    background-color:  white !important;
+    color: var(--cyan) !important;
+    border-radius: 50px !important;
+    text-align: center;
+}

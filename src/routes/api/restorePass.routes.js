@@ -38,7 +38,7 @@ module.exports = [
                     return h.view('restore-password', {
                         message: 'El email ingresado no está registrado en el sistema',
                         responseType: 'danger'
-                    }, { layout: 'no-loged-layout' })
+                    }, { layout: 'no-loged' })
                 }
 
                 let token = await jwt.sign(
@@ -72,7 +72,7 @@ module.exports = [
                     return h.view('restore-password', {
                         message: 'Hemos enviado un enlace a tu correo para que puedas cambiar tu contraseña.',
                         responseType: 'success'
-                    }, { layout: 'no-loged-layout' })
+                    }, { layout: 'no-loged' })
                 }
 
                 return h.response({
@@ -110,12 +110,12 @@ module.exports = [
                 let payload = request.payload
 
                 if (payload.password1 !== payload.password2) {
-                    return h.view('restore-password-step-2', {
+                    return h.view('restore_password_step_2', {
                         ...credentials,
                         restorePasswordToken: token,
                         message: 'Las contraseñas no son iguales.',
                         responseType: 'danger'
-                    }, { layout: 'no-loged-layout' })
+                    }, { layout: 'no-loged' })
                 }
 
                 if (payload.password1.length < 6) {
