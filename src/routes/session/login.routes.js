@@ -60,7 +60,7 @@ export default {
 
             //request.cookieAuth.set({ sid })
 
-            return h.redirect('/')
+            return h.redirect('/admin')
         }
         return h.view('login', {}, { layout: 'no-logged' })
     }

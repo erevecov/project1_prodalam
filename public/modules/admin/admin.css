@@ -1,0 +1,8 @@
+h3{
+    display: flex;
+    justify-content: center;
+}
+#nuevaCargaBtn{
+    background-color: #005EB8;
+    color: white;
+  }

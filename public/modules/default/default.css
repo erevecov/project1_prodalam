@@ -1,6 +1,6 @@
 .backToTop {
     width: 100%;
-    background: #025DB8;
+    background-color: #005EB8;
     text-align: center;
     text-decoration: none;
     color: white;
@@ -10,7 +10,22 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
-.backToTop:hover {
-    color:#ecf0f1;
+.bg-light {
+    background-color: #dc952f!important;
+}
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: .0rem;
+    padding-bottom: .5rem;
+}
+/* .backToTop:hover {
+    color:#dc952f;
+} */
+.container-fluid{
+    padding-bottom: 20px;
+    background-color: #005EB8;
 }

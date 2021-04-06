@@ -4,28 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Catalogo</title>
-
+    <title>Administración</title>
     <link rel="stylesheet" href="/public/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/fontawesome-free-5.15.2-web/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/modules/no_logged/no_logged.css">
+    <link rel="stylesheet" type="text/css" href="/public/modules/admin/admin-nav.css">
+
     {{#block "css"}}
     {{/block}}
 </head>
 <body>
-    {{{ content }}}
-    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/public/img/LOGO_CATALOGO.png" alt="" width="100" height="50">
+            </a>
+        </div>
+    </nav>
 
-    <script src="/public/js/jquery-3.5.1.min.js"></script>
+    {{{ content }}}
+
     <script src="/public/bootstrap-5.0.0-beta2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/public/js/rut.min.js"></script>
-    <!-- <script src="/public/modules/no_logged/no_logged.js"></script> -->
+    <script src="/public/axios/axios.min.js"></script>
     {{#block "js"}}
     {{/block}}
-<script>
-
-</script>
 </body>
 </html>

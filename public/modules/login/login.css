@@ -1,7 +1,7 @@
 :root {
     --blue: #005EB8;
     --dark:#222222;
-    --grey: #DDDDDD;
+    --grey: #e3e3e3;
     --white: #FFFFFF;
     --dark1: #292929;
 }
@@ -44,7 +44,8 @@ body {
 }
 
 #loginCardFooter button {
-    color: white;
+    background-color: var(--blue);
+    color:var(--dark);
     height: 70px;
     font-size: 20px;
     padding: 0;
@@ -54,13 +55,15 @@ body {
     cursor: pointer;
     font-size: 21px;
 }
-
+label{
+    color: var(--dark);
+}
 a {
     color:var(--dark);
 }
 a:hover{
     text-decoration: none;
-    color: white;
+    color: var(--dark);
 }
 @media (max-width: 600px) {
     #loginCard {
@@ -92,8 +95,8 @@ a:hover{
 }
 
 input {
-    background-color:  var(--dark) !important;
-    color: var(--white) !important;
+    background-color:  var(--white) !important;
+    color: var(--dark1) !important;
     border: 50px !important;
     text-align: center;
 }
