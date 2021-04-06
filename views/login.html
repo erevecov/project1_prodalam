@@ -1,6 +1,6 @@
 {{!< layout/no-logged}}
 
-<!--<title>Iniciar Sesión</title>-->
+<!--<title>Iniciar Sesión KS Ltda</title>-->
 
 {{#extend "css"}}
     <link rel="stylesheet" type="text/css" href="/public/modules/login/login.css">
@@ -12,8 +12,8 @@
     <div id="loginCard" class="card text-white bg-primary mb-3 center">
 
       <div style="text-align: center;" class="card-body">
- 
-<!--    <img class="logo" src="/public/img/logo.png" alt=""> -->
+
+        <img class="logo" src="/public/img/logo.svg" alt="">
 
         <div class="form-group">
           <div class="form-group">
@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <a href="/restore-password">¿Olvidó su contraseña?</a>
+          <a href="/restore_password">¿Olvidó su contraseña?</a>
 
         </div>
       </div>
@@ -52,17 +52,5 @@
   </form>
 </div>
 {{#extend "js"}}
-<script>
-// async function apiTes() {
-//   try {
-//     let result = await axios.get('api/user');
-//     console.log("res", result.data);
-//   } catch (error) {
-//     console.log("wat", error);
-//   }
-// }
-
-</script>
-    <!-- <script src="/public/modules/login/default.js"></script> -->
-    <script src="public/axios/axios.min.js"></script>
+    <script src="/public/modules/login/login.js"></script>
 {{/extend}}

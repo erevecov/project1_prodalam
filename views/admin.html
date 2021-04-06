@@ -1,0 +1,72 @@
+{{!< layout/default}}
+
+{{#extend "css"}}
+<link rel="stylesheet" type="text/css" href="/public/modules/admin/admin.css">
+{{/extend}}
+
+<h2>Productos</h2>
+
+<!--<hr> 
+<div class="row">
+  <div class="col-md-5">
+    <div class="form-group">
+      <fieldset>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="codeFilterRadio" name="productFilterRadio" class="custom-control-input productFilterRadio">
+          <label class="custom-control-label" for="codeFilterRadio">Buscar por codigo</label>
+        </div>
+
+        <input class="form-control productsFilters" id="codeFilter" type="text" placeholder="Codigo del producto">
+      </fieldset>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="form-group">
+      <fieldset>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="descriptionFilterRadio" name="productFilterRadio" class="custom-control-input productFilterRadio" checked="">
+          <label class="custom-control-label" for="descriptionFilterRadio">Buscar por descripcion</label>
+        </div>
+
+        <input class="form-control productsFilters" id="descriptionFilter" type="text" placeholder="Descripcion del producto">
+      </fieldset>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-lg btn-block" id="filterBtn">Buscar</button>
+  </div>
+</div> -->
+<hr>
+<div class="table-responsive">
+  <table id="productsTable" class="table table-striped table-bordered moduleTable" style="width:100%">
+    <thead>
+        <tr>
+            <th>SKU</th>
+            <th>Título</th>
+            <th>Categoria Padre</th>
+            <th>Destacado</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+  </table>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal">
+  <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="modal_title"></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body" id="modal_body"></div>
+          <div class="modal-footer" id="modal_footer"></div>
+      </div>
+  </div>
+</div>
+
+{{#extend "js"}}
+<script src="/public/modules/admin/admin.js"></script>
+{{/extend}}

@@ -1,5 +1,5 @@
 :root {
-    --blue: #275988;
+    --blue: #005EB8;
     --dark:#222222;
     --grey: #DDDDDD;
     --white: #FFFFFF;
@@ -28,7 +28,7 @@ body {
 #loginCard {
     width: 23rem;
     height: 100% !important;
-    background-color:  var(--blue) !important;
+    background-color:  var(--grey) !important;
     border-radius: 10px;
     -webkit-box-shadow: 7px 3px 18px 14px rgba(0,0,0,0.26);
     -moz-box-shadow: 7px 3px 18px 14px rgba(0,0,0,0.26);
@@ -56,7 +56,7 @@ body {
 }
 
 a {
-    color: white;
+    color:var(--dark);
 }
 a:hover{
     text-decoration: none;
@@ -92,8 +92,8 @@ a:hover{
 }
 
 input {
-    background-color:  white !important;
-    color: var(--dark) !important;
+    background-color:  var(--dark) !important;
+    color: var(--white) !important;
     border: 50px !important;
     text-align: center;
 }

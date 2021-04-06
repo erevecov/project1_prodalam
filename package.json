@@ -38,6 +38,7 @@
     "handlebars-extend-block": "^1.0.0",
     "hapi-redis2": "^3.0.1",
     "hapi-router": "^4.0.1",
+    "joi": "^17.4.0",
     "moment": "^2.29.1",
     "mongoose": "^5.12.2",
     "rut.js": "^2.0.0"
