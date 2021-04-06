@@ -1,6 +1,6 @@
 export default {
     method: ['GET'],
-    path: '/',
+    path: '/info',
     options: {
         handler: (request, h) => {
 

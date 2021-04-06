@@ -1,6 +1,6 @@
 export default {
     method: ['GET'],
-    path: '/',
+    path: '/products',
     options: {
         handler: (request, h) => {
 
