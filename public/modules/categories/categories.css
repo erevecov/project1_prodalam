@@ -1,0 +1,33 @@
+.categories-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.category-item-container {
+    width: 100%;
+    padding: 30px;
+}
+
+.category-item {
+    width: 100%;
+    height: 200px;
+    border-radius: 30px;
+    background-image: url("/public/categories-imgs/soldador.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.category-item h2 {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    color: white;
+}
+
+#categories-up {
+    color: var(--orange);
+}
+
+#categories-down {
+    color: var(--orange);
+}

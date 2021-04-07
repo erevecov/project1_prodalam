@@ -18,11 +18,17 @@ h5{
 }
 
 .btn-custom {
-    color: #025DB8;
-    background: white;
-    border: 1px solid #025DB8;
-    font-size: 30px;
+    color: var(--grey1);
+    border: 3px solid var(--grey1);
+    border-radius: 50px;
+    font-size: 20px;
     font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-custom span {
+    font-size: 20px;
 }
 
 .addToFavBtn {
@@ -39,25 +45,35 @@ h5{
     color: white;
 }
 
-.btn-custom span {
-    font-size: 20px;
-}
-
 .card-body-custom {
     text-align: center !important;
-    color: #025DB8;
+    color: var(--grey1);
+    background-color: #ecf0f1;
+}
+
+.card-product-title {
     font-weight: bold;
+}
+
+.card-product-description {
+    font-family: SFProDisplay-Light;
+}
+
+.card-body-custom img {
+    border-radius: 0px !important;
+    margin-bottom: 5px;
 }
 
 .title1 {
-    margin-top:20px;
-    color: #025DB8;
+    margin-top:50px;
+    margin-bottom:30px;
+    color: var(--grey1);
     font-weight: bold;
-    text-align:center;
+    text-align: center;
 }
 
 .carousel-item {
     /* width: 100vh !important; */
-    height: 90vh;
+    height: 60vh;
     align-items: center;
 }

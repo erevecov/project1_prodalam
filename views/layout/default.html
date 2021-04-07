@@ -14,43 +14,44 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/public/img/LOGO_CATALOGO.png" alt="" width="100" height="50">
-            </a>
+        <a class="navbar-brand" href="#">
+            <img src="/public/img/LOGO_CATALOGO.png" alt="" width="150" height="70">
+        </a>
 
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link" href="/">Portada</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{#if pageSelectedHome}} active {{/if}}">
+                    <a class="nav-link" href="/">Portada <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/products" role="button" aria-haspopup="true" aria-expanded="false">Categorías</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Cat 1</a>
-                      <a class="dropdown-item" href="#">Cat 2</a>
-                      <a class="dropdown-item" href="#">Cat 3</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Cat 4</a>
+
+                <li class="nav-item {{#if pageSelectedCategories}} active {{/if}}">
+                    <a class="nav-link" href="/categories">Categorías</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Información de tiendas</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="form-group navbar-search">
+                    <div class="input-group mb-3">
+                        <input id="navbar-search-input" type="text" class="form-control" aria-label="" placeholder="Buscar Producto">
+                        <div class="input-group-append">
+                            <div class="input-group-append">
+                                <button class="btn btn-link" type="button"><i class="fas fa-search fa-rotate-90"></i></button>
+                            </div>
+                        </div>
                     </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/info">Informacion de la tienda</a>
-                </li>
-              </ul>
-
-                <form class="d-flex">
-                    <input class="form-control" type="search" placeholder="¿Qué estás buscando?" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-primary btn-block"><i class="far fa-star"></i></button>
                 </div>
-            </div>
+                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+            </form>
+        </div>
     </nav>
 
     {{{ content }}}
@@ -59,6 +60,7 @@
         <a class="btn btn-primary backToTop" href="#" role="button">VOLVER ARRIBA</a>
     </div> -->
 
+    <script src="/public/js/jquery-3.5.1.min.js"></script>
     <script src="/public/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/public/axios/axios.min.js"></script>
     {{#block "js"}}

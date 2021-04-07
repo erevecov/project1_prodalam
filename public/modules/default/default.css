@@ -1,40 +1,117 @@
-@font-face { 
-    font-family: SFProDisplay; 
-    src: url('/public/fonts/SFProDisplay.ttc');
-    font-weight: lighter;
+@font-face {
+    font-family: SFProDisplay-Bold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Bold.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Light;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Light.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Medium;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Medium.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Regular;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Regular.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Semibold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Semibold.ttf');
+}
+
+:root {
+    --blue: #005EB8;
+    --white: #ffffff;
+    --orange: #dc952f;
+    --grey1: grey;
+}
+
+body {
+    font-family: SFProDisplay-Bold !important;
 }
 
 .backToTop {
     width: 100%;
-    background-color: #005EB8;
+    background-color: var(--blue);
     text-align: center;
     text-decoration: none;
     color: white;
-    font-family: SFProDisplay;
+    /* font-family: SFProDisplay; */
     font-weight: lighter;
     border-radius: 0;
     margin: 0;
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
 .bg-light {
-    background-color: #dc952f!important;
+    border-bottom: 5px solid var(--orange) !important;
 }
+
 .navbar {
-    font-family: SFProDisplay;
-    position: relative;
+    font-family: SFProDisplay-Medium;
+    background-color: #005EB8 !important;
+    /* position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    padding-top: .0rem;
-    padding-bottom: .5rem;
+    justify-content: space-between; */
+    padding: 0;
+    min-height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
+
+@media (min-width: 992px) {
+    .navbar {
+        padding-left: 150px;
+        padding-right: 150px;
+    }
+}
+
+.navbar .nav-item {
+    padding-top: 20px;
+    height: 80px !important;
+}
+
+.navbar .nav-link {
+    height: 80px;
+}
+
+.navbar .active {
+    font-family: SFProDisplay-Bold !important;
+    border-bottom: 5px solid white;
+}
+
+.navbar .nav-item:hover {
+    font-family: SFProDisplay-Bold !important;
+    border-bottom: 5px solid white;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.navbar-search {
+    padding: 0px !important;
+    margin-top: 20px !important;
+}
+
+.navbar-search button {
+    margin-left: -40px;
+    z-index: 1000 !important;
+}
+
+#navbar-search-input {
+    border-radius: 50px;
+}
+
+
 /* .backToTop:hover {
     color:#dc952f;
 } */
-.container-fluid{
+/* .container-fluid{
     font-family: SFProDisplay;
     padding-bottom: 20px;
     background-color: #005EB8;
-}
+} */

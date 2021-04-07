@@ -1,10 +1,10 @@
 export default {
     method: ['GET'],
-    path: '/',
+    path: '/categories',
     options: {
         handler: (request, h) => {
 
-            return h.view('home', { pageSelectedHome: true })
+            return h.view('categories', { pageSelectedCategories: true })
         }
     }
 }
