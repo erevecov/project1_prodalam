@@ -20,6 +20,10 @@
 .bg-light {
     background-color: #dc952f!important;
 }
+
+#userCredentialsDropdown{
+    min-width: 150px;
+}
 .navbar {
     position: relative;
     display: flex;

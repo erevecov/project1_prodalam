@@ -25,18 +25,14 @@ ready(async () => {
 	initProductsTable()
 })
 
-console.log('aa');
-
 document.querySelector('#nuevaCargaBtn').addEventListener('click', () => {
-	console.log('ee');
 	handleModal()
-	console.log('ii');
 })
 
 
 async function initProductsTable() {
 	await $.when(internals.tables.products.datatable = $('#productsTable').DataTable({
-		dom: 'Bfrtip',
+		// dom: 'Bfrtip',
 		language: {
 			url: spanishDataTableLang
 		},
@@ -71,13 +67,11 @@ async function initProductsTable() {
 }
 
 const handleModal = () => {
-    console.log('oo');
 	const modalSelector = {
         title: document.querySelector('#modal_title'),
         body: document.querySelector('#modal_body'),
         footer: document.querySelector('#modal_footer'),
     }
-    console.log('uuuu');
     modalSelector.title.innerHTML = 'Subir nueva carga de productos'
 
     modalSelector.body.innerHTML = `

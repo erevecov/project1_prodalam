@@ -35,7 +35,7 @@ module.exports = [
                         }).code(404)
                     }
 
-                    return h.view('restore-password', {
+                    return h.view('restore_password', {
                         message: 'El email ingresado no está registrado en el sistema',
                         responseType: 'danger'
                     }, { layout: 'no-loged' })
@@ -69,7 +69,7 @@ module.exports = [
                         }).code(200)
                     }
 
-                    return h.view('restore-password', {
+                    return h.view('restore_password', {
                         message: 'Hemos enviado un enlace a tu correo para que puedas cambiar tu contraseña.',
                         responseType: 'success'
                     }, { layout: 'no-loged' })
@@ -119,12 +119,12 @@ module.exports = [
                 }
 
                 if (payload.password1.length < 6) {
-                    return h.view('restore-password-step-2', {
+                    return h.view('restore_password_step_2', {
                         ...credentials,
                         restorePasswordToken: token,
                         message: 'El largo minimo de la contraseña debe ser de 6 caracteres.',
                         responseType: 'danger'
-                    }, { layout: 'no-loged-layout' })
+                    }, { layout: 'no-loged' })
                 }
 
                 let password = hashPassword(payload.password1)
@@ -133,24 +133,24 @@ module.exports = [
                     password
                 })
 
-                await request.redis.client.del(`movitroniarestorepassword-${credentials.id}`)
+                // await request.redis.client.del(`movitroniarestorepassword-${credentials.id}`)
 
-                return h.view('restore-password-step-2', {
+                return h.view('restore_password_step_2', {
                     ...credentials,
                     restorePasswordToken: token,
                     message: 'Se ha creado tu nueva contraseña.',
                     responseType: 'success'
-                }, { layout: 'no-loged-layout' })
+                }, { layout: 'no-loged' })
 
             } catch (error) {
                 console.log(error)
 
-                return h.view('restore-password-step-2', {
+                return h.view('restore_password_step_2', {
                     ...credentials,
                     restorePasswordToken: token,
                     message: 'Ha ocurrido un error al cambiar la contraseña. Por favor intentalo mas tarde',
                     responseType: 'danger'
-                }, { layout: 'no-loged-layout' })
+                }, { layout: 'no-loged' })
             }
         },
         validate: {
@@ -171,7 +171,7 @@ module.exports = [
         handler: (request, h) => {
             if (request.auth.isAuthenticated) return h.redirect('/')
 
-            return h.view('restore-password', {}, { layout: 'no-loged-layout' })
+            return h.view('restore_password', {}, { layout: 'no-loged-layout' })
         }
     }
 },
@@ -194,7 +194,7 @@ module.exports = [
                 // }
 
                 return h.view(
-                    'restore-password-step-2',
+                    'restore_password_step_2',
                     {
                         iss: credentials.iss,
                         aud: credentials.aud,
@@ -206,41 +206,41 @@ module.exports = [
                         restorePasswordToken: token
                     },
                     {
-                        layout: 'no-loged-layout'
+                        layout: 'no-loged'
                     }
                 )
 
             } catch (error) {
                 console.log(error)
 
-                return h.redirect('/restore-password')
+                return h.redirect('/restore_password')
             }
         }
     }
 }
 ]
 
-const sendRestorePasswordEmail = async (userEmail, token) => {
-    try {
-        const msg = {
-            to: userEmail,
-            from: process.env.EMAIL_SENDER || 'no-reply@movitronia.com',
-            subject: 'Recuperar contraseña',
-            text: 'Recuperar contraseña',
-            html: `
-                <h1>¿Necesitas cambiar tu contraseña?</h1>
+// const sendRestorePasswordEmail = async (userEmail, token) => {
+//     try {
+//         const msg = {
+//             to: userEmail,
+//             from: process.env.EMAIL_SENDER || 'no-reply@movitronia.com',
+//             subject: 'Recuperar contraseña',
+//             text: 'Recuperar contraseña',
+//             html: `
+//                 <h1>¿Necesitas cambiar tu contraseña?</h1>
 
-                <a href="https://intranet.movitronia.com/restore-password-step-2?token=${token}">Crear nueva contraseña</a>
+//                 <a href="https://intranet.movitronia.com/restore-password-step-2?token=${token}">Crear nueva contraseña</a>
 
-                <p>Si tu no solicitaste el cambio de contraseña, ignora este correo. Tu contraseña continuará siendo la misma.</p>
-            `
-        }
+//                 <p>Si tu no solicitaste el cambio de contraseña, ignora este correo. Tu contraseña continuará siendo la misma.</p>
+//             `
+//         }
 
-        let res = await sgMail.send(msg)
+//         let res = await sgMail.send(msg)
 
-        return res
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
+//         return res
+//     } catch (error) {
+//         console.log(error)
+//         return null
+//     }
+// }
