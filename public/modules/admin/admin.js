@@ -1,13 +1,13 @@
-import readXlsxFile from 'read-excel-file'
+// import readXlsxFile from 'read-excel-file'
 
 const input = document.getElementById('input')
 
-input.addEventListener('change', () => {
-  readXlsxFile(input.files[0]).then((rows) => {
-    // `rows` is an array of rows
-    // each row being an array of cells.
-  })
-})
+// input.addEventListener('change', () => {
+//   readXlsxFile(input.files[0]).then((rows) => {
+//     // `rows` is an array of rows
+//     // each row being an array of cells.
+//   })
+// })
 
 const internals = {
 	tables: {
@@ -15,15 +15,20 @@ const internals = {
 			datatable: null,
 			rowSelected: null
 		}
-	}
+	},
+	mainModal: new bootstrap.Modal(document.getElementById('modal'), {
+		keyboard: false
+	})
 }
 
 ready(async () => {
 	initProductsTable()
 })
+
 console.log('aa');
+
 document.querySelector('#nuevaCargaBtn').addEventListener('click', () => {
-console.log('ee');
+	console.log('ee');
 	handleModal()
 	console.log('ii');
 })
@@ -86,9 +91,9 @@ const handleModal = () => {
     `
 
     modalSelector.footer.innerHTML = `
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Subir</button>
+		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Subir</button>
     `
 
-    $('#modal').modal('show')
+    internals.mainModal.show()
 }
