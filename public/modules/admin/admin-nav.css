@@ -1,8 +1,24 @@
-@font-face { 
-    font-family: SFProDisplay; 
-    src: url('/public/fonts/SFProDisplay.ttc');
-    font-weight: normal;
+@font-face {
+    font-family: SFProDisplay-Bold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Bold.ttf');
 }
+@font-face {
+    font-family: SFProDisplay-Light;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Light.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Medium;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Medium.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Regular;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Regular.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Semibold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Semibold.ttf');
+}
+
 
 .backToTop {
     width: 100%;

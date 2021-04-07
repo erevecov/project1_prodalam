@@ -1,150 +1,95 @@
 {{!< layout/default}}
 
 {{#extend "css"}}
-<link rel="stylesheet" type="text/css" href="/public/modules/home/home.css">
+<link rel="stylesheet" type="text/css" href="/public/modules/products/products.css">
 {{/extend}}
 
-<!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="/public/img/clavos-fijaciones.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Prodalam</h5>
-                <p>Conoce toda la variedad de Clavos y Fijaciones que tenemos para ti</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="/public/img/clavos-fijaciones.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Prodalam</h5>
-                <p>Conoce toda la variedad de Clavos y Fijaciones que tenemos para ti</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="/public/img/clavos-fijaciones.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Prodalam</h5>
-                <p>Conoce toda la variedad de Clavos y Fijaciones que tenemos para ti</p>
-            </div>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div> -->
 
-
-<div class="container">
-
-    <h1 class="title1">CATÁLOGO</h1>
-
+<div class="container products-container">
     <div class="row">
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
-                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
-                <div class="card-body card-body-custom">
-                    <p class="card-text">Descripcion del producto en 250mg</p>
-                    <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver mas</a>
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10 text-center">
+
+            <a id="products-up" href="#">
+                <i class="fas fa-chevron-up fa-2x"></i>
+            </a>
+
+            <div class="row" id="product-it-container"> <!--  AQUI ITERAR  -->
+                <div class="col-md-6 product-item-container">
+                    <div class="product-item">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="/products/producto-1">
+                                    <h2>Clavadora Neumática</h2>
+
+                                    <h5>SKU: N57C-1</h5>
+                                    
+                                    <p class="text-product">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam explicabo facilis alias illo quam.</p>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <a href="#" class="btn btn-custom">Ver más</a>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="/public/products-imgs/76355_1.jpg" alt="">
+                            </div>
+                        </div>
+                    
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
-                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
-                <div class="card-body card-body-custom">
-                    <p class="card-text">Descripcion del producto en 250mg</p>
-                    <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver mas</a>
+        
+                <div class="col-md-6 product-item-container">
+                    <div class="product-item">
+                        <a href="/products/producto-1">
+                            <h2>Fortificaciones</h2>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
-                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
-                <div class="card-body card-body-custom">
-                    <p class="card-text">Descripcion del producto en 250mg</p>
-                    <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver mas</a>
+        
+                <div class="col-md-6 product-item-container">
+                    <div class="product-item">
+                        <a href="/products/producto-1">
+                            <h2>Fortificaciones</h2>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
-                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
-                <div class="card-body card-body-custom">
-                    <p class="card-text">Descripcion del producto en 250mg</p>
-                    <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver mas</a>
+        
+                <div class="col-md-6 product-item-container">
+                    <div class="product-item">
+                        <a href="/products/producto-1">
+                            <h2>Fortificaciones</h2>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
-                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
-                <div class="card-body card-body-custom">
-                    <p class="card-text">Descripcion del producto en 250mg</p>
-                    <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver mas</a>
+        
+                <div class="col-md-6 product-item-container">
+                    <div class="product-item">
+                        <a href="/products/producto-1">
+                            <h2>Fortificaciones</h2>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
-                <img src="/public/img/tornillo1.png" class="card-img-top" alt="...">
-                <div class="card-body card-body-custom">
-                    <p class="card-text">Descripcion del producto en 250mg</p>
-                    <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver mas</a>
+        
+                <div class="col-md-6 product-item-container">
+                    <div class="product-item">
+                        <a href="/products/producto-1">
+                            <h2>Fortificaciones</h2>
+                        </a>
                     </div>
                 </div>
+        
             </div>
+
+            <a id="products-down" href="#">
+                <i class="fas fa-chevron-down fa-2x"></i>
+            </a>
+
         </div>
 
-        <nav id="pagination-main" aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="col-md-1"></div>
     </div>
-</div>
-
-<div class="d-grid gap-2">
-    <a class="btn btn-primary backToTop" href="#" role="button">VOLVER ARRIBA</a>
 </div>
 {{#extend "js"}}
 

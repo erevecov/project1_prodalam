@@ -1,8 +1,31 @@
+@font-face {
+    font-family: SFProDisplay-Bold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Bold.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Light;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Light.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Medium;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Medium.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Regular;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Regular.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Semibold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Semibold.ttf');
+}
+
 p{
     display: flex;
     justify-content: flex-start;
 }
-
+a{
+    font-family: SFProDisplay-Semibold;
+}
 h5{
     display: flex;
     justify-content: flex-start;
@@ -19,7 +42,7 @@ h5{
 
 .btn-custom {
     color: var(--grey1);
-    border: 3px solid var(--grey1);
+    border: 1px solid var(--grey1);
     border-radius: 50px;
     font-size: 20px;
     font-weight: bold;
