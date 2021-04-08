@@ -15,10 +15,11 @@ const internals = {
 			datatable: null,
 			rowSelected: null
 		}
-	},
-	mainModal: new bootstrap.Modal(document.getElementById('modal'), {
-		keyboard: false
-	})
+	}
+	// ,
+	// mainModal: new bootstrap.Modal(document.getElementById('modal'), {
+	// 	keyboard: false
+	// })
 }
 
 ready(async () => {
@@ -89,5 +90,5 @@ const handleModal = () => {
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Subir</button>
     `
 
-    internals.mainModal.show()
+	$('#modal').modal('show')
 }

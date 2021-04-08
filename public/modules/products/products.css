@@ -74,6 +74,13 @@
     color: var(--orange);
 }
 
-a {
+.product-item a {
     font-family: SFProDisplay-Semibold;
+}
+
+.product-item p{
+    width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
