@@ -80,7 +80,7 @@
 
                     <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse ipsum iusto sint non quidem eos cumque veniam optio nostrum voluptatibus.</p>
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver más</a>
+                        <a class="btn btn-custom">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
                     <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse ipsum iusto sint non quidem eos cumque veniam optio nostrum voluptatibus.</p>
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver más</a>
+                        <a class="btn btn-custom">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
 
                     <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse ipsum iusto sint non quidem eos cumque veniam optio nostrum voluptatibus.</p>
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver más</a>
+                        <a class="btn btn-custom">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
 
                     <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse ipsum iusto sint non quidem eos cumque veniam optio nostrum voluptatibus.</p>
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-custom">Ver más</a>
+                        <a class="btn btn-custom viewMore">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -133,17 +133,21 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal"  role="dialog" aria-labelledby="modal">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_body"></div>
+            <div class="modal-footer" id="modal_footer"></div>
+        </div>
+    </div>
+  </div>
+
 {{#extend "js"}}
-<script>
-
-Array.from(document.querySelectorAll('.card-custom')).forEach(el=> {
-    el.addEventListener('mouseover', function() {
-        this.style.border = '1px solid #7f8c8d'
-    })
-
-    el.addEventListener('mouseout', function() {
-        this.style.border = 'none'
-    })
-})
-</script>
+<script src="/public/modules/home/home.js"></script>
 {{/extend}}
