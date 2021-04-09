@@ -33,21 +33,33 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.bg-light {
-    background-color: #dc952f!important;
-}
-
 #userCredentialsDropdown{
     min-width: 150px;
 }
+
+.bg-light {
+    border-bottom: 5px solid var(--orange) !important;
+}
+
 .navbar {
-    position: relative;
+    font-family: SFProDisplay-Medium;
+    background-color: #005EB8 !important;
+    /* position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    padding-top: .0rem;
-    padding-bottom: .5rem;
+    justify-content: space-between; */
+    padding: 0;
+    min-height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        padding-left: 150px;
+        padding-right: 150px;
+    }
 }
 /* .backToTop:hover {
     color:#dc952f;
