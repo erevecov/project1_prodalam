@@ -47,14 +47,17 @@ async function initProductsTable() {
 		responsive: false,
 		columns: [
 			{ data: 'sku' },
-			{ data: 'titulo' },
-            { data: 'categoriaPadre'},
-            { data: 'desatacado'},
+			{ data: 'title' },
+			{ data: 'category'},
+            { data: 'categoryFather'},
+            { data: 'destacado'},
             { data: 'modificar'},
             { data: 'eliminar'}
 		]
 
 	}))
+
+	loadDataToProductsTable()
 
 	// $('#productsTable tbody').on('click', 'tr', function () {
 	// 	internals.tables.products.rowSelected = internals.tables.products.datatable.row($(this).closest('tr'))
@@ -65,6 +68,35 @@ async function initProductsTable() {
 	// 		handleProduct(selectedProductData)
 	// 	}
 	// })
+}
+
+async function loadDataToProductsTable () {
+    try {
+        let result = await axios.get('api/products')
+		
+
+		let productsData = result.data
+
+		productsData.map(el => {
+			if (!el.destacado) el.destacado = '-'
+			if (!el.modificar) el.modificar = '-'
+			if (!el.eliminar) el.eliminar = '-'
+
+			console.log("log titulo", el);
+			
+		})
+		console.log("res",productsData);
+
+        internals.tables.products.datatable.clear().draw()
+
+		//aaaaaaaaaaaaaaaaaaaaaaaa
+        internals.tables.products.datatable.rows.add(productsData).draw()
+    } catch (error) {
+        console.log(error)
+
+        internals.tables.products.datatable.clear().draw()
+    }
+
 }
 
 const handleModal = () => {
