@@ -9,9 +9,9 @@ export default {
     method: ['GET', 'POST'],
     path: '/login',
     options: {
-        // auth: {
-        //     mode: 'try'
-        // },
+        auth: {
+            mode: 'try'
+        },
         plugins: {
             '@hapi/cookie': {
                 redirectTo: false
@@ -85,8 +85,7 @@ async function findUserByRutAndPassword(userRut, userPassword) {
             $in: ['admin', 'user']
         }
     }).lean();
-    console.log("cargando excel");
-    
+    //console.log("cargando excel");
     //await apiTes()
     //await fusion()
 

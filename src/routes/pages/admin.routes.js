@@ -3,7 +3,9 @@ export default {
     path: '/admin',
     options: {
         handler: (request, h) => {
-            return h.view('admin', {}, { layout: 'admin-layout' })
+            let credentials = request.auth.credentials
+
+            return h.view('admin', {credentials}, { layout: 'admin-layout' })
         }
     }
 }

@@ -73,7 +73,6 @@ async function initProductsTable() {
 async function loadDataToProductsTable () {
     try {
         let result = await axios.get('api/products')
-		
 
 		let productsData = result.data
 
@@ -81,15 +80,10 @@ async function loadDataToProductsTable () {
 			if (!el.destacado) el.destacado = '-'
 			if (!el.modificar) el.modificar = '-'
 			if (!el.eliminar) el.eliminar = '-'
-
-			console.log("log titulo", el);
-			
 		})
-		console.log("res",productsData);
 
         internals.tables.products.datatable.clear().draw()
 
-		//aaaaaaaaaaaaaaaaaaaaaaaa
         internals.tables.products.datatable.rows.add(productsData).draw()
     } catch (error) {
         console.log(error)

@@ -5,7 +5,7 @@ module.exports = [
         method: 'POST',
         path: '/api/products',
         options: {
-            //auth: { mode: 'try' },
+            auth: { mode: 'try' },
             description: 'check api',
             notes: 'if api doesn t exist return error',
             tags: ['api'],
@@ -31,7 +31,7 @@ module.exports = [
         method: 'GET',
         path: '/api/products',
         options: {
-            //auth: { mode: 'try' },
+            auth: { mode: 'try' },
             description: 'check api',
             notes: 'if api doesn t exist return error',
             tags: ['api'],

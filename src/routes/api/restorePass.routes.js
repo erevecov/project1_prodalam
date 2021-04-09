@@ -19,7 +19,7 @@ module.exports = [
         description: 'Restore user password',
         notes: 'Send email to user and restore password',
         tags: ['api'],
-        // auth: false,
+        auth: false,
         handler: async (request, h) => {
             try {
                 let payload = request.payload
@@ -99,7 +99,7 @@ module.exports = [
     method: 'POST',
     path: '/api/restore_password_step_2',
     options: {
-        // auth: 'jwt',
+        auth: 'jwt',
         description: 'restore password change password',
         notes: 'restore password change password',
         tags: ['api'],
@@ -165,9 +165,9 @@ module.exports = [
     method: 'GET',
     path: '/api/restore_password',
     options: {
-        // auth: {
-        //     mode: 'try'
-        // },
+        auth: {
+            mode: 'try'
+        },
         handler: (request, h) => {
             if (request.auth.isAuthenticated) return h.redirect('/')
 
@@ -179,7 +179,7 @@ module.exports = [
     method: ['GET'],
     path: '/api/restore_password_step_2',
     options: {
-        // auth: 'jwt',
+        auth: 'jwt',
         handler: async (request, h) => {
             try {
                 const credentials = request.auth.credentials
@@ -220,27 +220,27 @@ module.exports = [
 }
 ]
 
-// const sendRestorePasswordEmail = async (userEmail, token) => {
-//     try {
-//         const msg = {
-//             to: userEmail,
-//             from: process.env.EMAIL_SENDER || 'no-reply@movitronia.com',
-//             subject: 'Recuperar contraseña',
-//             text: 'Recuperar contraseña',
-//             html: `
-//                 <h1>¿Necesitas cambiar tu contraseña?</h1>
+const sendRestorePasswordEmail = async (userEmail, token) => {
+    try {
+        const msg = {
+            to: userEmail,
+            from: process.env.EMAIL_SENDER || 'no-reply@movitronia.com',
+            subject: 'Recuperar contraseña',
+            text: 'Recuperar contraseña',
+            html: `
+                <h1>¿Necesitas cambiar tu contraseña?</h1>
 
-//                 <a href="https://intranet.movitronia.com/restore-password-step-2?token=${token}">Crear nueva contraseña</a>
+                <a href="https://intranet.movitronia.com/restore-password-step-2?token=${token}">Crear nueva contraseña</a>
 
-//                 <p>Si tu no solicitaste el cambio de contraseña, ignora este correo. Tu contraseña continuará siendo la misma.</p>
-//             `
-//         }
+                <p>Si tu no solicitaste el cambio de contraseña, ignora este correo. Tu contraseña continuará siendo la misma.</p>
+            `
+        }
 
-//         let res = await sgMail.send(msg)
+        let res = await sgMail.send(msg)
 
-//         return res
-//     } catch (error) {
-//         console.log(error)
-//         return null
-//     }
-// }
+        return res
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}

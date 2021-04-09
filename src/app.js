@@ -145,7 +145,7 @@ internals.server = async () => {
             verifyOptions: { algorithms: [ 'HS512' ] } 
         })
 
-        //server.auth.default('session')
+        server.auth.default('session')
 
         await server.register([
             {

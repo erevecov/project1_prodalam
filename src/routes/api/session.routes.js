@@ -3,7 +3,7 @@ module.exports = [
         method: 'GET',
         path: '/api/check',
         options: {
-            //auth: { mode: 'try' },
+            auth: { mode: 'try' },
             description: 'check current user session',
             notes: 'if session doesn t exist return error',
             tags: ['api'],
