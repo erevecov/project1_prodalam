@@ -4,7 +4,7 @@ export default {
     options: {
         handler: (request, h) => {
 
-            return h.view('products')
+            return h.view('products', { pageSelectedProducts: true })
         }
     }
 }
