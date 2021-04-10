@@ -100,3 +100,49 @@ h5{
     height: 60vh;
     align-items: center;
 }
+#categories-left {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+#categories-right {
+    color: var(--orange);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.product-modal .col-md-6.uno{
+    font-family: SFProDisplay-Light;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 30px;
+    background-color: #e3e3e3;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+}
+.modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.col-2 {
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+    display: flex;
+}
+
+h5.infoM{
+    padding-bottom: 10px;
+    padding-top: 15px;
+    font-family: SFProDisplay-Medium;
+    color: #222220;
+}

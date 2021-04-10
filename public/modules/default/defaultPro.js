@@ -4,16 +4,6 @@ Array.from(querySelectorAll('.viewMore')).forEach(el => {
     })
 })
 
-Array.from(document.querySelectorAll('.card-custom')).forEach(el=> {
-    el.addEventListener('mouseover', function() {
-        this.style.border = '1px solid #7f8c8d'
-    })
-
-    el.addEventListener('mouseout', function() {
-        this.style.border = 'none'
-    })
-})
-
 
 const handleModal = () => {
    
@@ -26,7 +16,6 @@ const handleModal = () => {
 	modalSelector.title.innerHTML=`
 		Producto
 	`
-
 	modalSelector.body.innerHTML=`
     <div class="product-modal">
         <div class="row">
@@ -43,8 +32,8 @@ const handleModal = () => {
                 
                 <h5>Tipo: Manual</h5>
 
-                <h5 class="infoM">Para mayor información contacta a tu ejecutivo.</h5>
-    
+                <h5>Para mayor información contacta a tu ejecutivo.</h5>
+                
                 <a href="/info" class="btn btn-custom contactBtn">Contacto</a>
             </div>
 
@@ -145,5 +134,6 @@ const handleModal = () => {
 
 
 	`
+
     $('#modal').modal('show')
 }

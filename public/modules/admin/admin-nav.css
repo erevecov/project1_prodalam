@@ -68,3 +68,11 @@
     padding-bottom: 20px;
     background-color: #005EB8;
 }
+#nuevaCargaBtn{
+    background-color: #005EB8;
+    color: white;
+}
+h3{
+    display: flex;
+    justify-content: center;
+}
