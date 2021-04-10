@@ -76,7 +76,3 @@ h3{
     display: flex;
     justify-content: center;
 }
-
-#tableUsers tbody tr {
-    cursor: pointer;
-}

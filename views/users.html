@@ -1,0 +1,91 @@
+{{!< layout/admin- layout}}
+{{#extend "css"}}
+<link rel="stylesheet" type="text/css" href="/public/modules/admin/admin-nav.css">
+{{/extend}}
+
+
+<div class="row">
+    <div class="col-md-12">  
+        <div class="row">
+            <div class="col-md-2 col-xs-12">
+                <br>
+                <button class="btn btn-dark btn-block" id="optionCreateUser">
+                    <i style="color:#3498db;" class="fas fa-user-plus"></i> Crear usuario
+                </button>
+                <hr>
+                <button class="btn btn-dark btn-block" id="optionModUser" disabled>
+                    <i style="color:#f1c40f;" class="fas fa-user-edit"></i> Modificar usuario
+                </button>
+                <button class="btn btn-dark btn-block" id="optionDeleteUser" disabled>
+                    <i style="color:#e74c3c;" class="fas fa-user-times"></i> Eliminar usuario
+                </button>
+            </div>
+            <br>
+            <div class="col-md-10 col-xs-12 table-responsive">
+                <table id="tableUsers" class="display nowrap table table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Rut</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Telefono</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="modal_title">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_body"></div>
+            <div class="modal-footer" id="modal_footer"></div>
+        </div>
+    </div>
+</div>
+  
+
+
+{{#extend "js"}}
+<script src="/public/modules/users/users.js"></script>
+{{/extend}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{#extend "js"}}
+<script>
+
+</script>
+{{/extend}}
