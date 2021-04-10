@@ -50,5 +50,30 @@ module.exports = [
                 }
             }
         }
+    },
+    {
+        method: 'POST',
+        path: '/api/uploadProducts',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    
+
+                    let result = "hola";
+                    return result;
+
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error al buscar Productos, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+            }
+        }
     }
 ]
