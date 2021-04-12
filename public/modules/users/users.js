@@ -58,6 +58,9 @@ function cleanData(data){
 
 async function getUsersEnabled() {
     let res = await axios.get('api/users')
+
+    // let cate = await axios.get('api/categories')
+    // console.log("categorias", cate.data);
         if (res.err) {
             toastr.warning(res.err)
             $('#loadingUsers').empty()
