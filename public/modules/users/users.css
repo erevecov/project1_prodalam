@@ -1,77 +1,21 @@
-@font-face {
-    font-family: SFProDisplay-Bold;
-    src: url('/public/fonts/SFProDisplay/SFProDisplay-Bold.ttf');
-}
-@font-face {
-    font-family: SFProDisplay-Light;
-    src: url('/public/fonts/SFProDisplay/SFProDisplay-Light.ttf');
-}
-@font-face {
-    font-family: SFProDisplay-Medium;
-    src: url('/public/fonts/SFProDisplay/SFProDisplay-Medium.ttf');
-}
-@font-face {
-    font-family: SFProDisplay-Regular;
-    src: url('/public/fonts/SFProDisplay/SFProDisplay-Regular.ttf');
-}
-@font-face {
-    font-family: SFProDisplay-Semibold;
-    src: url('/public/fonts/SFProDisplay/SFProDisplay-Semibold.ttf');
-}
 
-
-.backToTop {
-    width: 100%;
-    background-color: #005EB8;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    font-family: SFProDisplay; 
-    font-weight: normal;
-    border-radius: 0;
-    margin: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-#userCredentialsDropdown{
-    min-width: 150px;
-}
-
-.bg-light {
-    border-bottom: 5px solid var(--orange) !important;
-}
-
-.navbar {
-    font-family: SFProDisplay-Medium;
-    background-color: #005EB8 !important;
-    /* position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between; */
-    padding: 0;
-    min-height: 80px;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-@media (min-width: 992px) {
-    .navbar {
-        padding-left: 150px;
-        padding-right: 150px;
-    }
-}
-/* .backToTop:hover {
-    color:#dc952f;
-} */
 .container-fluid{
     padding-bottom: 20px;
     background-color: #005EB8;
 }
-#nuevaCargaBtn{
-    background-color: #005EB8;
-    color: white;
+
+.fa-user-plus {
+    color: #005EB8;
 }
+
+.fa-user-edit {
+    color: #f1c40f;
+}
+
+.fa-user-times {
+    color: #e74c3c;
+}
+
 h3{
     display: flex;
     justify-content: center;

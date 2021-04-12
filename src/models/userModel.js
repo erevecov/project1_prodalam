@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     rut: { type: String, required: true},
     name: { type: String, required: true },
+    lastname: { type: String, required: true },
     email: { type: String },
     password: { type: String, required: true },
     scope: { type: String, required: true },

@@ -1,4 +1,5 @@
 const User = require('../../models/userModel');
+const Joi = require('joi')
 
 module.exports = [
     {
@@ -11,8 +12,9 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
+                    console.log("payload", request.payload);
                     let user = await User(request.payload);
-                    let userSaved = await user.save();
+                    //let userSaved = await user.save();
 
                     userSaved.password = '';
 
@@ -26,6 +28,17 @@ module.exports = [
                     }).code(500);
                 }
 
+            },
+            validate: {
+                payload: Joi.object().keys({
+                    rut: Joi.string().required(),
+                    name: Joi.string().required(),
+                    lastname: Joi.string().required(),
+                    password: Joi.string().required(),
+                    role: Joi.string().required(),
+                    phone: Joi.string().required(),
+                    email: Joi.string().required()
+                })
             }
         }
     },
