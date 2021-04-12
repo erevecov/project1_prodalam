@@ -107,7 +107,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             Rol del usuario 
                 <select id="newUserRole" class="custom-select">
                     <option value="user">Usuario  </option>
-                    <option value="sa">Administrador  </option>
+                    <option value="admin">Administrador  </option>
                 </select>
             </div>
 
@@ -154,64 +154,33 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             name: $('#newUserName').val(),
             lastname: $('#newUserLastname').val(),
             password: $('#newUserPassword').val(),
-            role: $('#newUserRole').val(),
+            scope: $('#newUserRole').val(),
             phone: $('#newUserPhone').val(),
             email: $('#newUserEmail').val()
         }
         
-        let validUser = validateUserData(userData)
-        console.log("valid", validUser);
+        let validUser = await validateUserData(userData)
         if (validUser.ok) {
-            console.log("a");
             let saveUserRes = await axios.post('/api/users', userData)
-            console.log("userrrrrr", saveUserRes);
+            if(saveUserRes.data) {
+                toastr.success('El usuario se ha creado correctamente')
+                    
+                let newUserAdded = datatableUsers
+                    .row.add(saveUserRes.data)
+                    .draw()
+                    .node();
 
+                $(newUserAdded).css('color', '#1abc9c');
+                setTimeout(() => {
+                    $(newUserAdded).css('color', '#484848');
+                }, 5000);
+
+                $('#usersModal').modal('hide')
+            }
+
+        } else {
+            toastr.warning('Ha ocurrido un error al crear el usuario, por favor intentelo nuevamente')
         }
-
-        // validateUserData(userData).then(res =>{
-        //     console.log("res? ", res);
-        //     if(res.ok) {
-                
-                // ajax({
-                //     url: 'api/user',
-                //     type: 'POST',
-                //     data: {
-                //         rut:userData.rut,
-                //         name:userData.name,
-                //         lastname:userData.lastname,
-                //         password:userData.password,
-                //         role:userData.role,
-                //         phone:userData.phone,
-                //         email:userData.email
-                //     }
-                // }).then(res=>{
-                //     if(res.err) {
-                //         toastr.warning(res.err)
-                //     } else if(res.ok) {
-                //         toastr.success('El usuario se ha creado correctamente')
-                        
-                //         if ((res.ok._id)) {
-                //             res.ok.rut = `${(res.ok._id)}`
-                //         } else {
-                //             res.ok.rut = res.ok._id
-                //         }
-
-                //         let newUserAdded = datatableUsers
-                //         .row.add(res.ok)
-                //         .draw()
-                //         .node();
-                        
-                //         $(newUserAdded).css( 'color', '#1abc9c' );
-                //         setTimeout(() => {
-                //             $(newUserAdded).css( 'color', '#484848' );
-                //         }, 5000);
-
-                //         $('#usersModal').modal('hide')
-                //     }
-                // })
-            // }
-            
-        // });
         
     });
     
@@ -326,7 +295,7 @@ $('#optionModUser').on('click', function() {
         </button>
     `)
 
-    $('#modUserRole').val(userRowSelectedData.role)
+    $('#modUserRole').val(userRowSelectedData.scope)
     
     $('#changePassword').on('change', function(){
         if($(this).is(':checked')) {
@@ -354,7 +323,7 @@ $('#optionModUser').on('click', function() {
             lastname: $('#modUserLastname').val(),
             changePassword: $('#changePassword').is(':checked'),
             password: $('#modUserPassword').val(),
-            role: $('#modUserRole').val(),
+            scope: $('#modUserRole').val(),
             phone: $('#modUserPhone').val(),
             email: removeExtraSpaces($('#modUserEmail').val()),
             changeEmailPassword: $('#changeEmailPassword').is(':checked')
@@ -388,9 +357,7 @@ $('#optionModUser').on('click', function() {
                         changePassword: changePassword,
                         changeEmailPassword: changeEmailPassword,
                         password:userData.password,
-                        emailPassword:userData.emailPassword,
-                        role:userData.role,
-                        charge:userData.charge,
+                        scope:userData.scope,
                         phone:userData.phone,
                         email:userData.email
                     }
@@ -434,13 +401,13 @@ $('#optionModUser').on('click', function() {
     })
 })
 
-function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
+async function validateUserData(userData) {
     console.log(userData)
     let validationCounter = 0
     let errorMessage = ''
 
-    return new Promise(resolve=>{
-        // 7 puntos
+    // return new Promise(resolve=>{
+        // 6 puntos
 
         if(userData.rut.length >= 6/*isRut(userData.rut)*/) { // 1
             validationCounter++
@@ -511,7 +478,7 @@ function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
         console.log('validation', validationCounter)
         if(validationCounter == 6) {
             $('#newUserErrorMessage').empty()
-            resolve({ok: userData})
+            return {ok: userData}
         } else {
             $('#newUserErrorMessage').html(`
             <div class="alert alert-dismissible alert-warning">
@@ -521,7 +488,7 @@ function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
             </div>
             `)
             
-            resolve({err: userData})
+            return {err: userData}
         }
-    })
+    // })
 }
