@@ -1,0 +1,9 @@
+#nuevoBannerBtn {
+    background-color: #005EB8;
+    color: white;
+    font-family: 'SFProDisplay-Light';
+}
+h3{
+    display: flex;
+    justify-content: center;
+}

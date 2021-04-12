@@ -20,19 +20,31 @@
 }
 
 
+:root {
+    --blue: #005EB8;
+    --white: #ffffff;
+    --orange: #dc952f;
+    --grey1: grey;
+}
+
 .backToTop {
     width: 100%;
     background-color: #005EB8;
     text-align: center;
     text-decoration: none;
     color: white;
-    font-family: SFProDisplay; 
-    font-weight: normal;
+    /* font-family: SFProDisplay; */
+    font-weight: lighter;
     border-radius: 0;
     margin: 0;
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+body {
+    font-family: SFProDisplay-Bold !important;
+}
+
 #userCredentialsDropdown{
     min-width: 150px;
 }
@@ -64,19 +76,51 @@
 /* .backToTop:hover {
     color:#dc952f;
 } */
-.container-fluid{
+/* .container-fluid{
     padding-bottom: 20px;
     background-color: #005EB8;
-}
-#nuevaCargaBtn{
+} */
+#nuevaCargaBtn.btn.btn-lg{
     background-color: #005EB8;
     color: white;
+    font-family: SFProDisplay-Light;
 }
+
 h3{
     display: flex;
     justify-content: center;
 }
+#nuevoBannerBtn{
+    background-color: #005EB8;
+    color: white;
+}
 
 #tableUsers tbody tr {
     cursor: pointer;
+}
+.navbar .nav-item {
+    padding-top: 20px;
+    height: 80px !important;
+}
+
+.navbar .nav-link {
+    height: 80px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.navbar-search {
+    padding: 0px !important;
+    margin-top: 20px !important;
+}
+
+.navbar-search button {
+    margin-left: -40px;
+    z-index: 1000 !important;
+}
+
+#navbar-search-input {
+    border-radius: 50px;
 }

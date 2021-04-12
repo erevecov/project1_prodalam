@@ -127,3 +127,9 @@ const comma_format = (amount, decimals) => {
 function replaceAll(target, search, replacement) {
   return target.split(search).join(replacement)
 }
+
+function validateRut(userRut) {
+  let rut = new Rut(userRut)
+  return rut
+  
+}

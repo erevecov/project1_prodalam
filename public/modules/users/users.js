@@ -12,12 +12,12 @@ function chargeUsersTable() {
     .DataTable( {
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'excel'
         ],
         ordering: true,
         iDisplayLength: 50,
         oLanguage: {
-            sSearch: 'buscar: '
+            sSearch: 'Buscar: '
         },
         responsive: false,
         columns: [
@@ -26,7 +26,7 @@ function chargeUsersTable() {
             { data: 'lastname' },
             { data: 'email' },
             { data: 'phone' },
-            { data: 'scope' },  
+            { data: 'scope' },
         ],
         initComplete: function (settings, json) {
             getUsersEnabled()
@@ -74,22 +74,22 @@ async function getUsersEnabled() {
 
             datatableUsers.rows.add(res.data).draw()
             $('#loadingUsers').empty()
-        } 
+        }
 }
 
 $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
 
     $('#usersModal').modal('show');
     $('#modal_title').html(`Nuevo usuario`)
-    $('#modal_body').html(`   
+    $('#modal_body').html(`
         <div class="row">
             <div class="col-md-4" style="margin-top:10px;">
             Rut del usuario
                 <input id="newUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
             </div>
-            
+
             <div class="col-md-4" style="margin-top:10px;">
-            Nombre del usuario 
+            Nombre del usuario
                 <input id="newUserName" type="text" placeholder="Nombre del usuario " class="form-control border-input">
             </div>
 
@@ -102,9 +102,9 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             Contraseña del usuario
                 <input id="newUserPassword" type="password" placeholder="Contraseña del usuario" class="form-control border-input">
             </div>
-            
+
             <div class="col-md-4" style="margin-top:10px;">
-            Rol del usuario 
+            Rol del usuario
                 <select id="newUserRole" class="custom-select">
                     <option value="user">Usuario  </option>
                     <option value="sa">Administrador  </option>
@@ -112,7 +112,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             </div>
 
             <div class="col-md-4" style="margin-top:10px;">
-            Teléfono del usuario 
+            Teléfono del usuario
                 <input id="newUserPhone" type="text" placeholder="Teléfono del usuario " class="form-control border-input">
             </div>
 
@@ -124,7 +124,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
 
             <div class="col-md-12" id="newUserErrorMessage"></div>
 
-        </div>   
+        </div>
     `)
 
     $('#modal_footer').html(`
@@ -138,16 +138,18 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
     `)
 
     $('#newUserRut').on('keyup', function() {
-        let rut = $('#newUserRut').val();
-        if (rut && rut.length >= 7) {
-            $('#newUserRut').val(/*rutFunc*/($('#newUserRut').val()))
+        
+        let rut = validateRut(this.value)
+        if (rut.isValid ) {
+            $('#newUserRut').val(rut.getNiceRut()) 
         }
+
     })
 
     setTimeout(() => {
-        $('#newUserRut').focus()    
+        $('#newUserRut').focus()
     }, 500)
-    
+
     $('#saveUser').on('click', async function(){
         let userData = {
             rut: $('#newUserRut').val(),
@@ -158,7 +160,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             phone: $('#newUserPhone').val(),
             email: $('#newUserEmail').val()
         }
-        
+
         let validUser = validateUserData(userData)
         console.log("valid", validUser);
         if (validUser.ok) {
@@ -171,7 +173,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
         // validateUserData(userData).then(res =>{
         //     console.log("res? ", res);
         //     if(res.ok) {
-                
+
                 // ajax({
                 //     url: 'api/user',
                 //     type: 'POST',
@@ -189,7 +191,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
                 //         toastr.warning(res.err)
                 //     } else if(res.ok) {
                 //         toastr.success('El usuario se ha creado correctamente')
-                        
+
                 //         if ((res.ok._id)) {
                 //             res.ok.rut = `${(res.ok._id)}`
                 //         } else {
@@ -200,7 +202,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
                 //         .row.add(res.ok)
                 //         .draw()
                 //         .node();
-                        
+
                 //         $(newUserAdded).css( 'color', '#1abc9c' );
                 //         setTimeout(() => {
                 //             $(newUserAdded).css( 'color', '#484848' );
@@ -210,11 +212,11 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
                 //     }
                 // })
             // }
-            
+
         // });
-        
+
     });
-    
+
 });
 
 $('#optionDeleteUser').on('click', function() {
@@ -243,7 +245,7 @@ $('#optionDeleteUser').on('click', function() {
                 } else if(res.ok) {
                     $('#optionModUser').prop('disabled', true)
                     $('#optionDeleteUser').prop('disabled', true)
-                    
+
                     toastr.success('Se ha eliminado correctamente')
 
                     datatableUsers
@@ -260,16 +262,16 @@ $('#optionDeleteUser').on('click', function() {
 
 $('#optionModUser').on('click', function() {
     console.log(userRowSelectedData)
-    
+
     $('#usersModal').modal('show');
     $('#modal_title').html(`Modificar usuario: ${capitalizeAll(userRowSelectedData.name)} ${capitalizeAll(userRowSelectedData.lastname)}`)
-    $('#modal_body').html(`   
+    $('#modal_body').html(`
         <div class="row">
             <div class="col-md-4" style="margin-top:10px;">
                 Rut del usuario
                 <input disabled value="${/*rutFunc*/(userRowSelectedData._id)}" id="modUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
             </div>
-            
+
             <div class="col-md-4" style="margin-top:10px;">
                 Nombre del usuario
                 <input value="${userRowSelectedData.name}" id="modUserName" type="text" placeholder="Nombre del usuario" class="form-control border-input">
@@ -279,7 +281,6 @@ $('#optionModUser').on('click', function() {
                 Apellido del usuario
                 <input value="${userRowSelectedData.lastname}" id="modUserLastname" type="text" placeholder="Apellido del usuario" class="form-control border-input">
             </div>
-            
 
             <div class="col-md-4" style="margin-top:10px;">
                 <div class="form-group">
@@ -291,7 +292,7 @@ $('#optionModUser').on('click', function() {
 
                 <input disabled id="modUserPassword" type="password" placeholder="Contraseña" class="form-control border-input">
             </div>
-            
+
             <div class="col-md-4" style="margin-top:10px;">
                 Rol del usuario
                 <select id="modUserRole" class="custom-select">
@@ -310,10 +311,9 @@ $('#optionModUser').on('click', function() {
                 <input value="${userRowSelectedData.email}" id="modUserEmail" type="text" placeholder="Email" class="form-control border-input">
             </div>
 
-            
             <div class="col-md-12" id="newUserErrorMessage"></div>
 
-        </div>   
+        </div>
     `)
 
     $('#modal_footer').html(`
@@ -327,7 +327,7 @@ $('#optionModUser').on('click', function() {
     `)
 
     $('#modUserRole').val(userRowSelectedData.role)
-    
+
     $('#changePassword').on('change', function(){
         if($(this).is(':checked')) {
             $('#modUserPassword').attr('disabled', false)
@@ -362,7 +362,7 @@ $('#optionModUser').on('click', function() {
 
         validateUserData(userData).then(res=>{
             if(res.ok) {
-                
+
                 let changePassword = ''
                 let changeEmailPassword = ''
 
@@ -399,13 +399,13 @@ $('#optionModUser').on('click', function() {
                         toastr.warning(res.err)
                     } else if(res.ok) {
                         toastr.success('Usuario modificado correctamente')
-                        
+
                         if ((res.ok._id)) {
                             res.ok.rut = `${(res.ok._id)}`
                         } else {
                             res.ok.rut = res.ok._id
                         }
-                        
+
                         $('#optionModUser').prop('disabled', true)
                         $('#optionDeleteUser').prop('disabled', true)
 
@@ -413,12 +413,12 @@ $('#optionModUser').on('click', function() {
                         .row( userRowSelected )
                         .remove()
                         .draw()
-                        
+
                         let modUserAdded = datatableUsers
                         .row.add(res.ok)
                         .draw()
                         .node();
-                        
+
                         //datatableUsers.search('').draw();
 
                         $(modUserAdded).css( 'color', '#1abc9c' )
@@ -465,7 +465,7 @@ function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
             errorMessage += `<br>Debe ingresar el apellido del usuario`
             $('#newUserLastname').css('border', '1px solid #e74c3c')
         }
-        
+
 
         if(userData.phone.length > 1) { // 5
             validationCounter++
@@ -482,9 +482,9 @@ function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
             errorMessage += `<br>Debe ingresar el correo del usuario`
             $('#newUserEmail').css('border', '1px solid #e74c3c')
         }
-        
+
         if (userData.status == 'mod') {
-            
+
             if(userData.changePassword) {
                 if(userData.password.length > 1) { // 4
                     validationCounter++
@@ -507,7 +507,7 @@ function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
             }
 
         }
-        
+
         console.log('validation', validationCounter)
         if(validationCounter == 6) {
             $('#newUserErrorMessage').empty()
@@ -520,7 +520,7 @@ function validateUserData(userData) { // VOY AQUI EN LA TRADUCCIÓN
                 <p class="mb-0">${errorMessage}</p>
             </div>
             `)
-            
+
             resolve({err: userData})
         }
     })

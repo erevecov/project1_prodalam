@@ -10,110 +10,110 @@
 // })
 
 const internals = {
-	tables: {
-		products: {
-			datatable: null,
-			rowSelected: null
-		}
-	}
-	// ,
-	// mainModal: new bootstrap.Modal(document.getElementById('modal'), {
-	// 	keyboard: false
-	// })
+    tables: {
+        products: {
+            datatable: null,
+            rowSelected: null
+        }
+    }
+    // ,
+    // mainModal: new bootstrap.Modal(document.getElementById('modal'), {
+    // 	keyboard: false
+    // })
 }
 
 ready(async () => {
-	initProductsTable()
+    initProductsTable()
 })
 
 document.querySelector('#nuevaCargaBtn').addEventListener('click', () => {
-	handleModal()
+    handleModal()
 })
 
-
 async function initProductsTable() {
-	await $.when(internals.tables.products.datatable = $('#productsTable').DataTable({
-		// dom: 'Bfrtip',
-		language: {
-			url: spanishDataTableLang
-		},
+    await $.when(internals.tables.products.datatable = $('#productsTable').DataTable({
+        // dom: 'Bfrtip',
+        language: {
+            url: spanishDataTableLang
+        },
 
-		// rowCallback: function( row, data ) {
-		//     $(row).find('td:eq(1)').html(capitalizeAll(data.name))
-		// },
-		order: [[1, 'desc']],
-		ordering: true,
-		searchHighlight: true,
-		responsive: false,
-		columns: [
-			{ data: 'sku' },
-			{ data: 'title' },
-			{ data: 'category'},
-            { data: 'categoryFather'},
-            { data: 'destacado'},
-            { data: 'modificar'},
-            { data: 'eliminar'}
-		],
+        // rowCallback: function( row, data ) {
+        //     $(row).find('td:eq(1)').html(capitalizeAll(data.name))
+        // },
+        order: [[1, 'desc']],
+        ordering: true,
+        searchHighlight: true,
+        responsive: false,
+        columns: [
+            { data: 'sku' },
+            { data: 'title' },
+            { data: 'category' },
+            { data: 'categoryFather' },
+            { data: 'destacado' },
+            { data: 'modificar' },
+            { data: 'eliminar' }
+        ],
 
-		rowCallback: function(row, data, index){
-			//if(data.estadoPago == true) {
-				$(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="far fa-star"></i></button> </center> ')
-                $(row).find('td:eq(5)').html('<center> <button type="button" class="btn btn-secondary btn-sm modProduct"><i class="fas fa-edit"></i></button> </center> ')
-				$(row).find('td:eq(6)').html('<center> <button type="button" class="btn btn-secondary btn-sm delProduct"><i class="fas fa-trash"></i></button> </center> ')
-			// } else  {
-			// 	$(row).find('td:eq(0)').html('<center> <i style="color: red" class="fas fa-times-circle"></i> </center> ')
-			// } 
-		},
+        rowCallback: function (row, data, index) {
+            //if(data.estadoPago == true) {
+            $(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="far fa-star"></i></button> </center> ')
+            $(row).find('td:eq(5)').html('<center> <button type="button" class="btn btn-secondary btn-sm modProduct"><i class="fas fa-edit"></i></button> </center> ')
+            $(row).find('td:eq(6)').html('<center> <button type="button" class="btn btn-secondary btn-sm delProduct"><i class="fas fa-trash"></i></button> </center> ')
+            // } else  {
+            // 	$(row).find('td:eq(0)').html('<center> <i style="color: red" class="fas fa-times-circle"></i> </center> ')
+            // }
+        },
 
-	}))
+    }))
 
-	loadDataToProductsTable()
+    loadDataToProductsTable()
 
-    $('#productsTable tbody').on( 'click', '.featureProduct', function () {
+    $('#productsTable tbody').on('click', '.featureProduct', function () {
         if (this.innerHTML.includes("fas")) {
             this.innerHTML = "<i class=\"far fa-star\"></i>"
-        }else {
+        } else {
             this.innerHTML = "<i class=\"fas fa-star\"></i>"
         }
-    } );
+    });
 
-    $('#productsTable tbody').on( 'click', '.delProduct', function () {
-        var data = internals.tables.products.datatable.row( $(this).parents('tr') ).data();
-        alert( "Borrar: " + data.sku);
+    $('#productsTable tbody').on('click', '.delProduct', function () {
+        var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
+        alert("Borrar: " + data.sku);
 
         internals.tables.products.datatable
-            .row( data )
+            .row(data)
             .remove()
             .draw()
-        } );
+    });
 
-    $('#productsTable tbody').on( 'click', '.modProduct', function () {
-        var data = internals.tables.products.datatable.row( $(this).parents('tr') ).data();
-        alert( "Modificar: " + data.sku);
-    } );
+    $('#productsTable tbody').on('click', '.modProduct', function () {
+        var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
+        alert("Modificar: " + data.sku);
+    });
 
-	// $('#productsTable tbody').on('click', 'tr', function () {
-	// 	internals.tables.products.rowSelected = internals.tables.products.datatable.row($(this).closest('tr'))
+    // $('#productsTable tbody').on('click', 'tr', function () {
+    // 	internals.tables.products.rowSelected = internals.tables.products.datatable.row($(this).closest('tr'))
 
-	// 	if (internals.tables.products.rowSelected.data()) {
-	// 		let selectedProductData = internals.tables.products.rowSelected.data()
+    // 	if (internals.tables.products.rowSelected.data()) {
+    // 		let selectedProductData = internals.tables.products.rowSelected.data()
 
-	// 		handleProduct(selectedProductData)
-	// 	}
-	// })
+    // 		handleProduct(selectedProductData)
+    // 	}
+    // })
 }
 
-async function loadDataToProductsTable () {
+
+async function loadDataToProductsTable() {
     try {
         let result = await axios.get('api/products')
 
-		let productsData = result.data
+        let productsData = result.data
 
-		productsData.map(el => {
-			if (!el.destacado) el.destacado = '-'
-			if (!el.modificar) el.modificar = '-'
-			if (!el.eliminar) el.eliminar = '-'
-		})
+        productsData.map(el => {
+            if (!el.destacado) el.destacado = '-'
+            if (!el.modificar) el.modificar = '-'
+            if (!el.eliminar) el.eliminar = '-'
+        })
 
         internals.tables.products.datatable.clear().draw()
 
@@ -127,31 +127,36 @@ async function loadDataToProductsTable () {
 }
 
 const handleModal = () => {
-   
-	const modalSelector = {
+    const modalSelector = {
         title: document.querySelector('#modal_title'),
         body: document.querySelector('#modal_body'),
         footer: document.querySelector('#modal_footer'),
     }
 
-	modalSelector.title.innerHTML=`
+    modalSelector.title.innerHTML = `
 		Nueva carga de productos
 	`
-	modalSelector.body.innerHTML=`
+    modalSelector.body.innerHTML = `
 		<input type="file" id="excelFile" accept=".xlsx"/>
 	`
-	modalSelector.footer.innerHTML=`
-	
+    modalSelector.footer.innerHTML = `
+    <button class="btn btn-dark" data-dismiss="modal">
+    <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
+    </button>
+
+    <button class="btn btn-dark" id="saveUser">
+    <i style="color:#3498db;" class="fas fa-check"></i> Guardar
+    </button>
 	`
 
     $('#modal').modal('show')
 
-	const fileSelector = document.getElementById('excelFile');
-	fileSelector.addEventListener('change', (event) => {
-		const fileList = event.target.files;
-		//console.log(fileList);
-		apiTes(fileList)
-	});
+    const fileSelector = document.getElementById('excelFile');
+    fileSelector.addEventListener('change', (event) => {
+        const fileList = event.target.files;
+        //console.log(fileList);
+        apiTes(fileList)
+    });
 
 }
 
@@ -187,52 +192,52 @@ async function apiTes(excelFile) {
             //     }
             // });
 
-        //     // //separar datos
-        //     var indices = [];
-        //     let skuList = []
+            //     // //separar datos
+            //     var indices = [];
+            //     let skuList = []
 
-        //     arraydata.forEach((el) => {
-        //         if (!skuList.includes(el.sku)) {
-        //             skuList.push(el.sku)
-        //         }
-        //     })
+            //     arraydata.forEach((el) => {
+            //         if (!skuList.includes(el.sku)) {
+            //             skuList.push(el.sku)
+            //         }
+            //     })
 
-        //     skuList.forEach((ed) => {
-        //         let aux = []
-        //         arraydata.forEach((el, i) => {
-        //             if (el.sku == ed) {
-        //                 aux.push(el)
-        //             }
-        //             if (i == arraydata.length - 1) {
-        //                 let aux2 = {}
+            //     skuList.forEach((ed) => {
+            //         let aux = []
+            //         arraydata.forEach((el, i) => {
+            //             if (el.sku == ed) {
+            //                 aux.push(el)
+            //             }
+            //             if (i == arraydata.length - 1) {
+            //                 let aux2 = {}
 
-        //                 aux2.sku = aux[0].sku
-        //                 aux2.productId = aux[0].productId
-        //                 //aux2._id = moment.tz('America/Santiago').format('YYYY-MM-DDTHH:mm:ss.SSSSS');
-        //                 aux2.info = []
+            //                 aux2.sku = aux[0].sku
+            //                 aux2.productId = aux[0].productId
+            //                 //aux2._id = moment.tz('America/Santiago').format('YYYY-MM-DDTHH:mm:ss.SSSSS');
+            //                 aux2.info = []
 
-        //                 aux.forEach((ep) => {
-        //                     let aux3 = {}
-        //                     aux3.id = ep.id
-        //                     //aux3.productId = ep.productId
-        //                     aux3.attributeId = ep.attributeId
-        //                     aux3.attributeLabel = ep.attributeLabel
-        //                     aux3.data = ep.data
+            //                 aux.forEach((ep) => {
+            //                     let aux3 = {}
+            //                     aux3.id = ep.id
+            //                     //aux3.productId = ep.productId
+            //                     aux3.attributeId = ep.attributeId
+            //                     aux3.attributeLabel = ep.attributeLabel
+            //                     aux3.data = ep.data
 
-        //                     aux2.info.push(aux3)
-        //                 })
+            //                     aux2.info.push(aux3)
+            //                 })
 
-        //                 indices.push(aux2)
-        //             }
-        //         })
-        //     })
+            //                 indices.push(aux2)
+            //             }
+            //         })
+            //     })
 
-        //     // try {
-        //     //     let res = await Product.insertMany(indices)
-        //     //     console.log("indi", res)
-        //     // } catch (error) {
-        //     //     console.log("err", error)
-        //     // }
+            //     // try {
+            //     //     let res = await Product.insertMany(indices)
+            //     //     console.log("indi", res)
+            //     // } catch (error) {
+            //     //     console.log("err", error)
+            //     // }
 
         });
 
@@ -263,7 +268,7 @@ async function apiTes(excelFile) {
 // 				<input type="file" id="input" />
 // 			</div>
 // 		</div>
-    
+
 //     `
 
 //     modalSelector.footer.innerHTML = `
