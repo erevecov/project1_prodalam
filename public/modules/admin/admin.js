@@ -16,10 +16,6 @@ const internals = {
             rowSelected: null
         }
     }
-    // ,
-    // mainModal: new bootstrap.Modal(document.getElementById('modal'), {
-    // 	keyboard: false
-    // })
 }
 
 ready(async () => {
@@ -32,7 +28,6 @@ document.querySelector('#nuevaCargaBtn').addEventListener('click', () => {
 
 async function initProductsTable() {
     await $.when(internals.tables.products.datatable = $('#productsTable').DataTable({
-        // dom: 'Bfrtip',
         language: {
             url: spanishDataTableLang
         },
@@ -253,28 +248,3 @@ async function apiTes(excelFile) {
 //   <button type="button" class="close" data-dismiss="alert">&times;</button>
 //   <strong>Carga exitosa!</strong> <a href="#" class="alert-link"> La carga de datos se realizo con exito</a>.
 // </div>
-
-// const handleModal = () => {
-// 	const modalSelector = {
-//         title: document.querySelector('#modal_title'),
-//         body: document.querySelector('#modal_body'),
-//         footer: document.querySelector('#modal_footer'),
-//     }
-//     modalSelector.title.innerHTML = 'Subir nueva carga de productos'
-
-//     modalSelector.body.innerHTML = `
-//         <div class="row">
-// 			<div class="col-md-12">
-// 				<input type="file" id="input" />
-// 			</div>
-// 		</div>
-
-//     `
-
-//     modalSelector.footer.innerHTML = `
-// 		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-//         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Subir</button>
-//     `
-
-// 	$('#modal').modal('show')
-// }

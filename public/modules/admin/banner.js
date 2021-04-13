@@ -5,10 +5,6 @@ const internals = {
 			rowSelected: null
 		}
 	}
-	// ,
-	// mainModal: new bootstrap.Modal(document.getElementById('modal'), {
-	// 	keyboard: false
-	// })
 }
 
 ready(async () => {

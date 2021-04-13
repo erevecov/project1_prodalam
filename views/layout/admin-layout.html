@@ -18,46 +18,47 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="/public/img/LOGO_CATALOGO.png" alt="" width="150" height="70">
-      </a>
+    <a class="navbar-brand" href="#">
+      <img src="/public/img/LOGO_CATALOGO.png" alt="" width="150" height="70">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="form-inline my-2 my-lg-0">
-        <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown mainNav">
+          <a class="nav-link dropdown-toggle" href="#" id="configurationsDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i></span> Administración
+          </a>
 
-          <li class="nav-item dropdown mainNav">
-            <a class="nav-link dropdown-toggle" href="#" id="configurationsDropdown" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-cog"></i></span>
-            </a>
+          <div id="configurationsDropdown" style="z-index:2000;" class="dropdown-menu"
+            aria-labelledby="configurationsDropdown">
+            {{#if admin}}
+            <a class="dropdown-item" href="/users"><i class="fas fa-users"></i> Usuarios</a>
+            <div class="dropdown-divider"></div>
+            {{/if}}
+            <a class="dropdown-item" href="/admin"><i class="fas fa-boxes"></i> Productos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/banner"><i class="fas fa-image"></i> Banner</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown mainNav">
+          <a class="nav-link dropdown-toggle" href="#" id="userCredentialsDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i> <span id="userCredentials"> {{ credentials.name }} {{ credentials.lastname }}</span>
+          </a>
 
-            <div id="configurationsDropdown" style="z-index:2000;" class="dropdown-menu"
-              aria-labelledby="configurationsDropdown">
-              <a class="dropdown-item" href="/users"><i class="fas fa-users"></i> Usuarios</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/admin"><i class="fas fa-boxes"></i> Productos</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/banner"><i class="fas fa-image"></i> Banner</a>
-            </div>
-          </li>
-
-          <li class="nav-item dropdown mainNav">
-            <a class="nav-link dropdown-toggle" href="#" id="userCredentialsDropdown" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-user"></i> <span id="userCredentials">{{ credentials.name }} {{ credentials.lastname }}</span>
-            </a>
-
-            <div id="credentialsDropdownMenu" style="z-index:2000;" class="dropdown-menu"
-              aria-labelledby="userCredentialsDropdown">
-              <!-- <a class="dropdown-item" href="/account"><i class="fas fa-user"></i> Cuenta</a> -->
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/logout"><i class="fas fa-times"></i> Cerrar sesión</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
+          <div id="credentialsDropdownMenu" style="z-index:2000;" class="dropdown-menu"
+            aria-labelledby="userCredentialsDropdown">
+              <!-- <a class="dropdown-item" href="/account"><i class="fas fa-user"></i> Cuenta</a>
+              <div class="dropdown-divider"></div> -->
+            <a class="dropdown-item" href="/logout"><i class="fas fa-times"></i> Cerrar sesión</a>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 
   {{{ content }}}
@@ -70,6 +71,7 @@
   <script src="/public/js/rut.min.js"></script>
   <script src="/public/axios/axios.min.js"></script>
   <script src="/public/js/rut.min.js"></script>
+  <script src="/public/js/moment.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

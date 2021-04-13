@@ -82,7 +82,7 @@ async function findUserByRutAndPassword(userRut, userPassword) {
         password: userPassword,
         status: 'enabled',
         scope: {
-            $in: ['admin', 'user']
+            $in: ['sadmin', 'admin']
         }
     }).lean();
     //console.log("cargando excel");

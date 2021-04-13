@@ -16,8 +16,8 @@ function chargeUsersTable() {
         ],
         ordering: true,
         iDisplayLength: 50,
-        oLanguage: {
-            sSearch: 'Buscar: '
+        language: {
+            url: spanishDataTableLang
         },
         responsive: false,
         columns: [
@@ -109,8 +109,8 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             <div class="col-md-4" style="margin-top:10px;">
             Rol del usuario
                 <select id="newUserRole" class="custom-select">
-                    <option value="user">Usuario  </option>
-                    <option value="admin">Administrador  </option>
+                    <option value="admin">Administrador</option>
+                    <option value="sadmin">Super Administrador</option>
                 </select>
             </div>
 
@@ -123,7 +123,6 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             Email
                 <input id="newUserEmail" type="text" placeholder="Email" class="form-control border-input">
             </div>
-
 
             <div class="col-md-12" id="newUserErrorMessage"></div>
 
@@ -141,12 +140,10 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
     `)
 
     $('#newUserRut').on('keyup', function() {
-        
         let rut = validateRut(this.value)
         if (rut.isValid ) {
-            $('#newUserRut').val(rut.getNiceRut()) 
+            $('#newUserRut').val(rut.getNiceRut())
         }
-
     })
 
     setTimeout(() => {
@@ -163,13 +160,13 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
             phone: $('#newUserPhone').val(),
             email: $('#newUserEmail').val()
         }
-        
+
         let validUser = await validateUserData(userData)
         if (validUser.ok) {
             let saveUserRes = await axios.post('/api/users', userData)
             if(saveUserRes.data) {
                 toastr.success('El usuario se ha creado correctamente')
-                    
+
                 let newUserAdded = datatableUsers
                     .row.add(saveUserRes.data)
                     .draw()
@@ -186,7 +183,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
         } else {
             toastr.warning('Ha ocurrido un error al crear el usuario, por favor intentelo nuevamente')
         }
-        
+
     });
 
 });
@@ -231,6 +228,9 @@ $('#optionDeleteUser').on('click', function() {
         }
     })
 })
+const rutFunc = (rut) => {
+    return $.formatRut(rut)
+}
 
 $('#optionModUser').on('click', function() {
     console.log(userRowSelectedData)
@@ -241,7 +241,7 @@ $('#optionModUser').on('click', function() {
         <div class="row">
             <div class="col-md-4" style="margin-top:10px;">
                 Rut del usuario
-                <input disabled value="${/*rutFunc*/(userRowSelectedData._id)}" id="modUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
+                <input disabled value="${/*rutFunc*/(userRowSelectedData.rut)}" id="modUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
             </div>
 
             <div class="col-md-4" style="margin-top:10px;">
@@ -268,8 +268,8 @@ $('#optionModUser').on('click', function() {
             <div class="col-md-4" style="margin-top:10px;">
                 Rol del usuario
                 <select id="modUserRole" class="custom-select">
-                    <option value="user">Usuario </option>
-                    <option value="admin">Administrador </option>
+                <option value="admin">Administrador</option>
+                <option value="sadmin">Super Administrador</option>
                 </select>
             </div>
 
@@ -299,7 +299,7 @@ $('#optionModUser').on('click', function() {
     `)
 
     $('#modUserRole').val(userRowSelectedData.scope)
-    
+
     $('#changePassword').on('change', function(){
         if($(this).is(':checked')) {
             $('#modUserPassword').attr('disabled', false)
@@ -490,7 +490,7 @@ async function validateUserData(userData) {
                 <p class="mb-0">${errorMessage}</p>
             </div>
             `)
-            
+
             return {err: userData}
         }
     // })

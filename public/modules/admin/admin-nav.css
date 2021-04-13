@@ -100,11 +100,11 @@ h3{
 }
 .navbar .nav-item {
     padding-top: 20px;
-    height: 80px !important;
+    /* height: 80px !important; */
 }
 
 .navbar .nav-link {
-    height: 80px;
+    /* height: 80px; */
 }
 
 .nav-link {
