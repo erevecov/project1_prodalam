@@ -13,8 +13,27 @@ module.exports = [
             handler: async (request, h) => {
                 try {
                     console.log("payload", request.payload);
+
+
+                    let query = {
+                        $or: [
+                            {
+                                rut: request.payload.rut
+                            }
+                        ]
+                    }
+
+                    let userExist = await User.find(query)
+
+                    if (userExist[0]) {
+                        return h.response({
+                            error: 'El usuario ya existe.'
+                        }).code(409)
+                    }
+
                     let user = await User(request.payload);
-                    //let userSaved = await user.save();
+
+                    let userSaved = await user.save();
 
                     userSaved.password = '';
 
@@ -35,7 +54,7 @@ module.exports = [
                     name: Joi.string().required(),
                     lastname: Joi.string().required(),
                     password: Joi.string().required(),
-                    role: Joi.string().required(),
+                    scope: Joi.string().required(),
                     phone: Joi.string().required(),
                     email: Joi.string().required()
                 })
