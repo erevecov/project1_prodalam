@@ -65,17 +65,18 @@ async function getUsersEnabled() {
             toastr.warning(res.err)
             $('#loadingUsers').empty()
         } else if(res.data) {
-            // let formatRes = res.data.map(el=>{
-            //     if (isRut(el._id)) {
-            //         el.rut = `${rutFunc(el._id)}`;
-            //     } else {
-            //         el.rut = el._id;
-            //     }
 
-            //     return el
-            // })
+            let formatRes = res.data.map(el=>{
 
-            datatableUsers.rows.add(res.data).draw()
+                let rut = validateRut(el.rut)
+                if (rut.isValid ) {
+                    el.rut = rut.getNiceRut();
+                }
+
+                return el
+            })
+
+            datatableUsers.rows.add(formatRes).draw()
             $('#loadingUsers').empty()
         }
 }
@@ -189,51 +190,59 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
 });
 
 $('#optionDeleteUser').on('click', function() {
-    swal.fire({
-        title: 'Eliminar usuario',
+    deleteUser(userRowSelectedData._id, userRowSelectedData.name)
+    
+})
+
+async function deleteUser(_id, name) {
+    let result = await Swal.fire({
+        title: `Eliminar usuario ${name}`,
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonClass: 'btn btn-primary',
-        cancelButtonClass: 'btn btn-danger',
         buttonsStyling: false,
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar',
-    }).then((result) => {
-        if (result.value) {
-            ajax({
-                url: 'api/user',
-                type: 'DELETE',
-                data: {
-                    _id: userRowSelectedData._id
-                }
-            }).then(res=>{
-                if(res.err) {
-                    toastr.warning(res.err)
-                } else if(res.ok) {
-                    $('#optionModUser').prop('disabled', true)
-                    $('#optionDeleteUser').prop('disabled', true)
-
-                    toastr.success('Se ha eliminado correctamente')
-
-                    datatableUsers
-                    .row( userRowSelected )
-                    .remove()
-                    .draw()
-
-                    console.log(res.ok)
-                }
-            })
+        customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-primary'
         }
-    })
-})
-const rutFunc = (rut) => {
-    return $.formatRut(rut)
+    });
+
+    if (result.value) {
+        let delUser = await axios.delete(`api/users/${_id}`);
+
+        if (delUser.data.ok) {
+            $('#optionModUser').prop('disabled', true)
+            $('#optionDeleteUser').prop('disabled', true)
+            toastr.success(`Usuario "${name}" eliminado correctamente`);
+            datatableUsers
+            .row( userRowSelected )
+            .remove()
+            .draw()
+
+        } else {
+            toastr.success(`Ha ocurrido un error al intentar eliminar`);
+        }
+    }
+
 }
+
+
+
 
 $('#optionModUser').on('click', function() {
     console.log(userRowSelectedData)
+
+    let ruto = validateRut(userRowSelectedData.rut)
+    let rutVal
+    if (ruto.isValid ) {
+        rutVal = ruto.getNiceRut()
+    } else {
+        rutVal = userRowSelectedData.rut
+    }
+    
 
     $('#usersModal').modal('show');
     $('#modal_title').html(`Modificar usuario: ${capitalizeAll(userRowSelectedData.name)} ${capitalizeAll(userRowSelectedData.lastname)}`)
@@ -241,7 +250,7 @@ $('#optionModUser').on('click', function() {
         <div class="row">
             <div class="col-md-4" style="margin-top:10px;">
                 Rut del usuario
-                <input disabled value="${/*rutFunc*/(userRowSelectedData.rut)}" id="modUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
+                <input disabled value="${rutVal}" id="modUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
             </div>
 
             <div class="col-md-4" style="margin-top:10px;">
@@ -320,16 +329,16 @@ $('#optionModUser').on('click', function() {
 
     $('#saveUser').on('click', function(){
         let userData = {
-            status: 'mod',
-            rut: removeExtraSpaces($('#modUserRut').val()),
+            // status: 'mod',
+            rut: $('#modUserRut').val(),
             name: $('#modUserName').val(),
             lastname: $('#modUserLastname').val(),
-            changePassword: $('#changePassword').is(':checked'),
+            //changePassword: $('#changePassword').is(':checked'),
             password: $('#modUserPassword').val(),
             scope: $('#modUserRole').val(),
             phone: $('#modUserPhone').val(),
-            email: removeExtraSpaces($('#modUserEmail').val()),
-            changeEmailPassword: $('#changeEmailPassword').is(':checked')
+            email: $('#modUserEmail').val(),
+            //changeEmailPassword: $('#changeEmailPassword').is(':checked')
         }
 
         validateUserData(userData).then(res=>{
@@ -495,3 +504,70 @@ async function validateUserData(userData) {
         }
     // })
 }
+
+const rutFunc = (rut) => {
+    return $.formatRut(rut)
+}
+
+// function modNewUser(modUserData) {   //NEW AND MOD USER
+//     $.when($('#modal_body').html(`
+//     <div class="row">
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Rut del usuario
+//             <input id="newUserRut" type="text" placeholder="Rut del usuario" class="form-control border-input">
+//         </div>
+
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Nombre del usuario
+//             <input id="newUserName" type="text" placeholder="Nombre del usuario " class="form-control border-input">
+//         </div>
+
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Apellido del usuario
+//             <input id="newUserLastname" type="text" placeholder="Apellido del usuario" class="form-control border-input">
+//         </div>
+
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Contraseña del usuario
+//             <input id="newUserPassword" type="password" placeholder="Contraseña del usuario" class="form-control border-input">
+//         </div>
+
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Rol del usuario
+//             <select id="newUserRole" class="custom-select">
+//                 <option value="admin">Administrador</option>
+//                 <option value="sadmin">Super Administrador</option>
+//             </select>
+//         </div>
+
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Teléfono del usuario
+//             <input id="newUserPhone" type="text" placeholder="Teléfono del usuario " class="form-control border-input">
+//         </div>
+
+//         <div class="col-md-4" style="margin-top:10px;">
+//         Email
+//             <input id="newUserEmail" type="text" placeholder="Email" class="form-control border-input">
+//         </div>
+
+//         <div class="col-md-12" id="newUserErrorMessage"></div>
+
+//     </div>
+// `)).then(function () {
+
+// //-------------------------------------------------------------
+
+
+//     });
+
+//     $('#modal_footer').html(`
+//     <button class="btn btn-dark" data-dismiss="modal">
+//         <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
+//     </button>
+
+//     <button class="btn btn-dark" id="saveProduct">
+//         <i style="color:#3498db;" class="fas fa-check"></i> Guardar
+//     </button>
+// `);
+
+// }

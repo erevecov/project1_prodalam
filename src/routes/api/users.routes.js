@@ -62,6 +62,68 @@ module.exports = [
         }
     },
     {
+        method: 'POST',
+        path: '/api/modUser',
+        options: {
+            handler: async (request, h) => {
+                try {
+                    let updateUser = await User.findOneAndUpdate(request.payload.rut, request.payload, {
+                        new: true
+                      });
+        
+                    console.log("updat", updateUser); 
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error al eliminar el usuario, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+                
+            },
+            validate: {
+                payload: Joi.object().keys({
+                    rut: Joi.string().required(),
+                    name: Joi.string().required(),
+                    lastname: Joi.string().required(),
+                    password: Joi.string().required(),
+                    scope: Joi.string().required(),
+                    phone: Joi.string().required(),
+                    email: Joi.string().required()
+                })
+            }
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/api/users/{_id}',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let params = request.params;
+                    let deleteUser = await User.deleteOne( { _id: params._id } )
+                    if (deleteUser.ok) {
+                        return {
+                            ok: true
+                        };
+                    }
+
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+
+            }
+        }
+    },
+    {
         method: 'GET',
         path: '/api/users',
         options: {

@@ -2,6 +2,7 @@ const User = require('../../models/userModel');
 //const Product = require('../../models/productModel');
 var Excel = require('exceljs');
 import { clean } from 'rut.js'
+import { listenerCount } from '../../models/userModel';
 //import parseXlsx from 'excel'
 
 
@@ -85,16 +86,116 @@ async function findUserByRutAndPassword(userRut, userPassword) {
             $in: ['sadmin', 'admin']
         }
     }).lean();
-    //console.log("cargando excel");
+    console.log("cargando excel");
     //await apiTes()
     //await fusion()
+    await excelCom()
 
     if (userExist[0]) return userExist[0];
 
     return null
 }
 
+async function excelCom() {
+    // read from a file
+    var workbook = new Excel.Workbook();
+    workbook.xlsx.readFile('cate.xlsx')
+        .then(async function () {
+            //console.log("rows", workbook._worksheets[1]._rows[1]._cells[3]._value.model.value)
+            let arraydata = []
 
+
+            let data = workbook._worksheets[1]._rows
+
+            data.forEach((ed, i) => {
+                if (i !== 0) {
+                    let objData = {}
+                    ed._cells.forEach((el, p) => {
+
+                        if (p == 0) objData.id = el._value.model.value
+                        
+                        if (p == 2) objData.code = el._value.model.value
+                        if (p == 3) {
+                            objData.label = el._value.model.value
+                        }
+                        if (p == 1) {
+                            if (el._value.model.value == "\\N") {
+                                objData.parentId = ''
+                                arraydata.push(objData)
+                            }else {
+                                objData.parentId = el._value.model.value
+                            }
+                        }
+                    })
+                }
+            });
+
+            console.log("aaaa",arraydata);
+
+            //agrupar datos
+            //Test
+            //title Pintura para Techo Zincalum 371 Verde Petróleo de 1 galón
+            //productid 3286
+            
+
+
+
+
+            // arraydata.forEach((el) => {
+            //     if (!skuList.includes(el.sku)) {
+            //         skuList.push(el.sku)
+            //     }
+            // })
+
+
+            // var indices = [];
+            // let skuList = []
+
+            // arraydata.forEach((el) => {
+            //     if (!skuList.includes(el.sku)) {
+            //         skuList.push(el.sku)
+            //     }
+            // })
+
+            // skuList.forEach((ed) => {
+            //     let aux = []
+            //     arraydata.forEach((el, i) => {
+            //         if (el.sku == ed) {
+            //             aux.push(el)
+            //         }
+            //         if (i == arraydata.length - 1) {
+            //             let aux2 = {}
+
+            //             aux2.sku = aux[0].sku
+            //             aux2.productId = aux[0].productId
+            //             //aux2._id = moment.tz('America/Santiago').format('YYYY-MM-DDTHH:mm:ss.SSSSS');
+            //             aux2.info = []
+
+            //             aux.forEach((ep) => {
+            //                 let aux3 = {}
+            //                 aux3.id = ep.id
+            //                 //aux3.productId = ep.productId
+            //                 aux3.attributeId = ep.attributeId
+            //                 aux3.attributeLabel = ep.attributeLabel
+            //                 aux3.data = ep.data
+
+            //                 aux2.info.push(aux3)
+            //             })
+
+            //             indices.push(aux2)
+            //         }
+            //     })
+            // })
+
+            // try {
+            //     let res = await Product.insertMany(indices)
+            //     console.log("indi", res)
+            // } catch (error) {
+            //     console.log("err", error)
+            // }
+
+        });
+}
 
 async function apiTes() {
     // read from a file
