@@ -56,12 +56,12 @@
     color: #444444;
 }
 
-.product-modal img {
+/* .product-modal img {
     width: 90%;
     height: 150px;
     border-radius: 30px;
     padding: 0;
-}
+} */
 
 #categories-left {
     color: var(--orange);

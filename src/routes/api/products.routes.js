@@ -29,6 +29,37 @@ module.exports = [
     },
     {
         method: 'GET',
+        path: '/api/productsPaginate',
+        options: {
+            auth: false,
+            description: 'get products paginate',
+            notes: 'get products paginate',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let queryParams = request.query
+
+                    const options = {
+                        page: queryParams.page || 1,
+                        limit: queryParams.limit || 6,
+                        collation: {
+                            locale: 'en',
+                        },
+                    }
+
+                    let result = await Product.paginate({}, options)
+
+                    return result
+                } catch (error) {
+                    console.log(error)
+
+                    return Boom.badImplementation(error)
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
         path: '/api/products',
         options: {
             auth: { mode: 'try' },
@@ -77,3 +108,46 @@ module.exports = [
         }
     }
 ]
+
+
+
+
+
+
+// import Boom from '@hapi/boom'
+// import User from '../../models/User'
+
+// module.exports = [
+// {
+//     method: 'GET',
+//     path: '/api/usersPaginate',
+//     options: {
+//         description: 'get users paginate',
+//         notes: 'get users paginate',
+//         tags: ['api'],
+//         handler: async (request, h) => {
+//             try {
+//                 let queryParams = request.query
+
+//                 const options = {
+//                     page: queryParams.page || 1,
+//                     limit: queryParams.limit || 10,
+//                     collation: {
+//                         locale: 'en',
+//                     },
+//                 }
+
+//                 let result = await User.paginate({}, options)
+
+//                 return result
+//             } catch (error) {
+//                 console.log(error)
+
+//                 return Boom.badImplementation(error)
+//             }
+//         }
+//     }
+// }
+// ]
+
+

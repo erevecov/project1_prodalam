@@ -133,3 +133,7 @@ function validateRut(userRut) {
   return rut
   
 }
+
+function cutText(text, length) {
+  return `${text.substring(0, length || 10)}...`
+}
