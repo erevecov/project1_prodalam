@@ -92,7 +92,6 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    
 
                     let result = "hola";
                     return result;

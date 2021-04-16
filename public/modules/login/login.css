@@ -1,7 +1,22 @@
-@font-face { 
-    font-family: SFProDisplay; 
-    src: url('/public/fonts/SFProDisplay.ttc');
-    font-weight: lighter;
+@font-face {
+    font-family: SFProDisplay-Bold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Bold.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Light;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Light.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Medium;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Medium.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Regular;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Regular.ttf');
+}
+@font-face {
+    font-family: SFProDisplay-Semibold;
+    src: url('/public/fonts/SFProDisplay/SFProDisplay-Semibold.ttf');
 }
 :root {
     --blue: #005EB8;
@@ -16,12 +31,27 @@ html {
     padding: 0;
 }
 body {
-    font-family: SFProDisplay;
+    font-family: SFProDisplay-Light;
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color:var(--blue);
+    background-color:var(--white);
     font-weight: lighter;
+}
+
+input{
+    font-style: italic;
+}
+
+.input-group>.form-control{
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    border-radius: 30px;
+    margin-bottom: 0;
+    margin-top: 20px;
 }
 
 #loginCardContainer {
@@ -31,9 +61,11 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+.uno{
+    padding-top: 100px;
+}
 #loginCard {
-    font-family: SFProDisplay;
+    font-family: SFProDisplay-Semibold;
     width: 23rem;
     height: 100% !important;
     background-color:  var(--grey) !important;
@@ -44,43 +76,49 @@ body {
 }
 
 #loginCardFooter {
-    font-family: SFProDisplay;
+    font-family: SFProDisplay-Light;
     font-size: 20px;
     padding: 0;
     margin: 0;
-    border-top: 1px #dc952f solid;
     height: 70px;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
 }
-
-#loginCardFooter button {
-    font-family: SFProDisplay;
-    background-color: #dc952f;
-    color: var(--dark);
-    height: 70px;
+.card-header{
+    background-color: var(--white);
+}
+.form-group button {
+    color: #838383;
+    border: 1px solid #838383;
+    border-radius: 50px;
     font-size: 20px;
-    padding: 0;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#loginCardFooter button:hover {
-    font-family: SFProDisplay;
+.form-group button:hover {
+    font-family: SFProDisplay-Bold;
     cursor: pointer;
     font-size: 21px;
 }
 label{
-    font-family: SFProDisplay;
+    font-family: SFProDisplay-Light;
     color: var(--dark);
 }
-a {
+/* a {
     color:var(--dark);
 }
 a:hover{
-    font-family: SFProDisplay;
+    display: flex;
+    justify-content: center;
     text-decoration: none;
     color: var(--dark);
-}
+} */
 @media (max-width: 600px) {
     #loginCard {
-        font-family: SFProDisplay;
+        font-family: SFProDisplay-Light;
         height: 100% !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -88,19 +126,20 @@ a:hover{
     }
 
     #loginCardFooter {
-        font-family: SFProDisplay;
+        font-family: SFProDisplay-Light;
         font-size: 20px;
         bottom: 0;
+        margin-top: 40px;
     }
 
     #loginCardContainer {
-        font-family: SFProDisplay;
+        font-family: SFProDisplay-Light;
         height: 100% !important;
         display: block;
     }
 
     #loginCardContainer form {
-        font-family: SFProDisplay;
+        font-family: SFProDisplay-Light;
         height: 100% !important;
     }
 }
@@ -112,7 +151,7 @@ a:hover{
 }
 
 input {
-    font-family: SFProDisplay;
+    font-family: SFProDisplay-Light;
     background-color:  var(--white) !important;
     color: var(--dark1) !important;
     border: 50px !important;

@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
     sku: { type: String, required: true},
-    title: { type: String},
-    category: { type: String},
-    categoryFather: { type: String},
+    title: { type: String, required: true},
+    category: { type: String, required: true},
+    categoryFather: { type: String, required: true},
     productId: {type: Number, integer: true, required: true},
     info: [{
         id: {type: Number, integer: true, required: true},

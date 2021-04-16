@@ -191,7 +191,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
 
 $('#optionDeleteUser').on('click', function() {
     deleteUser(userRowSelectedData._id, userRowSelectedData.name)
-    
+
 })
 
 async function deleteUser(_id, name) {

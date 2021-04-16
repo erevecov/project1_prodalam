@@ -155,88 +155,88 @@ const handleModal = () => {
 
 }
 
-async function apiTes(excelFile) {
-    // read from a file
-    var workbook = new Excel.Workbook();
-    workbook.xlsx.readFile(excelFile)
-        .then(async function () {
-            console.log("rows", workbook._worksheets[1]._rows[1]._cells[3]._value.model.value)
-            let arraydata = []
+// async function apiTes(excelFile) {
+//     // read from a file
+//     // var workbook = new Excel.Workbook();
+//     workbook.xlsx.readFile(excelFile)
+//         .then(async function () {
+//             console.log("rows", workbook._worksheets[1]._rows[1]._cells[3]._value.model.value)
+//             let arraydata = []
 
 
-            let data = workbook._worksheets[1]._rows
+//             let data = workbook._worksheets[1]._rows
 
-            // data.forEach((ed, i) => {
-            //     if (i !== 0) {
-            //         let objData = {}
-            //         ed._cells.forEach((el, p) => {
+//             // data.forEach((ed, i) => {
+//             //     if (i !== 0) {
+//             //         let objData = {}
+//             //         ed._cells.forEach((el, p) => {
 
-            //             if (p == 1) objData.id = el._value.model.value
-            //             if (p == 2) objData.productId = el._value.model.value
-            //             if (p == 3) objData.sku = el._value.model.value
-            //             if (p == 4) objData.attributeId = el._value.model.value
-            //             if (p == 5) objData.attributeLabel = el._value.model.value
-            //             if (p == 10) objData.data = el._value.model.value
-            //             //if (p==11) objData.position = el._value.model.value
-            //             if (p == 12) objData.createdAt = el._value.model.value
-            //             if (p == 13) {
-            //                 objData.updatedAt = el._value.model.value
-            //                 arraydata.push(objData)
-            //             }
-            //         })
-            //     }
-            // });
+//             //             if (p == 1) objData.id = el._value.model.value
+//             //             if (p == 2) objData.productId = el._value.model.value
+//             //             if (p == 3) objData.sku = el._value.model.value
+//             //             if (p == 4) objData.attributeId = el._value.model.value
+//             //             if (p == 5) objData.attributeLabel = el._value.model.value
+//             //             if (p == 10) objData.data = el._value.model.value
+//             //             //if (p==11) objData.position = el._value.model.value
+//             //             if (p == 12) objData.createdAt = el._value.model.value
+//             //             if (p == 13) {
+//             //                 objData.updatedAt = el._value.model.value
+//             //                 arraydata.push(objData)
+//             //             }
+//             //         })
+//             //     }
+//             // });
 
-            //     // //separar datos
-            //     var indices = [];
-            //     let skuList = []
+//             //     // //separar datos
+//             //     var indices = [];
+//             //     let skuList = []
 
-            //     arraydata.forEach((el) => {
-            //         if (!skuList.includes(el.sku)) {
-            //             skuList.push(el.sku)
-            //         }
-            //     })
+//             //     arraydata.forEach((el) => {
+//             //         if (!skuList.includes(el.sku)) {
+//             //             skuList.push(el.sku)
+//             //         }
+//             //     })
 
-            //     skuList.forEach((ed) => {
-            //         let aux = []
-            //         arraydata.forEach((el, i) => {
-            //             if (el.sku == ed) {
-            //                 aux.push(el)
-            //             }
-            //             if (i == arraydata.length - 1) {
-            //                 let aux2 = {}
+//             //     skuList.forEach((ed) => {
+//             //         let aux = []
+//             //         arraydata.forEach((el, i) => {
+//             //             if (el.sku == ed) {
+//             //                 aux.push(el)
+//             //             }
+//             //             if (i == arraydata.length - 1) {
+//             //                 let aux2 = {}
 
-            //                 aux2.sku = aux[0].sku
-            //                 aux2.productId = aux[0].productId
-            //                 //aux2._id = moment.tz('America/Santiago').format('YYYY-MM-DDTHH:mm:ss.SSSSS');
-            //                 aux2.info = []
+//             //                 aux2.sku = aux[0].sku
+//             //                 aux2.productId = aux[0].productId
+//             //                 //aux2._id = moment.tz('America/Santiago').format('YYYY-MM-DDTHH:mm:ss.SSSSS');
+//             //                 aux2.info = []
 
-            //                 aux.forEach((ep) => {
-            //                     let aux3 = {}
-            //                     aux3.id = ep.id
-            //                     //aux3.productId = ep.productId
-            //                     aux3.attributeId = ep.attributeId
-            //                     aux3.attributeLabel = ep.attributeLabel
-            //                     aux3.data = ep.data
+//             //                 aux.forEach((ep) => {
+//             //                     let aux3 = {}
+//             //                     aux3.id = ep.id
+//             //                     //aux3.productId = ep.productId
+//             //                     aux3.attributeId = ep.attributeId
+//             //                     aux3.attributeLabel = ep.attributeLabel
+//             //                     aux3.data = ep.data
 
-            //                     aux2.info.push(aux3)
-            //                 })
+//             //                     aux2.info.push(aux3)
+//             //                 })
 
-            //                 indices.push(aux2)
-            //             }
-            //         })
-            //     })
+//             //                 indices.push(aux2)
+//             //             }
+//             //         })
+//             //     })
 
-            //     // try {
-            //     //     let res = await Product.insertMany(indices)
-            //     //     console.log("indi", res)
-            //     // } catch (error) {
-            //     //     console.log("err", error)
-            //     // }
+//             //     // try {
+//             //     //     let res = await Product.insertMany(indices)
+//             //     //     console.log("indi", res)
+//             //     // } catch (error) {
+//             //     //     console.log("err", error)
+//             //     // }
 
-        });
+//         });
 
-}
+// }
 
 
 // <div class="alert alert-dismissible alert-danger">

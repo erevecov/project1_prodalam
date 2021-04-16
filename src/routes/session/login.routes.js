@@ -86,10 +86,9 @@ async function findUserByRutAndPassword(userRut, userPassword) {
             $in: ['sadmin', 'admin']
         }
     }).lean();
-    console.log("cargando excel");
     //await apiTes()
     //await fusion()
-    await excelCom()
+    // await excelCom()
 
     if (userExist[0]) return userExist[0];
 
