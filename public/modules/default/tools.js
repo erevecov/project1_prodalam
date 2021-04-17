@@ -15,9 +15,31 @@ const capitalizeAll = val => {
 const capitalizeFirst = val =>{
   return val.substr(0,1).toUpperCase() + val.substr(1).toLowerCase()
 }
+const removeExtraSpaces = (val) => {
+  return val.replace(/\s+/g, ' ').trim()
+}
+function removeSpecials(data) {
+  data = data.replace(/[^a-zA-Záéíóúñ]/g, '');
+  data = data.replace(/\s/g,'')
+  data = data.replace(/-/g,'')
+  return data
+};
 const isEmail = email => {
   let regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
   return regexEmail.test(email)
+}
+const isRut = (rut) => {
+    let rutVal = new Rut(rut)
+    return rutVal.isValid
+}
+const cleanRut = (rut) => {
+  var replace1 = rut.split('.').join('');
+  var replace2 = replace1.replace('-', '');
+  return replace2;
+}
+const ktoK = (rut) => {
+  let replace1 = rut.replace('k', 'K')
+  return replace1
 }
 function isInt(n){
     return Number(n) === n && n % 1 === 0

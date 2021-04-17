@@ -12,9 +12,6 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    console.log("payload", request.payload);
-
-
                     let query = {
                         $or: [
                             {
@@ -26,11 +23,29 @@ module.exports = [
                     let userExist = await User.find(query)
 
                     if (userExist[0]) {
-                        return h.response({
-                            error: 'El usuario ya existe.'
-                        }).code(409)
+                        if (request.payload.mod == 'yes') {
+
+                            if (request.payload.password == '') {
+                                request.payload.password = userExist[0].password
+                            }
+                            delete request.payload.mod
+                            let user = await User(request.payload);
+                            user._id = userExist[0]._id
+                            let userSaved = await User.findByIdAndUpdate(userExist[0]._id, user)
+
+                            userSaved.password = '';
+
+                            return userSaved
+
+                        } else {
+                            console.log("error1");
+                            return {
+                                error: 'El usuario ya existe.'
+                            }
+                        }
                     }
 
+                    delete request.payload.mod
                     let user = await User(request.payload);
 
                     let userSaved = await user.save();
@@ -41,10 +56,9 @@ module.exports = [
 
                 } catch (error) {
                     console.log(error);
-
-                    return h.response({
+                    return {
                         error: 'Ha ocurrido un error al crear el usuario, por favor recargue la página e intentelo nuevamente.'
-                    }).code(500);
+                    }
                 }
 
             },
@@ -53,43 +67,11 @@ module.exports = [
                     rut: Joi.string().required(),
                     name: Joi.string().required(),
                     lastname: Joi.string().required(),
-                    password: Joi.string().required(),
+                    password: Joi.string().allow(null, ''),
                     scope: Joi.string().required(),
                     phone: Joi.string().required(),
-                    email: Joi.string().required()
-                })
-            }
-        }
-    },
-    {
-        method: 'POST',
-        path: '/api/modUser',
-        options: {
-            handler: async (request, h) => {
-                try {
-                    let updateUser = await User.findOneAndUpdate(request.payload.rut, request.payload, {
-                        new: true
-                      });
-        
-                    console.log("updat", updateUser); 
-                } catch (error) {
-                    console.log(error);
-
-                    return h.response({
-                        error: 'Ha ocurrido un error al eliminar el usuario, por favor recargue la página e intentelo nuevamente.'
-                    }).code(500);
-                }
-                
-            },
-            validate: {
-                payload: Joi.object().keys({
-                    rut: Joi.string().required(),
-                    name: Joi.string().required(),
-                    lastname: Joi.string().required(),
-                    password: Joi.string().required(),
-                    scope: Joi.string().required(),
-                    phone: Joi.string().required(),
-                    email: Joi.string().required()
+                    email: Joi.string().required(),
+                    mod: Joi.string().required()
                 })
             }
         }
