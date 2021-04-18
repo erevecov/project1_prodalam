@@ -153,7 +153,6 @@ function replaceAll(target, search, replacement) {
 function validateRut(userRut) {
   let rut = new Rut(userRut)
   return rut
-  
 }
 
 function cutText(text, length) {
@@ -168,6 +167,8 @@ function loadingHandler(status) {
   } else if (status === 'start') {
       loadingSelector.style.display = 'flex'
       loadingSelector.style.position = 'fixed'
+
+      console.log('START')
   } else {
       loadingSelector.style.display = 'none'
   }

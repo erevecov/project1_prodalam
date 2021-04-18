@@ -6,6 +6,7 @@ initProducts()
 
 async function initProducts() {
     loadingHandler('start')
+
     const queryString = window.location.href
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
@@ -102,6 +103,8 @@ async function initProducts() {
             handleModal(productData)
         })
     })
+
+    loadingHandler('stop')
 }
 
 const handleModal = (originalProductData) => {
