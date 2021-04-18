@@ -13,13 +13,13 @@ h4 {
 .card{
     border:none;
 }
-#products-up {
+#infos-up {
     color: var(--orange);
     display: flex;
     justify-content: center;
 }
 
-#products-down {
+#infos-down {
     color: var(--orange);
     display: flex;
     justify-content: center;
@@ -35,4 +35,8 @@ h4 {
 
 .col-md-6.map{
     margin-top: 20px;
+}
+
+.info-card {
+    margin-bottom: 30px;
 }

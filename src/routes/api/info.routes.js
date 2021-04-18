@@ -38,7 +38,7 @@ module.exports = [
 
                     const options = {
                         page: queryParams.page || 1,
-                        limit: queryParams.limit || 2,
+                        limit: queryParams.limit || 4,
                         collation: {
                             locale: 'en',
                         },
