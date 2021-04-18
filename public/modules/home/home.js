@@ -58,7 +58,7 @@ const handleModal = () => {
                 </div>
 
                 <div class="col-8 product-img-container">
-                    <img src="/public/products-imgs/76355_1.jpg" class="img-fluid" alt="Responsive image" width="300" height="300">
+                    <img src="/public/img/noimg.jpeg" class="img-fluid" alt="Responsive image" width="300" height="300">
                 </div>
 
                 <div class="col-2">

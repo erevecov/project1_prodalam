@@ -13,6 +13,17 @@ h4 {
 .card{
     border:none;
 }
+#products-up {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+
+#products-down {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
 
 .responsive-iframe {
     top: 0;

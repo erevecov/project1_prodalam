@@ -8,11 +8,16 @@ async function initProducts() {
     const queryString = window.location.href
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
+    const search = urlParams.searchParams.get('search')
 
     let productApiURL = 'api/productsPaginate'
 
     if (page) {
         productApiURL += `?page=${page}`
+    }
+
+    if (search) {
+        productApiURL += `&search=${search}`
     }
 
     let products = await axios.get(productApiURL)

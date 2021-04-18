@@ -39,6 +39,15 @@ module.exports = [
                 try {
                     let queryParams = request.query
 
+                    console.log(queryParams)
+
+                    let query = {}
+
+                    if (queryParams.search) {
+
+                    }
+
+
                     const options = {
                         page: queryParams.page || 1,
                         limit: queryParams.limit || 6,
@@ -47,7 +56,7 @@ module.exports = [
                         },
                     }
 
-                    let result = await Product.paginate({}, options)
+                    let result = await Product.paginate(query, options)
 
                     return result
                 } catch (error) {

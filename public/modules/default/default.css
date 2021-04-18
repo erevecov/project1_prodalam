@@ -25,11 +25,82 @@
     --orange: #dc952f;
     --grey1: grey;
 }
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px;
+}
+.copyright{
+    font-family: SFProDisplay-Light;
+}
+.icon{
+    color: var(--orange);
+    display: inline-flex;
+    justify-items: center;
+}
+.labelFooter1 {
+    color: #616161;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+.labelFooter2 {
+    color: #616161;
+    display: flex;
+    justify-content: center;
+}
+footer {
+    display: block;
+    background-color: #e3e3e3;
+    padding-top: 10px;
+}
+@media (min-width: 768px){
+    .col-md-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+.fa-facebook-square:before {
+    content: "\f082";
+    margin-right: 15px;
+}
 
+.fa-instagram-square:before {
+    content: "\e055";
+    margin-right: 15px;
+}
+.fa-twitter-square:before {
+    content: "\f081";
+    margin-right: 15px;
+}
+.fa-linkedin:before {
+    content: "\f08c";
+}
+.text-center-footer {
+    text-align: center!important;
+    background-color: #005EB8;
+    color: white;
+    font-family: 'SFProDisplay-Light';
+    font-size: 12px;
+}
 body {
     font-family: SFProDisplay-Bold !important;
 }
-
+@media (min-width: 768px) {
+    .col-md-12.social {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: xx-large;
+    }
+}
 .backToTop {
     width: 100%;
     background-color: var(--blue);
@@ -105,13 +176,3 @@ body {
 #navbar-search-input {
     border-radius: 50px;
 }
-
-
-/* .backToTop:hover {
-    color:#dc952f;
-} */
-/* .container-fluid{
-    font-family: SFProDisplay;
-    padding-bottom: 20px;
-    background-color: #005EB8;
-} */

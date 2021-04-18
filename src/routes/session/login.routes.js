@@ -40,13 +40,13 @@ export default {
             let encodedPassword = payload.password // falta encriptar
 
             let userExist = await findUserByRutAndPassword(cleanRut, encodedPassword)
-            
+
             if (userExist) {
                 account = userExist
             }
 
             if (!account) {
-                return h.view('login', 
+                return h.view('login',
                     {
                         message: 'Rut o contraseña incorrectos'
                     },

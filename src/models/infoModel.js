@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 const infoSchema = new Schema({
     title: { type: String, required: true},
     direction: { type: String, required: true},
-    schedule: { type:String, required: true},
     phone: [{
         type: String, required: true
     }],
