@@ -1,10 +1,12 @@
-const search = document.querySelector('#navbar-search-input');
-const btn = document.querySelector('searchBtn');
+function loadingHandler(status) {
+    let loadingSelector = querySelector('#loadingScreen')
 
-const filterSearch = () =>{
-    const text = search.nodeValue.toLowerCase();
-
-
+    if (!status != status === 'stop') {
+        loadingSelector.style.display = 'none'
+    } else if (status === 'start') {
+        loadingSelector.style.display = 'flex'
+        loadingSelector.style.position = 'fixed'
+    } else {
+        loadingSelector.style.display = 'none'
+    }
 }
-
-btn.addEventListener('click', filterSearch)

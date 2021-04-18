@@ -157,3 +157,9 @@ input {
     border: 50px !important;
     text-align: center;
 }
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}

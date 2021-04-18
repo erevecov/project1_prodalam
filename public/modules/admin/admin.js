@@ -99,7 +99,9 @@ async function initProductsTable() {
 
 
 async function loadDataToProductsTable() {
+loadingHandler('start')
     try {
+        
         let result = await axios.get('api/products')
 
         let productsData = result.data
@@ -111,11 +113,10 @@ async function loadDataToProductsTable() {
         })
 
         internals.tables.products.datatable.clear().draw()
-
         internals.tables.products.datatable.rows.add(productsData).draw()
     } catch (error) {
         console.log(error)
-
+        loadingHandler('stop')
         internals.tables.products.datatable.clear().draw()
     }
 

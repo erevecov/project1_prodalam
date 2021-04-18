@@ -5,6 +5,9 @@ let internals = {
 initInfos()
 
 async function initInfos() {
+
+    loadingHandler('start')
+
     const queryString = window.location.href
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
@@ -75,4 +78,6 @@ async function initInfos() {
 
         return acc
     }, '')
+
+    loadingHandler('stop')
 }
