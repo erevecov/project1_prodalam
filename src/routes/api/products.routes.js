@@ -39,14 +39,29 @@ module.exports = [
                 try {
                     let queryParams = request.query
 
-                    console.log(queryParams)
-
                     let query = {}
 
                     if (queryParams.search) {
-
+                        query = {
+                            $or: [
+                                {
+                                    sku: {
+                                        $regex: new RegExp(queryParams.search, 'i')
+                                    }
+                                },
+                                {
+                                    info: {
+                                        $elemMatch: {
+                                            attributeId: 25,
+                                            data: {
+                                                $regex: new RegExp(queryParams.search, 'i')
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
-
 
                     const options = {
                         page: queryParams.page || 1,

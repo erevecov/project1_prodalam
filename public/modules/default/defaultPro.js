@@ -14,11 +14,17 @@ async function initProducts() {
 
     if (page) {
         productApiURL += `?page=${page}`
+
+        if (search) {
+            productApiURL += `&search=${search}`
+        }
+    } else {
+        if (search) {
+            productApiURL += `?search=${search}`
+        }
     }
 
-    if (search) {
-        productApiURL += `&search=${search}`
-    }
+    console.log(productApiURL)
 
     let products = await axios.get(productApiURL)
 
@@ -30,11 +36,23 @@ async function initProducts() {
     let productsDownSelector = document.querySelector('#products-down')
 
     if (products.data.prevPage) {
-        productsUpSelector.setAttribute('href', `?page=${products.data.prevPage}`)
+        let prevPageURL = `?page=${products.data.prevPage}`
+
+        if (search) {
+            prevPageURL += `&search=${search}`
+        }
+
+        productsUpSelector.setAttribute('href', prevPageURL)
     }
 
     if (products.data.nextPage) {
-        productsDownSelector.setAttribute('href', `?page=${products.data.nextPage}`)
+        let nextPageURL = `?page=${products.data.nextPage}`
+
+        if (search) {
+            nextPageURL += `&search=${search}`
+        }
+
+        productsDownSelector.setAttribute('href', nextPageURL)
     }
 
     document.querySelector('#product-it-container').innerHTML = products.data.docs.reduce((acc,el,i)=> {
