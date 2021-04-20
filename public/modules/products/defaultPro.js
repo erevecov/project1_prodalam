@@ -82,11 +82,11 @@ async function initProducts() {
             <div class="product-item">
                 <div class="row">
                     <div class="col-7">
-                        <h2>${cutText(productData.title, 30)}</h2>
+                        <h2>${cutText(productData.title, 22)}</h2>
 
                         <h5>SKU: ${productData.sku}</h5>
 
-                        <p class="text-product">${cutText(productData.description, 150)}</p>
+                        <p class="text-product">${cutText(productData.description, 70)}</p>
 
                         <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
                     </div>
@@ -137,7 +137,7 @@ const handleModal = (originalProductData) => {
 	modalSelector.body.innerHTML=`
     <div class="product-modal">
         <div class="row">
-            <div class="col-md-6 uno">
+            <div class="col-lg-6 uno">
                 <h2>${productData.title}</h2>
 
                 <h5>SKU: ${productData.sku}</h5>
@@ -156,20 +156,20 @@ const handleModal = (originalProductData) => {
                 <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-lg-6 dos">
                 <div class="row">
 
-                <div class="col-2">
+                <div class="col-lg-3 flecha">
                     <a id="categories-left" href="#">
                         <i class="fas fa-chevron-left fa-2x"></i>
                     </a>
                 </div>
 
-                <div class="col-8 product-img-container">
+                <div class="col-lg-6 product-img-container">
                     <img src="${productData.img}" alt="">
                 </div>
 
-                <div class="col-2">
+                <div class="col-lg-3 flecha">
                     <a id="categories-right" href="#">
                         <i class="fas fa-chevron-right fa-2x"></i>
                     </a>

@@ -106,7 +106,7 @@ span{
     justify-content: space-between;
     align-items:center;
 }
-.product-modal .col-md-6.uno{
+.product-modal .col-lg-6.uno{
     font-family: SFProDisplay-Medium;
     width: 100%;
     min-height: 200px;
@@ -146,8 +146,8 @@ span{
     font-size: inherit;
 }
 .product-item {
-    width: 100%;
-    min-height: 200px;
+    width: 100% !important;
+    min-height: 200px !important;
     border-radius: 30px;
     background-color: #E3E3E3;
     padding-bottom: 20px;
@@ -185,7 +185,7 @@ span{
 }
 
 .product-img-container img {
-    height: 300px;
+    height: 200px;
 }
 
 .product-item img {

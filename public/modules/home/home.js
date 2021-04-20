@@ -30,7 +30,7 @@ const handleModal = () => {
 	modalSelector.body.innerHTML=`
     <div class="product-modal">
         <div class="row">
-            <div class="col-md-6 uno">
+            <div class="col-lg-6 uno">
                 <h2>Grapadora Manual Bostitch PC4000 Cable para grapas de 6, 10 y 14mm Caja con 12un</h2>
 
                 <h5>SKU: 57651-CA</h5>
@@ -49,7 +49,7 @@ const handleModal = () => {
                 <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-lg-6 dos">
                 <div class="row">
 
                 <div class="col-2">
