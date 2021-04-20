@@ -1,10 +1,10 @@
-/* .product-modal {
+.product-modal {
     width: 100%;
     min-height: 200px;
     border-radius: 30px;
-    background-color: #444444;
+    background-color: #FFFFFF;
     padding-bottom: 20px;
-} */
+}
 
 .btn-custom3 {
     color: var(--grey1);
@@ -87,12 +87,12 @@
     color: #444444;
 }
 
-/* .product-modal img {
+.product-modal img {
     width: 90%;
     height: 150px;
     border-radius: 30px;
     padding: 0;
-} */
+}
 
 #categories-left {
     color: var(--orange);
@@ -239,4 +239,9 @@
 .card-body-custom img {
     border-radius: 0px !important;
     margin-bottom: 5px;
+}
+
+.infoItem {
+    background: #E3E3E3 !important;
+    border: none;
 }

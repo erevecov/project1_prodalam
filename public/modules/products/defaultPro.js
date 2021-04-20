@@ -30,7 +30,7 @@ async function initProducts() {
 
     let products = await axios.get(productApiURL)
 
-    console.log(products)
+    console.log('products', products)
 
     internals.products = products.data.docs
 
@@ -167,7 +167,11 @@ const handleModal = (originalProductData) => {
 
                 <p class="textDescription">${productData.description}</p>
 
-                <div class="row" id="product-info-container"></div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody id="product-info-container"></tbody>
+                    </table>
+                </div>
 
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
@@ -270,15 +274,27 @@ const handleModal = (originalProductData) => {
     </div>
 	`
 
-    document.querySelector('#product-info-container').innerHTML = el.info.reduce((acc,el,i)=> {
+    let productInfo = ''
 
+    console.log(el)
 
-        acc += `
-        <h5>${Object.keys(el)}: ${Object.values(el)}</h5>&nbsp
-        `
+    Object.keys(el.info[0]).forEach(elInfoKey=> {
+        // console.log(el.info[0][elInfoKey])
+        console.log(elInfoKey)
 
-        return acc
-    }, '')
+        if (elInfoKey === 'imagen') {
+        } else if (elInfoKey === 'titulosap') {
+        } else {
+            productInfo += `
+                <tr>
+                    <td>${elInfoKey}:</td>
+                    <td>${el.info[0][elInfoKey]}</td>
+                </tr>
+            `
+        }
+    })
+
+    document.querySelector('#product-info-container').innerHTML = productInfo
 
 
     $('#modal').modal('show')
