@@ -19,11 +19,15 @@ const removeExtraSpaces = (val) => {
   return val.replace(/\s+/g, ' ').trim()
 }
 function removeSpecials(data) {
-  data = data.replace(/[^a-zA-Záéíóúñ]/g, '');
+  data = data.replace(/[^a-zA-ZáéíóúñÑ]/g, '');
   data = data.replace(/\s/g,'')
   data = data.replace(/-/g,'')
   return data
 };
+function removeAccents(data) {
+  data = data.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  return data
+}
 const isEmail = email => {
   let regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
   return regexEmail.test(email)
