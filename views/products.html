@@ -1,8 +1,7 @@
 {{!< layout/default}}
 
 {{#extend "css"}}
-<link rel="stylesheet" type="text/css" href="/public/modules/products/products.css">
-<link rel="stylesheet" type="text/css" href="/public/modules/default/defaultPro.css">
+<link rel="stylesheet" type="text/css" href="/public/modules/products/defaultPro.css">
 {{/extend}}
 
 
@@ -14,10 +13,11 @@
             <a id="products-up" href="#">
                 <i class="fas fa-chevron-up fa-2x"></i>
             </a>
+            <a href="" id="numPage0"><span>#</span></a>
 
             <div class="row" id="product-it-container"> <!--  AQUI ITERAR  -->
             </div>
-
+            <a href="" id="numPage"><span>#</span></a>
             <a id="products-down" href="#">
                 <i class="fas fa-chevron-down fa-2x"></i>
             </a>
@@ -42,5 +42,5 @@
     </div>
 </div>
 {{#extend "js"}}
-<script src="/public/modules/default/defaultPro.js"></script>
+<script src="/public/modules/products/defaultPro.js"></script>
 {{/extend}}

@@ -24,7 +24,16 @@ h4 {
     display: flex;
     justify-content: center;
 }
-
+#numPage{
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+#numPage0{
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
 .responsive-iframe {
     top: 0;
     left: 0;

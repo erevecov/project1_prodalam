@@ -85,6 +85,15 @@ footer {
         padding-bottom: 5px;
     }
 }
+.col-md-12.social{
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
 .fa-facebook-square:before {
     content: "\f082";
     margin-right: 15px;

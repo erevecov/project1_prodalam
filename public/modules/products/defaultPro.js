@@ -36,7 +36,14 @@ async function initProducts() {
 
     let productsUpSelector = document.querySelector('#products-up')
     let productsDownSelector = document.querySelector('#products-down')
+    let infonumPage = document.querySelector('#numPage')
+    let infonumPage0 = document.querySelector('#numPage0')
 
+
+    if (products.data.page) {
+        infonumPage.innerHTML= products.data.page
+        infonumPage0.innerHTML= products.data.page
+    }
     if (products.data.prevPage) {
         let prevPageURL = `?page=${products.data.prevPage}`
 
@@ -108,7 +115,6 @@ async function initProducts() {
 }
 
 const handleModal = (originalProductData) => {
-
     let findProductTitle = originalProductData.info.find(elProductAttribute=> elProductAttribute.attributeId === 25)
     let findProductDescription = originalProductData.info.find(elProductAttribute=> elProductAttribute.attributeId === 7)
     let findProductImg = originalProductData.info.find(elProductAttribute=> elProductAttribute.attributeId === 5)
@@ -139,14 +145,15 @@ const handleModal = (originalProductData) => {
                 <p class="textDescription">${productData.description}</p>
 
                 <h5>Ancho de la grapa: 11mm</h5>
-                
+
                 <h5>Largo de la grapa: 6,10 y 14mm</h5>
-                
+
                 <h5>Tipo: Manual</h5>
 
-                <h5>Para mayor información contacta a tu ejecutivo.</h5>
-                
-                <a target="_blank" href="/info" class="btn btn-custom contactBtn">Contacto</a>
+                <h5><span>Para mayor información contacta a tu ejecutivo.<span></h5>
+
+                <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
+                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
             </div>
 
             <div class="col-md-6">
@@ -159,7 +166,7 @@ const handleModal = (originalProductData) => {
                 </div>
 
                 <div class="col-8 product-img-container">
-                    <img src="${productData.img}" alt="Responsive image">
+                    <img src="${productData.img}" alt="">
                 </div>
 
                 <div class="col-2">
@@ -170,81 +177,78 @@ const handleModal = (originalProductData) => {
 
                 </div>
             </div>
-            
         </div>
     </div>
+
 
 
     <div class="container">
 
-    <h3 class="title1">Productos relacionados</h3>
+        <h3 class="title1">Productos relacionados</h3>
 
-    <div class="row" id="connected">
-        <div class="col-md-2"></div>
-        <div class="col-md-2">
-            <div class="card card-custom">
-                <!-- <button class="btn addToFavBtn"></button> -->
-                <div class="card-body card-body-custom">
-                    <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                    <p class="card-text card-product-title">Producto relacionado</p>
+        <div class="row" id="connected">
 
-                    <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-custom">Ver más</a>
+            <div class="col-lg-3">
+                <div class="card card-custom">
+                    <!-- <button class="btn addToFavBtn"></button> -->
+                    <div class="card-body card-body-custom">
+                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
+                        <p class="card-text card-product-title">Producto relacionado</p>
+
+                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-custom2">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card card-custom">
+                    <!-- <button class="btn addToFavBtn"></button> -->
+                    <div class="card-body card-body-custom">
+                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
+                        <p class="card-text card-product-title">Producto relacionado</p>
+
+                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-custom2">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card card-custom">
+                    <!-- <button class="btn addToFavBtn"></button> -->
+                    <div class="card-body card-body-custom">
+                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
+                        <p class="card-text card-product-title">Producto relacionado</p>
+
+                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-custom2">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card card-custom">
+                    <!-- <button class="btn addToFavBtn"></button> -->
+                    <div class="card-body card-body-custom">
+                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
+                        <p class="card-text card-product-title">Producto relacionado</p>
+
+                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-custom2">Ver más</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-2">
-            <div class="card card-custom">
-                <!-- <button class="btn addToFavBtn"></button> -->
-                <div class="card-body card-body-custom">
-                    <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                    <p class="card-text card-product-title">Producto relacionado</p>
-
-                    <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-custom">Ver más</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2">
-            <div class="card card-custom">
-                <!-- <button class="btn addToFavBtn"></button> -->
-                <div class="card-body card-body-custom">
-                    <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                    <p class="card-text card-product-title">Producto relacionado</p>
-
-                    <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-custom">Ver más</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2">
-            <div class="card card-custom">
-                <!-- <button class="btn addToFavBtn"></button> -->
-                <div class="card-body card-body-custom">
-                    <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                    <p class="card-text card-product-title">Producto relacionado</p>
-
-                    <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-custom">Ver más</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
     </div>
-</div>
-
-
 	`
 
     $('#modal').modal('show')

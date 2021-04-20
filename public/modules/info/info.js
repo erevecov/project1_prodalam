@@ -27,7 +27,15 @@ async function initInfos() {
 
     let infosUpSelector = document.querySelector('#infos-up')
     let infosDownSelector = document.querySelector('#infos-down')
+    let infonumPage = document.querySelector('#numPage')
+    let infonumPage0 = document.querySelector('#numPage0')
 
+    if (infos.data.page) {
+        infonumPage0.innerHTML= infos.data.page
+    }
+    if (infos.data.page) {
+        infonumPage.innerHTML= infos.data.page
+    }
     if (infos.data.prevPage) {
         infosUpSelector.setAttribute('href', `?page=${infos.data.prevPage}`)
     }
