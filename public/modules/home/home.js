@@ -43,7 +43,7 @@ const handleModal = () => {
 
                 <h5>Tipo: Manual</h5>
 
-                <h5><span>Para mayor información contacta a tu ejecutivo.<span></h5>
+                <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a href="/info" class="btn btn-custom3">Contacto</a>
                 <button class="btn addToFavBtn"><i class="far fa-star"></i></button>

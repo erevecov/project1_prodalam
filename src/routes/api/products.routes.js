@@ -50,13 +50,8 @@ module.exports = [
                                     }
                                 },
                                 {
-                                    info: {
-                                        $elemMatch: {
-                                            attributeId: 25,
-                                            data: {
-                                                $regex: new RegExp(queryParams.search, 'i')
-                                            }
-                                        }
+                                    title: {
+                                        $regex: new RegExp(queryParams.search, 'i')
                                     }
                                 }
                             ]

@@ -1,0 +1,26 @@
+#infos-up {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+
+#infos-down {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+#numPage{
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+#numPage0{
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+h2 {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+}
