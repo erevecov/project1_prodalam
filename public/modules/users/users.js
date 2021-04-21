@@ -99,42 +99,46 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
 });
 
 $('#optionDeleteUser').on('click', function() {
-    deleteUser(userRowSelectedData._id, userRowSelectedData.name)
+    deleteUser(userRowSelectedData._id, userRowSelectedData.name, userRowSelectedData.scope)
     
 })
 
-async function deleteUser(_id, name) {
-    let result = await Swal.fire({
-        title: `Eliminar usuario ${name}`,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        buttonsStyling: false,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        customClass: {
-            confirmButton: 'btn btn-danger',
-            cancelButton: 'btn btn-primary'
-        }
-    });
-
-    if (result.value) {
-        let delUser = await axios.delete(`api/users/${_id}`);
-
-        if (delUser.data.ok) {
-            $('#optionModUser').prop('disabled', true)
-            $('#optionDeleteUser').prop('disabled', true)
-            toastr.success(`Usuario "${name}" eliminado correctamente`);
-            datatableUsers
-            .row( userRowSelected )
-            .remove()
-            .draw()
-
-        } else {
-            toastr.success(`Ha ocurrido un error al intentar eliminar`);
+async function deleteUser(_id, name, rol) {
+    console.log("rol", rol);
+    if (rol !== "sadmin") {
+        let result = await Swal.fire({
+            title: `Eliminar usuario ${name}`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            buttonsStyling: false,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-primary'
+            }
+        });
+    
+        if (result.value) {
+            //let delUser = await axios.delete(`api/users/${_id}`);
+    
+            if (delUser.data.ok) {
+                $('#optionModUser').prop('disabled', true)
+                $('#optionDeleteUser').prop('disabled', true)
+                toastr.success(`Usuario "${name}" eliminado correctamente`);
+                datatableUsers
+                .row( userRowSelected )
+                .remove()
+                .draw()
+    
+            } else {
+                toastr.success(`Ha ocurrido un error al intentar eliminar`);
+            }
         }
     }
+    toastr.success(`Usuario "${name}" no puede ser eliminado`);
 
 }
 
@@ -181,10 +185,11 @@ function modNewUser(modUserData) {   //NEW AND MOD USER
 
         <div class="col-md-4" style="margin-top:10px;">
         Rol del usuario
-            <select id="newUserRole" class="custom-select">
+            <!--<select id="newUserRole" class="custom-select">
                 <option value="admin">Administrador</option>
                 <option value="sadmin">Super Administrador</option>
-            </select>
+            </select>-->
+            <input id="newUserRole" type="text" value="Administrador" class="form-control border-input" readOnly>
         </div>
 
         <div class="col-md-4" style="margin-top:10px;">
@@ -234,9 +239,10 @@ function modNewUser(modUserData) {   //NEW AND MOD USER
         $('#newUserLastname').val(modUserData.lastname);
 
         if (modUserData.scope == 'admin' || modUserData.scope == 'Administrador') {
-            $('#newUserRole').val('admin').trigger("change");
+            // $('#newUserRole').val('admin').trigger("change");
+            $('#newUserRole').val('Administrador');
         } else if (modUserData.scope == 'sadmin' || modUserData.scope == 'Super Administrador') {
-            $('#newUserRole').val('sadmin').trigger("change");
+            $('#newUserRole').val('Super Administrador');
         }
 
         $('#newUserPhone').val(modUserData.phone);
@@ -354,7 +360,7 @@ async function validateUserData(userData) {
     let errorMessage = ''
 
     // return new Promise(resolve=>{
-        // 6 puntos
+        // 5 puntos
 
         if(userData.rut.length >= 6 && isRut(userData.rut)) { // 1
             validationCounter++
@@ -381,13 +387,13 @@ async function validateUserData(userData) {
         }
 
 
-        if(userData.phone.length > 1) { // 5
-            validationCounter++
-            $('#newUserPhone').css('border', '1px solid #3498db')
-        } else {
-            errorMessage += `<br>Debe ingresar el teléfono del usuario`
-            $('#newUserPhone').css('border', '1px solid #e74c3c')
-        }
+        // if(userData.phone.length > 1) { // 5
+        //     validationCounter++
+        //     $('#newUserPhone').css('border', '1px solid #3498db')
+        // } else {
+        //     errorMessage += `<br>Debe ingresar el teléfono del usuario`
+        //     $('#newUserPhone').css('border', '1px solid #e74c3c')
+        // }
 
         if(isEmail(userData.email)) { // 6
             validationCounter++
@@ -412,18 +418,18 @@ async function validateUserData(userData) {
             }
 
         } else {
-            if(userData.password.length > 1) { // 4
+            if(userData.password.length > 5) { // 4
                 validationCounter++
                 $('#newUserPassword').css('border', '1px solid #3498db')
             } else {
-                errorMessage += `<br>Debe ingresar una contraseña`
+                errorMessage += `<br>Debe ingresar una contraseña valida de mas de 5 caracteres`
                 $('#newUserPassword').css('border', '1px solid #e74c3c')
             }
 
         }
 
         console.log('validation', validationCounter)
-        if(validationCounter == 6) {
+        if(validationCounter == 5) {
             $('#newUserErrorMessage').empty()
             return {ok: userData}
         } else {

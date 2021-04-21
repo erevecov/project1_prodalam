@@ -53,6 +53,11 @@ module.exports = [
                                     title: {
                                         $regex: new RegExp(queryParams.search, 'i')
                                     }
+                                },
+                                {
+                                    category: {
+                                        $regex: new RegExp(queryParams.search, 'i')
+                                    }
                                 }
                             ]
                         }

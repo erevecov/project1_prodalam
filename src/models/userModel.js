@@ -9,7 +9,7 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true},
     scope: { type: String, required: true },
-    phone: { type: String, required: true },
+    phone: { type: String, default: ''},
     status: { type: String, required: true, default: 'enabled' }
 },{
     timestamps: true

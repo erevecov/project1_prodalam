@@ -43,7 +43,7 @@ async function initProductsTable() {
             { data: 'sku' },
             { data: 'title' },
             { data: 'category' },
-            { data: 'categoryFather' },
+            { data: 'subCategory' },
             { data: 'destacado' },
             { data: 'modificar' },
             { data: 'eliminar' }
@@ -107,6 +107,7 @@ loadingHandler('start')
         let productsData = result.data
 
         productsData.map(el => {
+            if (!el.subCategory) el.subCategory = '-'
             if (!el.destacado) el.destacado = '-'
             if (!el.modificar) el.modificar = '-'
             if (!el.eliminar) el.eliminar = '-'

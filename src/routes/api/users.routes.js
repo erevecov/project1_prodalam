@@ -22,6 +22,12 @@ module.exports = [
 
                     let userExist = await User.find(query)
 
+                    if (request.payload.scope == 'Super Administrador'){
+                        request.payload.scope = "sadmin"
+                    } else if (request.payload.scope == 'Administrador'){
+                        request.payload.scope = "admin"
+                    }
+
                     if (userExist[0]) {
                         if (request.payload.mod == 'yes') {
 
@@ -69,7 +75,7 @@ module.exports = [
                     lastname: Joi.string().required(),
                     password: Joi.string().allow(null, ''),
                     scope: Joi.string().required(),
-                    phone: Joi.string().required(),
+                    phone: Joi.string().allow(null, ''),
                     email: Joi.string().required(),
                     mod: Joi.string().required()
                 })
