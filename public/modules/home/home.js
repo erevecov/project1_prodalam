@@ -1,14 +1,143 @@
+let internals = {
+    stars: []
+}
 
+initProducts()
 
-Array.from(document.querySelectorAll('.card-custom')).forEach(el=> {
-    el.addEventListener('mouseover', function() {
-        this.style.border = '1px solid #7f8c8d'
-    })
-
-    el.addEventListener('mouseout', function() {
-        this.style.border = 'none'
+Array.from(querySelectorAll('.viewMore')).forEach(el => {
+    el.addEventListener('click', () => {
+        handleModal()
     })
 })
+
+async function initProducts() {
+    loadingHandler('start')
+
+    const queryString = window.location.href
+    const urlParams = new URL(queryString)
+    const page = urlParams.searchParams.get('page')
+    const search = urlParams.searchParams.get('search')
+
+    let starApiURL = 'api/productsStar'
+
+    if (page) {
+        starApiURL += `?page=${page}`
+
+        if (search) {
+            starApiURL += `&search=${search}`
+        }
+    } else {
+        if (search) {
+            starApiURL += `?search=${search}`
+        }
+    }
+
+    console.log(starApiURL)
+
+    let stars = await axios.get(starApiURL)
+
+    console.log('products', stars)
+
+    internals.stars = stars.data
+
+    // let productsUpSelector = document.querySelector('#products-up')
+    // let productsDownSelector = document.querySelector('#products-down')
+    // let infonumPage = document.querySelector('#numPage')
+    // let infonumPage0 = document.querySelector('#numPage0')
+
+
+    // if (products.data.page) {
+    //     infonumPage.innerHTML= products.data.page
+    //     infonumPage0.innerHTML= products.data.page
+    // }
+    // if (products.data.prevPage) {
+    //     let prevPageURL = `?page=${products.data.prevPage}`
+
+    //     if (search) {
+    //         prevPageURL += `&search=${search}`
+    //     }
+
+    //     productsUpSelector.setAttribute('href', prevPageURL)
+    // }
+
+    // if (products.data.nextPage) {
+    //     let nextPageURL = `?page=${products.data.nextPage}`
+
+    //     if (search) {
+    //         nextPageURL += `&search=${search}`
+    //     }
+
+    //     productsDownSelector.setAttribute('href', nextPageURL)
+    // }
+
+    document.querySelector('#featuredProducts').innerHTML = stars.data.reduce((acc,el,i)=> {
+
+        let findProductImg
+
+        el.info.forEach(a => {
+            if (a.name == "Imagen") {
+                findProductImg = a.data
+            }
+        });
+
+        let findProductTitle = el.title
+        let findProductDescription = el.description
+        let findProductInfo = el.info
+
+
+        let productData = {
+            _id: el._id,
+            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+            sku: el.sku,
+            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
+            info: (findProductInfo)
+        }
+
+        acc += `
+        <div class="col-md-3 destacados">
+            <div class="card card-custom">
+                <!-- <button class="btn addToFavBtn"></button> -->
+                <div class="card-body card-body-custom">
+                    <img src="${productData.img}" alt="" class="card-img-top" alt="producto">
+                    <p class="card-text card-product-title">Destacado de la semana</p>
+
+                    <p class="card-product-description">${cutText(productData.description, 50)}</p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-custom viewMore">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        
+        `
+
+        return acc
+    }, '')
+
+    Array.from(querySelectorAll('.viewMore')).forEach(el => {
+        el.addEventListener('click', () => {
+
+            let productData = internals.stars.find(elProduct=>elProduct._id === el.dataset.productid)
+
+            handleModal(productData)
+        })
+    })
+
+    loadingHandler('stop')
+}
+
+// Array.from(document.querySelectorAll('.card-custom')).forEach(el=> {
+//     // el.addEventListener('mouseover', function() {
+//     //     this.style.border = '1px solid #7f8c8d'
+//     // })
+
+//     el.addEventListener('mouseout', function() {
+//         this.style.border = 'none'
+//     })
+// })
+
 
 
 // const handleModal = () => {

@@ -60,6 +60,16 @@
     color: var(--orange);
     display: inline-flex;
     justify-items: center;
+    border: none;
+    border-bottom: none;
+}
+.icon:hover{
+    color: var(--orange);
+    display: inline-flex;
+    justify-items: center;
+    border: none;
+    border-bottom: none;
+    text-decoration: none;
 }
 .labelFooter1 {
     color: #616161;
@@ -74,7 +84,7 @@
 }
 footer {
     display: block;
-    background-color: #e3e3e3;
+    background-color: #f8f8f8;
     padding-top: 10px;
 }
 @media (min-width: 768px){
@@ -95,6 +105,7 @@ footer {
     justify-content: center;
     padding: 10px;
 }
+
 .fa-facebook-square:before {
     content: "\f082";
     margin-right: 15px;
@@ -185,7 +196,6 @@ body {
 }
 
 .navbar .nav-item:hover {
-    font-family: SFProDisplay-Bold !important;
     border-bottom: 5px solid white;
 }
 

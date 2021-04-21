@@ -23,8 +23,8 @@ p{
     display: flex;
     justify-content: flex-start;
 }
-a{
-    font-family: SFProDisplay-Semibold;
+a.btn{
+    font-family: SFProDisplay-Light;
 }
 h5{
     display: flex;
@@ -43,8 +43,12 @@ h5{
 .btn-custom {
     color: var(--grey1);
     border: 1px solid var(--grey1);
-    border-radius: 50px;
-    font-size: 20px;
+    border-radius: 20px;
+    font-size: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .btn-custom2 {
@@ -74,15 +78,21 @@ h5{
 .card-body-custom {
     text-align: center !important;
     color: var(--grey1);
-    background-color: #ecf0f1;
+    background-color: #f8f8f8;
+    min-width: 150px;
+    min-height: 400px;
+    
 }
 
 .card-product-title {
     font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .card-product-description {
     font-family: SFProDisplay-Light;
+
 }
 
 .card-body-custom img {
@@ -215,18 +225,18 @@ h5{
     width: 100%;
     min-height: 200px;
     border-radius: 30px;
-    background-color: #e3e3e3;
+    background-color: #f8f8f8;
     padding-bottom: 20px;
     padding: 10px;
 }
 
-.col-md-3 {
+.col-md-3 .destacados {
     position: relative;
-    width: 100%;
     padding-right: 15px;
     padding-left: 15px;
     padding-bottom: 20px;
 }
+
 @media (min-width: 768px){
     .col-dos {
         flex: inherit;

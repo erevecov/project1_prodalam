@@ -111,7 +111,7 @@
     width: 100%;
     min-height: 200px;
     border-radius: 30px;
-    background-color: #e3e3e3;
+    background-color:#f8f8f8;
     padding-bottom: 20px;
     padding: 10px;
 }
@@ -225,7 +225,7 @@
 .card-body-custom {
     text-align: center !important;
     color: var(--grey1);
-    background-color: #ecf0f1;
+    background-color: #f8f8f8;
 }
 
 .card-product-title {
