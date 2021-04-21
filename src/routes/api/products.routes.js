@@ -107,6 +107,65 @@ module.exports = [
         }
     },
     {
+        method: 'GET',
+        path: '/api/productsStar',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let query = {
+                        $or: [
+                            {
+                                star: 'yes'
+                            }
+                        ]
+                    }
+
+                    let result = await Product.find(query).lean();
+
+                    return result;
+
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error al buscar Productos, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+            }
+        }
+    },
+    {
+        method: 'POST',
+        path: '/api/productsStar',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let filter = {sku: request.payload.sku }
+                    
+                    let update = { star: request.payload.star}
+
+                    let result = await Product.findOneAndUpdate(filter, update);
+                    return result;
+
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error al destacar producto, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+            }
+        }
+    },
+    {
         method: 'POST',
         path: '/api/uploadProducts',
         options: {

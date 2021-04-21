@@ -44,14 +44,19 @@ async function initProductsTable() {
             { data: 'title' },
             { data: 'category' },
             { data: 'subCategory' },
-            { data: 'destacado' },
+            { data: 'star' },
             { data: 'modificar' },
             { data: 'eliminar' }
         ],
 
         rowCallback: function (row, data, index) {
             //if(data.estadoPago == true) {
-            $(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="far fa-star"></i></button> </center> ')
+            if (data.star == 'yes') {
+                $(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="fas fa-star"></i></button> </center> ')
+            } else {
+                $(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="far fa-star"></i></button> </center> ')
+            
+            }
             $(row).find('td:eq(5)').html('<center> <button type="button" class="btn btn-secondary btn-sm modProduct"><i class="fas fa-edit"></i></button> </center> ')
             $(row).find('td:eq(6)').html('<center> <button type="button" class="btn btn-secondary btn-sm delProduct"><i class="fas fa-trash"></i></button> </center> ')
             // } else  {
@@ -63,10 +68,16 @@ async function initProductsTable() {
 
     loadDataToProductsTable()
 
-    $('#productsTable tbody').on('click', '.featureProduct', function () {
+    $('#productsTable tbody').on('click', '.featureProduct', async function () {
+        var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
+
         if (this.innerHTML.includes("fas")) {
+            data.star = 'no'
+            await axios.post('/api/productsStar', data)
             this.innerHTML = "<i class=\"far fa-star\"></i>"
         } else {
+            data.star = 'yes'
+            await axios.post('/api/productsStar', data)
             this.innerHTML = "<i class=\"fas fa-star\"></i>"
         }
     });
@@ -76,7 +87,7 @@ async function initProductsTable() {
         alert("Borrar: " + data.sku);
 
         internals.tables.products.datatable
-            .row(data)
+            .row($(this).parents('tr'))
             .remove()
             .draw()
     });
@@ -85,6 +96,14 @@ async function initProductsTable() {
         var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
         alert("Modificar: " + data.sku);
     });
+
+    $('#filterStar').on('change', function() {
+        if (this.checked) {
+            loadDataToProductsTable(this.checked)
+        } else {
+            loadDataToProductsTable()
+        }
+    })
 
     // $('#productsTable tbody').on('click', 'tr', function () {
     // 	internals.tables.products.rowSelected = internals.tables.products.datatable.row($(this).closest('tr'))
@@ -98,11 +117,15 @@ async function initProductsTable() {
 }
 
 
-async function loadDataToProductsTable() {
+async function loadDataToProductsTable(filter) {
 loadingHandler('start')
     try {
-        
-        let result = await axios.get('api/products')
+        let result
+        if (filter || $('#filterStar')[0].checked) {
+            result = await axios.get('api/productsStar')
+        } else {
+            result = await axios.get('api/products')
+        }
 
         let productsData = result.data
 
