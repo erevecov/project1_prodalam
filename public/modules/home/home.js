@@ -102,7 +102,10 @@ async function initProducts() {
                     <img src="${productData.img}" alt="" class="card-img-top" alt="producto">
                     <p class="card-text card-product-title">Destacado de la semana</p>
 
-                    <p class="card-product-description">${cutText(productData.description, 50)}</p>
+                    <p class="card-product-description">${cutText(productData.description, 100)}</p>
+                </div>
+
+                <div class="card-footer card-footer-custom">
                     <div class="d-grid gap-2">
                         <a class="btn btn-custom viewMore">Ver más</a>
                     </div>
@@ -110,7 +113,6 @@ async function initProducts() {
             </div>
             <br>
         </div>
-        
         `
 
         return acc
