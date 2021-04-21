@@ -66,15 +66,17 @@ async function initProducts() {
 
     document.querySelector('#product-it-container').innerHTML = products.data.docs.reduce((acc,el,i)=> {
 
-        // el.forEach(a => {
-        //     if (a.info.titulosap) {
-        //         delete a.info.titulosap
-        //     }
-        // });
+        let findProductImg
+
+        el.info.forEach(a => {
+            if (a.name == "Imagen") {
+                findProductImg = a.data
+            }
+        });
 
         let findProductTitle = el.title
         let findProductDescription = el.description
-        let findProductInfo = el.info[0]
+        let findProductInfo = el.info
 
 
         let productData = {
@@ -82,7 +84,7 @@ async function initProducts() {
             title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
             sku: el.sku,
             description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (el.info[0].imagen) ? el.info[0].imagen : '/public/img/noimg.jpeg',
+            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
             info: (findProductInfo)
         }
 
@@ -125,26 +127,27 @@ async function initProducts() {
 
 const handleModal = (originalProductData) => {
     let el = originalProductData
-    // el.forEach(a => {
-    //     if (a.info.titulosap) {
-    //         delete a.info.titulosap
-    //     }
-    // });
+    let findProductImg
 
-    let findProductTitle = el.title
-    let findProductDescription = el.description
-    let findProductImg = el.info[0].imagen
-    let findProductInfo = el.info[0]
+        el.info.forEach(a => {
+            if (a.name == "Imagen") {
+                findProductImg = a.data
+            }
+        });
 
+        let findProductTitle = el.title
+        let findProductDescription = el.description
+        let findProductInfo = el.info
 
-    let productData = {
-        _id: el._id,
-        title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
-        sku: el.sku,
-        description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-        img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
-        info: (findProductInfo)
-    }
+        let productData = {
+            _id: el._id,
+            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+            sku: el.sku,
+            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
+            info: (findProductInfo)
+        }
+
 
     console.log(productData,'aeaeaeaea');
 	const modalSelector = {
@@ -278,17 +281,17 @@ const handleModal = (originalProductData) => {
 
     console.log(el)
 
-    Object.keys(el.info[0]).forEach(elInfoKey=> {
+    el.info.forEach(elInfoKey=> {
         // console.log(el.info[0][elInfoKey])
-        console.log(elInfoKey)
+        console.log("a",elInfoKey)
 
-        if (elInfoKey === 'imagen') {
-        } else if (elInfoKey === 'titulosap') {
+        if (elInfoKey.name === 'Imagen') {
+        } else if (elInfoKey.name === 'Título SAP') {
         } else {
             productInfo += `
                 <tr>
-                    <td>${elInfoKey}:</td>
-                    <td>${el.info[0][elInfoKey]}</td>
+                    <td>${elInfoKey.name}:</td>
+                    <td>${elInfoKey.data}</td>
                 </tr>
             `
         }
