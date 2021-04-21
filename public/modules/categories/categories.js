@@ -1,3 +1,6 @@
+async function initProducts() {
+    loadingHandler('start')
+
 let categoryApiURL = 'api/category'
 
     if (page) {
@@ -30,3 +33,5 @@ let categoryApiURL = 'api/category'
     if (infos.data.page) {
         catNumPage.innerHTML= categorys.data.page
     }
+    loadingHandler('stop')
+}

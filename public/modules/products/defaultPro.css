@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 200px;
     border-radius: 30px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding-bottom: 20px;
 }
 
@@ -244,4 +244,11 @@
 .infoItem {
     background: #E3E3E3 !important;
     border: none;
+}
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-left: 15px;
 }
