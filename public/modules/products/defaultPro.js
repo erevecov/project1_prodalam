@@ -2,13 +2,13 @@
 const handleModal = (originalProductData) => {
     let el = originalProductData
     let findProductImg
-console.log(el,'ffff');
+
         el.info.forEach(a => {
             if (a.name == "Imagen") {
                 findProductImg = a.data
             }
         });
-        console.log(el,'aaa');
+
 
         let findProductTitle = el.title
         let findProductDescription = el.description
@@ -24,7 +24,7 @@ console.log(el,'ffff');
         }
 
 
-    console.log(productData,'aeaeaeaea');
+
 	const modalSelector = {
         title: document.querySelector('#modal_title'),
         body: document.querySelector('#modal_body'),
@@ -32,7 +32,6 @@ console.log(el,'ffff');
 
     }
 
-    console.log("prodadaaaa", productData);
 
 	modalSelector.title.innerHTML = productData.title
 	modalSelector.body.innerHTML=`
@@ -54,16 +53,14 @@ console.log(el,'ffff');
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i></button>
             </div>
 
             <div class="col-lg-6 dos">
                 <div class="row">
 
                 <div class="col-lg-3 flecha">
-                    <a id="categories-left" href="#">
-                        <i class="fas fa-chevron-left fa-2x"></i>
-                    </a>
+                    
                 </div>
 
                 <div class="col-lg-6 product-img-container">
@@ -71,9 +68,7 @@ console.log(el,'ffff');
                 </div>
 
                 <div class="col-lg-3 flecha">
-                    <a id="categories-right" href="#">
-                        <i class="fas fa-chevron-right fa-2x"></i>
-                    </a>
+                    
                 </div>
 
                 </div>
@@ -173,6 +168,37 @@ console.log(el,'ffff');
     })
 
     document.querySelector('#product-info-container').innerHTML = productInfo
+
+    
+
+
+
+    let favorites = JSON.parse(localStorage.getItem('favas')) || [];
+    // add class 'fav' to each favorite
+    console.log("favss", favorites);
+    // favorites.forEach(function (favorite) {
+    //     document.getElementById(favorite).className = 'favas';
+    // });
+    // register click event listener
+
+    if (favorites.includes(productData.sku)) {
+        console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
+        $('#picStar').html("<i class=\"fas fa-star\"></i>")
+    }
+
+
+    $('#picStar').on('click', function () {
+        let pic
+        console.log("asdsadsa", productData.sku);
+        if (this.innerHTML.includes("fas")) {
+            this.innerHTML = "<i class=\"far fa-star\"></i>"
+        } else {
+            favorites.push(productData.sku)
+            this.innerHTML = "<i class=\"fas fa-star\"></i>"
+            localStorage.setItem('favas', JSON.stringify(favorites))
+        }
+
+    });
 
 
     $('#modal').modal('show')

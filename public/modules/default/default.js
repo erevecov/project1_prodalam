@@ -11,8 +11,18 @@ function loadingHandler(status) {
     }
 }
 
-const storageStar = document.querySelector('.addToFavorite')
-const showStar = document.querySelector()
+
+
+// const storageStar = document.querySelector('.addToFavorite')
+// const showFav = document.querySelector('.listFav')
+
+// storageStar.addEventListener('button', fav=>{
+
+// })
+
+// const saveToLocalStorage = () => {
+//     localStorage.setItem('')
+// }
 
 
 // let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
