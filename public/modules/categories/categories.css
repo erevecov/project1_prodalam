@@ -5,7 +5,10 @@
 
 .category-item-container {
     width: 100%;
-    padding: 30px;
+    padding: initial;
+    padding-inline: 15px;
+    padding-bottom: 20px;
+    padding-top: 25px;
 }
 #numPage{
     color: var(--orange);
@@ -21,7 +24,6 @@
     width: 100%;
     height: 200px;
     border-radius: 30px;
-    /* background-image: url("/public/categories-imgs/soldador.jpeg"); */
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -31,6 +33,8 @@
     bottom: 30px;
     right: 40px;
     color: white;
+    text-align: right;
+    padding-left: 1px;
 }
 
 #categories-up {

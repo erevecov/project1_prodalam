@@ -45,6 +45,8 @@ async function initInfos() {
     }
 
     document.querySelector('#info-it-container').innerHTML = infos.data.docs.reduce((acc,el,i)=> {
+        
+        console.log(el.phone.split('/'));
         acc += `
         <div class="card col-md-12 info-card">
             <h4>${el.title}</h4>
@@ -53,27 +55,30 @@ async function initInfos() {
                     <div class="col-md-6">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                ${el.address}
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="dateInfo">${el.address}</span>
                             </li>
 
                             <li class="list-group-item">
                                 <i class="fa fa-phone fa-flip-horizontal" aria-hidden="true"></i>
-                                ${el.phone}
+                                <span id="dateInfo">${el.phone.split('/').reduce((accPhone,elPhone)=>{
+                                    accPhone += `<a href="tel:${elPhone}">  ${elPhone}</a>`
+                                    return accPhone
+                                }, '')}</span>
                             </li>
 
                             <li class="list-group-item">
                                 <i class="fas fa-user-tie"></i>
-                                ${el.in_charge}
+                                <span id="dateInfo">${el.in_charge}</span>
                             </li>
 
                             <li class="list-group-item">
-                                <a href="mailto:${el.email}">
-                                    <i class="fas fa-envelope"></i>
-                                    ¿Necesitas Ayuda?
-                                </a>
+                                <i class="fas fa-envelope"></i>
+                                <span id="dateInfo"><a style="text-decoration: none;"href="mailto:${el.email}">
+                                    ${el.email}
+                                    </a>
+                                </span>
                             </li>
-
                         </ul>
                     </div>
                     <div class="col-md-6 map">

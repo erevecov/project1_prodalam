@@ -1,6 +1,10 @@
 .list-group-item {
     background-color: #E3E3E3;
+    font-family: 'SFProDisplay-Light';
+    font-size: 14px;
+    text-decoration: none !important;
 }
+
 h4 {
     font-size: 1.5rem;
     padding-left: 5px;
@@ -17,22 +21,25 @@ h4 {
     color: var(--orange);
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
-
 #infos-down {
     color: var(--orange);
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 #numPage{
     color: var(--orange);
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 #numPage0{
     color: var(--orange);
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 .responsive-iframe {
     top: 0;
@@ -41,11 +48,33 @@ h4 {
     right: 0;
     width: 100%;
 }
-
 .col-md-6.map{
     margin-top: 20px;
 }
-
 .info-card {
     margin-bottom: 30px;
+}
+.fa-map-marker-alt:before {
+    content: "\f3c5";
+    opacity: .4;
+    padding-right: 20px;
+    font-size: 20px;
+}
+.fa-phone:before {
+    content: "\f095";
+    opacity: .4;
+    padding-left: 20px;
+    font-size: 20px;
+}
+.fa-user-tie:before {
+    content: "\f508";
+    opacity: .4;
+    padding-right: 20px;
+    font-size: 20px;
+}
+.fa-envelope:before {
+    content: "\f0e0";
+    padding-right: 20px;
+    font-size: 20px;
+    color: dodgerblue;
 }

@@ -22,8 +22,8 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 1rem;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 .col-2 {
     -ms-flex: 0 0 8.333333%;
@@ -99,12 +99,14 @@
     display: flex;
     justify-content: center;
     align-items:center;
+    text-decoration: none;
 }
 #categories-right {
     color: var(--orange);
     display: flex;
     justify-content: space-between;
     align-items:center;
+    text-decoration: none;
 }
 .product-modal .col-lg-6.uno{
     font-family: SFProDisplay-Medium;
@@ -197,20 +199,24 @@
 
 #products-up {
     color: var(--orange);
+    text-decoration: none;
 }
 
 #products-down {
     color: var(--orange);
+    text-decoration: none;
 }
 #numPage0{
     color: var(--orange);
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 #numPage{
     color: var(--orange);
     display: flex;
     justify-content: center;
+    text-decoration: none;
 }
 .product-item a {
     font-family: SFProDisplay-Semibold;
@@ -244,6 +250,15 @@
 .infoItem {
     background: #E3E3E3 !important;
     border: none;
+}
+
+.table td{
+    padding: .30rem;
+    vertical-align: top;
+    border-top: none;
+    color: #828281;
+    font-family: SFProDisplay-Light;
+    /* border-top: 1px solid #dee2e6; */
 }
 .table-responsive {
     display: block;

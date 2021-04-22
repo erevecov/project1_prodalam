@@ -169,10 +169,6 @@ const handleModal = (originalProductData) => {
 
     document.querySelector('#product-info-container').innerHTML = productInfo
 
-    
-
-
-
     let favorites = JSON.parse(localStorage.getItem('favas')) || [];
     // add class 'fav' to each favorite
     // --------------------console.log("favss", favorites);

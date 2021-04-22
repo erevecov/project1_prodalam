@@ -87,8 +87,16 @@ h5{
 .card-footer-custom {
     text-align: center;
     border: none;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
-
+/* @media (min-width: 768px){
+    .card-footer-custom {
+        text-align: center;
+        border: none;
+        padding-top: 100px;
+    }
+} */
 .card-product-title {
     font-weight: bold;
     display: flex;
@@ -97,12 +105,18 @@ h5{
 
 .card-product-description {
     font-family: SFProDisplay-Light;
-
+    max-width: 300px;
+    max-height: 300px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
 }
 
 .card-body-custom img {
     border-radius: 0px !important;
     margin-bottom: 5px;
+    max-height: 300px;
+    max-width: 300px;
 }
 
 .title1 {

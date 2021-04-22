@@ -27,6 +27,7 @@ document.querySelector('#nuevaCargaBtn').addEventListener('click', () => {
 })
 
 async function initProductsTable() {
+    loadingHandler('start')
     await $.when(internals.tables.products.datatable = $('#productsTable').DataTable({
         language: {
             url: spanishDataTableLang
@@ -55,7 +56,7 @@ async function initProductsTable() {
                 $(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="fas fa-star"></i></button> </center> ')
             } else {
                 $(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm featureProduct"><i class="far fa-star"></i></button> </center> ')
-            
+
             }
             $(row).find('td:eq(5)').html('<center> <button type="button" class="btn btn-secondary btn-sm modProduct"><i class="fas fa-edit"></i></button> </center> ')
             $(row).find('td:eq(6)').html('<center> <button type="button" class="btn btn-secondary btn-sm delProduct"><i class="fas fa-trash"></i></button> </center> ')
@@ -84,7 +85,7 @@ async function initProductsTable() {
 
     $('#productsTable tbody').on('click', '.delProduct', function () {
         var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
-        alert("Borrar: " + data.sku);
+        // alert("Borrar: " + data.sku);
 
         internals.tables.products.datatable
             .row($(this).parents('tr'))
@@ -94,10 +95,11 @@ async function initProductsTable() {
 
     $('#productsTable tbody').on('click', '.modProduct', function () {
         var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
-        alert("Modificar: " + data.sku);
+        // alert("Modificar: " + data.sku);
+        initMod()
     });
 
-    $('#filterStar').on('change', function() {
+    $('#filterStar').on('change', function () {
         if (this.checked) {
             loadDataToProductsTable(this.checked)
         } else {
@@ -105,6 +107,77 @@ async function initProductsTable() {
         }
     })
 
+    const initMod = () => {
+        const modalMod = {
+            title: document.querySelector('#modal_title'),
+            body: document.querySelector('#modal_body'),
+            footer: document.querySelector('#modal_footer'),
+        }
+
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2({
+                width: 'resolve'
+            });
+        });
+
+        modalMod.title.innerHTML = `
+            Modificar producto SKU:
+        `
+        modalMod.body.innerHTML = `
+        <div class="row">
+            <div class="col-md-6" style="margin-top:10px;">
+            Título</div>
+            <div class="col-md-6" style="margin-top:10px;">
+            Descripción</div>
+            
+
+            <div class="col-md-6" style="margin-top:10px;">
+                <input id="modTitulo" type="text" placeholder="Producto 1" class="form-control border-input">
+            </div>
+            
+            <div class="col-md-6" style="margin-top:10px;">
+                <input id="modDesc" type="text" placeholder="Descripción" class="form-control border-input">
+            </div>
+
+            <div class="col-md-12" style="margin-top:10px;">
+            Categoría</div>
+            <div class="col-md-12" style="margin-top:10px;">
+                <select class="js-example-basic-single" name="state">
+                    <option value="admin">Accesorios Agrícolas</option>
+                    
+                    <option value="sadmin">Aceros y Metalurgia</option>
+                    
+                    <option value="sadmin">Alambres Cercos y Mallas</option>
+                   
+                    <option value="sadmin">Cabos y Cadenas</option>
+                   
+                    <option value="sadmin">Clavos y Fijaciones</option>
+                    
+                    <option value="sadmin">Construcción y Terminaciones</option>
+                    
+                    <option value="sadmin">Contención y Fortificación</option>
+                    
+                    <option value="sadmin">Hidráulica y Accesorios</option>
+                    
+                    <option value="sadmin">Seguridad Electrónica y Automatización</option>
+                </select>
+            </div>
+            <div class="col-md-12" style="margin-top:10px;"><br><br><br><br></div>
+
+        </div>
+            `
+        modalMod.footer.innerHTML = `
+        <button class="btn btn-dark" data-dismiss="modal">
+        <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
+        </button>
+    
+        <button class="btn btn-dark" id="saveUser">
+        <i style="color:#3498db;" class="fas fa-check"></i> Guardar
+        </button>
+        `
+
+        $('#modal').modal('show')
+    }
     // $('#productsTable tbody').on('click', 'tr', function () {
     // 	internals.tables.products.rowSelected = internals.tables.products.datatable.row($(this).closest('tr'))
 
@@ -114,11 +187,12 @@ async function initProductsTable() {
     // 		handleProduct(selectedProductData)
     // 	}
     // })
+    loadingHandler('stop')
 }
 
 
 async function loadDataToProductsTable(filter) {
-loadingHandler('start')
+    loadingHandler('start')
     try {
         let result
         if (filter || $('#filterStar')[0].checked) {
@@ -138,12 +212,13 @@ loadingHandler('start')
 
         internals.tables.products.datatable.clear().draw()
         internals.tables.products.datatable.rows.add(productsData).draw()
+        
     } catch (error) {
         console.log(error)
-        loadingHandler('stop')
+
         internals.tables.products.datatable.clear().draw()
     }
-
+    loadingHandler('stop')
 }
 
 const handleModal = () => {
@@ -157,8 +232,13 @@ const handleModal = () => {
 		Nueva carga de productos
 	`
     modalSelector.body.innerHTML = `
-		<input type="file" id="excelFile" accept=".xlsx"/>
-	`
+    <br>
+    <br>
+    	<input type="file" id="excelFile" accept=".xlsx"/>
+    <br>
+    <br><br>
+    <br>
+    `
     modalSelector.footer.innerHTML = `
     <button class="btn btn-dark" data-dismiss="modal">
     <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
@@ -179,97 +259,3 @@ const handleModal = () => {
     });
 
 }
-
-// async function apiTes(excelFile) {
-//     // read from a file
-//     // var workbook = new Excel.Workbook();
-//     workbook.xlsx.readFile(excelFile)
-//         .then(async function () {
-//             console.log("rows", workbook._worksheets[1]._rows[1]._cells[3]._value.model.value)
-//             let arraydata = []
-
-
-//             let data = workbook._worksheets[1]._rows
-
-//             // data.forEach((ed, i) => {
-//             //     if (i !== 0) {
-//             //         let objData = {}
-//             //         ed._cells.forEach((el, p) => {
-
-//             //             if (p == 1) objData.id = el._value.model.value
-//             //             if (p == 2) objData.productId = el._value.model.value
-//             //             if (p == 3) objData.sku = el._value.model.value
-//             //             if (p == 4) objData.attributeId = el._value.model.value
-//             //             if (p == 5) objData.attributeLabel = el._value.model.value
-//             //             if (p == 10) objData.data = el._value.model.value
-//             //             //if (p==11) objData.position = el._value.model.value
-//             //             if (p == 12) objData.createdAt = el._value.model.value
-//             //             if (p == 13) {
-//             //                 objData.updatedAt = el._value.model.value
-//             //                 arraydata.push(objData)
-//             //             }
-//             //         })
-//             //     }
-//             // });
-
-//             //     // //separar datos
-//             //     var indices = [];
-//             //     let skuList = []
-
-//             //     arraydata.forEach((el) => {
-//             //         if (!skuList.includes(el.sku)) {
-//             //             skuList.push(el.sku)
-//             //         }
-//             //     })
-
-//             //     skuList.forEach((ed) => {
-//             //         let aux = []
-//             //         arraydata.forEach((el, i) => {
-//             //             if (el.sku == ed) {
-//             //                 aux.push(el)
-//             //             }
-//             //             if (i == arraydata.length - 1) {
-//             //                 let aux2 = {}
-
-//             //                 aux2.sku = aux[0].sku
-//             //                 aux2.productId = aux[0].productId
-//             //                 //aux2._id = moment.tz('America/Santiago').format('YYYY-MM-DDTHH:mm:ss.SSSSS');
-//             //                 aux2.info = []
-
-//             //                 aux.forEach((ep) => {
-//             //                     let aux3 = {}
-//             //                     aux3.id = ep.id
-//             //                     //aux3.productId = ep.productId
-//             //                     aux3.attributeId = ep.attributeId
-//             //                     aux3.attributeLabel = ep.attributeLabel
-//             //                     aux3.data = ep.data
-
-//             //                     aux2.info.push(aux3)
-//             //                 })
-
-//             //                 indices.push(aux2)
-//             //             }
-//             //         })
-//             //     })
-
-//             //     // try {
-//             //     //     let res = await Product.insertMany(indices)
-//             //     //     console.log("indi", res)
-//             //     // } catch (error) {
-//             //     //     console.log("err", error)
-//             //     // }
-
-//         });
-
-// }
-
-
-// <div class="alert alert-dismissible alert-danger">
-//   <button type="button" class="close" data-dismiss="alert">&times;</button>
-//   <strong>Oh!</strong> <a href="#" class="alert-link">Algo salio mal</a> intentalo nuevamente.
-// </div>
-
-// <div class="alert alert-dismissible alert-success">
-//   <button type="button" class="close" data-dismiss="alert">&times;</button>
-//   <strong>Carga exitosa!</strong> <a href="#" class="alert-link"> La carga de datos se realizo con exito</a>.
-// </div>

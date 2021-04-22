@@ -100,7 +100,7 @@ $('#optionCreateUser').on('click', function() { // CREAR CLIENTE
 
 $('#optionDeleteUser').on('click', function() {
     deleteUser(userRowSelectedData._id, userRowSelectedData.name, userRowSelectedData.scope)
-    
+
 })
 
 async function deleteUser(_id, name, rol) {
@@ -134,11 +134,11 @@ async function deleteUser(_id, name, rol) {
                 .draw()
     
             } else {
-                toastr.success(`Ha ocurrido un error al intentar eliminar`);
+                toastr.warning(`Ha ocurrido un error al intentar eliminar`);
             }
         }
     }
-    toastr.success(`Usuario "${name}" no puede ser eliminado`);
+    toastr.warning(`Usuario "${name}" no puede ser eliminado`);
 
 }
 

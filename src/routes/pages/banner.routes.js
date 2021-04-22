@@ -4,8 +4,11 @@ export default {
     options: {
         handler: (request, h) => {
             let credentials = request.auth.credentials
-
-            return h.view('banner', {credentials}, { layout: 'admin-layout' })
+            let admin = ''
+            if(credentials.scope == "sadmin"){
+                admin ='ok'
+            }
+            return h.view('banner', {credentials,admin}, { layout: 'admin-layout' })
         }
     }
 }

@@ -44,14 +44,14 @@ async function initBannersTable() {
 
 		let deleteImage = await axios.post('/api/deleteBanner', dataImg)
 		console.log("dataDelete", deleteImage);
-	
+
 		internals.tables.banners.datatable
 			.row($(this).parents('tr'))
 			.remove()
 			.draw()
-		});
-		toastr.success('imagen Eliminada correctamente')
-	// })
+			toastr.success('imagen Eliminada correctamente')
+	});
+
 }
 
 const handleModalBanner = () => {
