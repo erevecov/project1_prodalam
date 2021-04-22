@@ -29,8 +29,13 @@ async function initBannersTable() {
 		responsive: false,
 		columns: [
 			{ data: 'nameFile' },
+			{ data: 'insertUrl'},
 			{ data: 'eliminar' }
-		]
+		],
+		rowCallback: function (row, data, index) {
+            $(row).find('td:eq(1)').html('<center> <button type="button" class="btn btn-secondary btn-sm modProduct"><i class="fas fa-edit"></i></button> </center> ')
+			$(row).find('td:eq(2)').html('<center> <button type="button" class="btn btn-secondary btn-sm delProduct"><i class="fas fa-trash"></i></button> </center> ')
+        },
 	}))
 
 	loadDataToBannersTable()

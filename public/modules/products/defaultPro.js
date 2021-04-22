@@ -32,7 +32,6 @@ const handleModal = (originalProductData) => {
 
     }
 
-
 	modalSelector.title.innerHTML = productData.title
 	modalSelector.body.innerHTML=`
     <div class="product-modal">
@@ -60,7 +59,7 @@ const handleModal = (originalProductData) => {
                 <div class="row">
 
                 <div class="col-lg-3 flecha">
-                    
+
                 </div>
 
                 <div class="col-lg-6 product-img-container">
@@ -68,7 +67,7 @@ const handleModal = (originalProductData) => {
                 </div>
 
                 <div class="col-lg-3 flecha">
-                    
+
                 </div>
 
                 </div>

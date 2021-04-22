@@ -100,9 +100,9 @@ input{
 }
 
 .form-group button:hover {
-    font-family: SFProDisplay-Bold;
+    /* font-family: SFProDisplay-Bold; */
     cursor: pointer;
-    font-size: 21px;
+    /* font-size: 21px; */
 }
 label{
     font-family: SFProDisplay-Light;

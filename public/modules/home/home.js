@@ -120,10 +120,7 @@ async function initProducts() {
 
     Array.from(querySelectorAll('.viewMore')).forEach(el => {
         el.addEventListener('click', () => {
-
-            let productData = internals.stars.find(elProduct=>elProduct._id === el.dataset.productid)
-
-            handleModal(productData)
+            handleModal()
         })
     })
 
