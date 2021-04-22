@@ -81,7 +81,12 @@ h5{
     background-color: #f8f8f8;
     min-width: 150px;
     min-height: 400px;
-    max-width: 400px;
+    max-height: 400px;
+}
+
+.card-footer-custom {
+    text-align: center;
+    border: none;
 }
 
 .card-product-title {
