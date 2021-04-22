@@ -8,7 +8,7 @@ const internals = {
 }
 
 ready(async () => {
-    initBannersTable()
+	initBannersTable()
 })
 document.querySelector('#nuevoBannerBtn').addEventListener('click', () => {
 	handleModalBanner()
@@ -20,57 +20,162 @@ async function initBannersTable() {
 		language: {
 			url: spanishDataTableLang
 		},
-
-		// rowCallback: function( row, data ) {
-		//     $(row).find('td:eq(1)').html(capitalizeAll(data.name))
-		// },
+		rowCallback: function( row, data ) {
+		    $(row).find('td:eq(1)').html('<center> <button type="button" class="btn btn-secondary btn-sm delBanner"><i class="fas fa-trash"></i></button> </center> ')
+		},
 		order: [[1, 'desc']],
 		ordering: true,
 		searchHighlight: true,
 		responsive: false,
 		columns: [
-			{ data: 'nombre' },
-            { data: 'eliminar'}
+			{ data: 'nameFile' },
+			{ data: 'eliminar' }
 		]
 	}))
 
-	// loadDataToBannersTable()
+	loadDataToBannersTable()
+
+	$('#bannersTable tbody').on('click', '.delBanner', async function () {
+		var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
+
+		dataImg = {
+			filename: data.nameFile
+		}
+
+		let deleteImage = await axios.post('/api/deleteBanner', dataImg)
+		console.log("dataDelete", deleteImage);
+	
+		internals.tables.banners.datatable
+			.row($(this).parents('tr'))
+			.remove()
+			.draw()
+		});
+		toastr.success('imagen Eliminada correctamente')
 	// })
 }
 
 const handleModalBanner = () => {
 
 	const modalSelector = {
-        title: document.querySelector('#modal_title'),
-        body: document.querySelector('#modal_body'),
-        footer: document.querySelector('#modal_footer'),
-    }
+		title: document.querySelector('#modal_title'),
+		body: document.querySelector('#modal_body'),
+		footer: document.querySelector('#modal_footer'),
+	}
 
-	modalSelector.title.innerHTML=`
+	modalSelector.title.innerHTML = `
 		Nueva carga de banner
 	`
 
-	modalSelector.body.innerHTML=`
+	modalSelector.body.innerHTML = `
 		<input type="file" id="photoFile" accept=".jpg"/>
+		<!--<img id="imgPreview" src="" alt="Preview">-->
 	`
 
-    modalSelector.footer.innerHTML = `
+	modalSelector.footer.innerHTML = `
     <button class="btn btn-dark" data-dismiss="modal">
     <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
     </button>
 
-    <button class="btn btn-dark" id="saveUser">
+    <button class="btn btn-dark" id="uploadPhoto">
     <i style="color:#3498db;" class="fas fa-check"></i> Guardar
     </button>
 	`
 
-    $('#modal').modal('show')
+	$('#modal').modal('show')
+	let b64img = ''
+	let nameBan = ''
+
+
+	async function banImg() {
+		let res = await axios.get('/api/getBanner')
+		if(res.data.ok) {
+			var span = document.createElement('span');
+
+			span.innerHTML = ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
+
+			$('#list').html(span)
+			
+		} else {
+			
+			toastr.warning("sin banner")
+		}
+	}
 
 	const fileSelector = document.getElementById('photoFile');
-	fileSelector.addEventListener('change', (event) => {
-		const fileList = event.target.files;
-		//console.log(fileList);
-		apiTes(fileList)
+	fileSelector.addEventListener('change', function () {
+		const reader = new FileReader();
+		nameBan = this.files[0].name
+
+		if (this.files[0].size/1024 > 10000) {
+			toastr.warning('Imagen supera tamaño máximo de 10Mb')
+		} else {
+			reader.addEventListener("load", () => {
+				localStorage.setItem("recent-image", reader.result)
+			})
+	
+			reader.readAsDataURL(this.files[0])
+			// const recentImageDataUrl = localStorage.getItem("recent-image");
+	
+			// if (recentImageDataUrl) {
+			// 	document.querySelector("#imgPreview").setAttribute("src", recentImageDataUrl)
+			// }
+	
+			reader.onload = function (event) {
+				b64img = event.target.result
+			};
+		}
 	});
 
+	$('#uploadPhoto').on('click', async function () {
+		if (!b64img || b64img == '') {
+			toastr.warning('Debe seleccionar una imagen')
+		} else {
+			let dataImg =
+			{
+				img: b64img,
+				filename: nameBan
+			}
+			let saveImage = await axios.post('/api/uploadImg', dataImg)
+			console.log("compa new ima", saveImage);
+			if (saveImage.data.ok) {
+				let newBanData = saveImage.data.ok
+
+				newBanData.eliminar = '-'
+
+				let newBannerAdded = internals.tables.banners.datatable
+                    .row.add(newBanData)
+                    .draw()
+                    .node();
+    
+                $(newBannerAdded).css('color', '#1abc9c');
+                setTimeout(() => {
+                    $(newBannerAdded).css('color', '#484848');
+                }, 5000);
+
+				toastr.success('imagen subida correctamente')
+				$('#modal').modal('hide')
+			} else {
+				toastr.warning(saveImage.data.err)
+			}
+		}
+	});
+}
+
+async function loadDataToBannersTable() {
+    let res = await axios.get('api/bannerNames')
+	console.log("resooa", res);
+    // let cate = await axios.get('api/categories')
+    // console.log("categorias", cate.data);
+        if (res.err) {
+            toastr.warning(res.err)
+        } else if(res.data) {
+
+			console.log("compara default", res.data);
+
+			res.data.map(el => {
+				if (!el.eliminar) el.eliminar = '-'
+			})
+
+            internals.tables.banners.datatable.rows.add(res.data).draw()
+        }
 }
