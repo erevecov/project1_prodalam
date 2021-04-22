@@ -32,11 +32,11 @@ async function initProducts() {
         }
     }
 
-    console.log(starApiURL)
+    // console.log(starApiURL)
 
     let stars = await axios.get(starApiURL)
 
-    console.log('products', stars)
+    // console.log('products', stars)
 
     internals.stars = stars.data
 

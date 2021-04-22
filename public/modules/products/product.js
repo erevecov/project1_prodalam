@@ -17,12 +17,16 @@ async function initProducts() {
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
+    const cate = urlParams.searchParams.get('category')
 
     let productApiURL = 'api/productsPaginate'
 
     if (page) {
         productApiURL += `?page=${page}`
 
+        if (cate) {
+            productApiURL += `&category=${cate}`
+        }
         if (search) {
             productApiURL += `&search=${search}`
         }
@@ -30,13 +34,16 @@ async function initProducts() {
         if (search) {
             productApiURL += `?search=${search}`
         }
+        if (cate) {
+            productApiURL += `?category=${cate}`
+        }
     }
 
-    console.log(productApiURL)
+    // console.log(productApiURL)
 
     let products = await axios.get(productApiURL)
 
-    console.log('products', products)
+    // console.log('products', products)
 
     internals.products = products.data.docs
 

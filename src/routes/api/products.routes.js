@@ -38,10 +38,9 @@ module.exports = [
             handler: async (request, h) => {
                 try {
                     let queryParams = request.query
-
                     let query = {}
 
-                    if (queryParams.search) {
+                    if (queryParams.search && !queryParams.category) {
                         query = {
                             $or: [
                                 {
@@ -53,9 +52,24 @@ module.exports = [
                                     title: {
                                         $regex: new RegExp(queryParams.search, 'i')
                                     }
+                                }
+                            ]
+                        }
+                    }
+                    if (queryParams.category && !queryParams.search) {
+                        query = {category: queryParams.category }
+                    }
+                    if (queryParams.search && queryParams.category) {
+                        query = {
+                            category: queryParams.category,
+                            $or: [
+                                {
+                                    sku: {
+                                        $regex: new RegExp(queryParams.search, 'i')
+                                    }
                                 },
                                 {
-                                    category: {
+                                    title: {
                                         $regex: new RegExp(queryParams.search, 'i')
                                     }
                                 }

@@ -149,11 +149,11 @@ const handleModal = (originalProductData) => {
 
     let productInfo = ''
 
-    console.log(el)
+    // console.log(el)
 
     el.info.forEach(elInfoKey=> {
         // console.log(el.info[0][elInfoKey])
-        console.log("a",elInfoKey)
+        // console.log("a",elInfoKey)
 
         if (elInfoKey.name === 'Imagen') {
         } else if (elInfoKey.name === 'Título SAP') {
@@ -175,21 +175,21 @@ const handleModal = (originalProductData) => {
 
     let favorites = JSON.parse(localStorage.getItem('favas')) || [];
     // add class 'fav' to each favorite
-    console.log("favss", favorites);
+    // --------------------console.log("favss", favorites);
     // favorites.forEach(function (favorite) {
     //     document.getElementById(favorite).className = 'favas';
     // });
     // register click event listener
 
     if (favorites.includes(productData.sku)) {
-        console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
+        // console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
         $('#picStar').html("<i class=\"fas fa-star\"></i>")
     }
 
 
     $('#picStar').on('click', function () {
         let pic
-        console.log("asdsadsa", productData.sku);
+        // console.log("asdsadsa", productData.sku);
         if (this.innerHTML.includes("fas")) {
             this.innerHTML = "<i class=\"far fa-star\"></i>"
         } else {

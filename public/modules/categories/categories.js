@@ -13,10 +13,14 @@ async function initCategory() {
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
+    const cate = urlParams.searchParams.get('category')
 
     if (page) {
         categoryApiURL += `?page=${page}`
 
+        if (cate) {
+            categoryApiURL += `&category=${cate}`
+        }
         if (search) {
             categoryApiURL += `&search=${search}`
         }
@@ -24,13 +28,16 @@ async function initCategory() {
         if (search) {
             categoryApiURL += `?search=${search}`
         }
+        if (cate) {
+            categoryApiURL += `?category=${cate}`
+        }
     }
 
-    console.log(categoryApiURL)
+    // console.log(categoryApiURL)
 
     let categorys = await axios.get(categoryApiURL)
     let categoryList = await axios.get('api/categories')
-    console.log(categorys)
+    // console.log(categorys)
 
     internals.categorys = categorys.data.docs
 
@@ -62,13 +69,13 @@ async function initCategory() {
     //     }
 
     //     categorysDownSelector.setAttribute('href', nextPageURL)
-    // }
-console.log("aaaaaaaaaaa",categoryList);
+//     // }
+// console.log("aaaaaaaaaaa",categoryList);
     document.querySelector('#categories-it-container').innerHTML = categoryList.data[0].cats.reduce((acc,el,i)=> {
 
         acc += `
         <div class="col-md-6 category-item-container">
-        <a href="/products?search=${el}">
+        <a href="/products?category=${el}">
             <div class="category-item" style="background-image: url('/public/modules/categories/imgCat/${el.replace(',','')}.jpg');">
 
                 <h2>${el}</h2>
