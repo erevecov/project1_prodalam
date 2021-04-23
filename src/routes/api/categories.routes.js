@@ -11,8 +11,11 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    let result = await Product.find({}).lean();
+                    // let result = await Product.find({}).lean();
 
+                    let result = await Product.find({}).distinct('category')
+
+                    /*
                     let cats = []
                     //let parentCats = []
 
@@ -25,9 +28,10 @@ module.exports = [
                         // }
                     })
 
+                    */
                     let categories = []
 
-                    cats = cats.sort()
+                    let cats = result.sort()
                     // parentCats = parentCats.sort()
 
                     categories.push({cats})
