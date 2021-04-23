@@ -47,8 +47,7 @@ async function initBannersTable() {
 			filename: data.nameFile
 		}
 
-		let deleteImage = await axios.post('/api/deleteBanner', dataImg)
-		console.log("dataDelete", deleteImage);
+		await axios.post('/api/deleteBanner', dataImg)
 
 		internals.tables.banners.datatable
 			.row($(this).parents('tr'))

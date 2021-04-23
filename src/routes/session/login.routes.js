@@ -82,7 +82,7 @@ async function findUserByRutAndPassword(userRut, userPassword) {
         password: userPassword,
         status: 'enabled',
         scope: {
-            $in: ['sadmin', 'admin']
+            $in: ['sadmin', 'admin', 'dev']
         }
     }).lean();
     //await apiTes()
