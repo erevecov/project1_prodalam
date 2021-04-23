@@ -1,4 +1,5 @@
 const Product = require('../../models/productModel');
+const Joi = require('joi')
 
 module.exports = [
     {
@@ -11,16 +12,26 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    let product = await Product(request.payload);
-                    let productSaved = await product.save();
+                    let arrayProducts = request.payload
 
-                    return productSaved
+                    const bulkOps = arrayProducts.map(doc => ({
+                        updateOne: {
+                            filter: { sku: doc.sku },
+                            update: doc,
+                            upsert: true
+                        }
+                    }))
+
+                    await Product.bulkWrite(bulkOps)
+                    // let res = await Product.insertMany(arrayProducts)
+
+                    return { ok: 'Productos ingresados correctamente' }
 
                 } catch (error) {
                     console.log(error);
 
                     return h.response({
-                        error: 'Ha ocurrido un error al crear el producto, por favor recargue la página e intentelo nuevamente.'
+                        error: 'Ha ocurrido un error al ingresar los productos, por favor recargue la página e intentelo nuevamente.'
                     }).code(500);
                 }
 
@@ -57,7 +68,7 @@ module.exports = [
                         }
                     }
                     if (queryParams.category && !queryParams.search) {
-                        query = {category: queryParams.category }
+                        query = { category: queryParams.category }
                     }
                     if (queryParams.search && queryParams.category) {
                         query = {
@@ -162,9 +173,9 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    let filter = {sku: request.payload.sku }
-                    
-                    let update = { star: request.payload.star}
+                    let filter = { sku: request.payload.sku }
+
+                    let update = { star: request.payload.star }
 
                     let result = await Product.findOneAndUpdate(filter, update);
                     return result;
@@ -202,48 +213,43 @@ module.exports = [
                 }
             }
         }
+    },
+    {
+        method: 'POST',
+        path: '/api/deleteProduct',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+
+                    let query = {
+                        sku: request.payload.sku
+                    }
+
+                    let result = await Product.find(query).lean();
+
+                    await Product.deleteOne(query)
+
+
+                    return result
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error al eliminar producto, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+            },
+            validate: {
+                payload: Joi.object().keys({
+                    sku: Joi.string().required()
+                })
+            }
+        }
     }
 ]
-
-
-
-
-
-
-// import Boom from '@hapi/boom'
-// import User from '../../models/User'
-
-// module.exports = [
-// {
-//     method: 'GET',
-//     path: '/api/usersPaginate',
-//     options: {
-//         description: 'get users paginate',
-//         notes: 'get users paginate',
-//         tags: ['api'],
-//         handler: async (request, h) => {
-//             try {
-//                 let queryParams = request.query
-
-//                 const options = {
-//                     page: queryParams.page || 1,
-//                     limit: queryParams.limit || 10,
-//                     collation: {
-//                         locale: 'en',
-//                     },
-//                 }
-
-//                 let result = await User.paginate({}, options)
-
-//                 return result
-//             } catch (error) {
-//                 console.log(error)
-
-//                 return Boom.badImplementation(error)
-//             }
-//         }
-//     }
-// }
-// ]
 
 
