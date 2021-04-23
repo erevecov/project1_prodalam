@@ -58,15 +58,15 @@ const handleModal = (originalProductData) => {
             <div class="col-lg-6 dos">
                 <div class="row">
 
-                <div class="col-lg-3 flecha">
+                <div class="col-lg-1 flecha">
 
                 </div>
 
-                <div class="col-lg-6 product-img-container">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 product-img-modal">
                     <img src="${productData.img}" alt="">
                 </div>
 
-                <div class="col-lg-3 flecha">
+                <div class="col-lg-1 flecha">
 
                 </div>
 

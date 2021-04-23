@@ -4,11 +4,11 @@ let internals = {
 
 initProducts()
 
-Array.from(querySelectorAll('.viewMore')).forEach(el => {
-    el.addEventListener('click', () => {
-        handleModal()
-    })
-})
+// Array.from(querySelectorAll('.viewMore')).forEach(el => {
+//     el.addEventListener('click', () => {
+//         handleModal()
+//     })
+// })
 
 async function initProducts() {
     loadingHandler('start')
@@ -107,7 +107,7 @@ async function initProducts() {
 
                 <div class="card-footer card-footer-custom">
                     <div class="d-grid gap-2">
-                        <a class="btn btn-custom viewMore">Ver más</a>
+                    <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
                     </div>
                 </div>
             </div>
