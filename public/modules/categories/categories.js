@@ -7,39 +7,41 @@ initCategory()
 async function initCategory() {
     loadingHandler('start')
 
-    let categoryApiURL = 'api/productsPaginate'
+    // let categoryApiURL = 'api/productsPaginate'
 
-    const queryString = window.location.href
-    const urlParams = new URL(queryString)
-    const page = urlParams.searchParams.get('page')
-    const search = urlParams.searchParams.get('search')
-    const cate = urlParams.searchParams.get('category')
+    // const queryString = window.location.href
+    // const urlParams = new URL(queryString)
+    // const page = urlParams.searchParams.get('page')
+    // const search = urlParams.searchParams.get('search')
+    // const cate = urlParams.searchParams.get('category')
 
-    if (page) {
-        categoryApiURL += `?page=${page}`
+    // if (page) {
+    //     categoryApiURL += `?page=${page}`
 
-        if (cate) {
-            categoryApiURL += `&category=${cate}`
-        }
-        if (search) {
-            categoryApiURL += `&search=${search}`
-        }
-    } else {
-        if (search) {
-            categoryApiURL += `?search=${search}`
-        }
-        if (cate) {
-            categoryApiURL += `?category=${cate}`
-        }
-    }
+    //     if (cate) {
+    //         categoryApiURL += `&category=${cate}`
+    //     }
+    //     if (search) {
+    //         categoryApiURL += `&search=${search}`
+    //     }
+    // } else {
+    //     if (search) {
+    //         categoryApiURL += `?search=${search}`
+    //     }
+    //     if (cate) {
+    //         categoryApiURL += `?category=${cate}`
+    //     }
+    // }
 
-    // console.log(categoryApiURL)
+    // // console.log(categoryApiURL)
 
-    let categorys = await axios.get(categoryApiURL)
+    // let categorys = await axios.get(categoryApiURL)
+
     let categoryList = await axios.get('api/categories')
+
     // console.log(categorys)
 
-    internals.categorys = categorys.data.docs
+    // internals.categorys = categorys.data.docs
 
     // let categorysUpSelector = document.querySelector('#categories-up')
     // let categorysDownSelector = document.querySelector('#categories-down')
