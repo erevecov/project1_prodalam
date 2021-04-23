@@ -100,7 +100,7 @@ async function initProducts() {
                 <!-- <button class="btn addToFavBtn"></button> -->
                 <div class="card-body card-body-custom">
                     <img src="${productData.img}" alt="" class="card-img-top" alt="producto">
-                    <p class="card-text card-product-title">Destacado de la semana</p>
+                    <p class="card-text card-product-title">Destacado del mes</p>
 
                     <p class="card-product-description">${cutText(productData.description, 100)}</p>
                 </div>

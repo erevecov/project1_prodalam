@@ -47,7 +47,8 @@ async function initBannersTable() {
 			filename: data.nameFile
 		}
 
-		await axios.post('/api/deleteBanner', dataImg)
+		let deleteImage = await axios.post('/api/deleteBanner', dataImg)
+		// console.log("dataDelete", deleteImage);
 
 		internals.tables.banners.datatable
 			.row($(this).parents('tr'))
@@ -98,9 +99,9 @@ const handleModalBanner = () => {
 			span.innerHTML = ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
 
 			$('#list').html(span)
-			
+
 		} else {
-			
+
 			toastr.warning("sin banner")
 		}
 	}
