@@ -87,7 +87,7 @@ h5{
 .card-footer-custom {
     text-align: center;
     border: none;
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 20px;
 }
 /* @media (min-width: 768px){
@@ -129,7 +129,7 @@ h5{
 
 .carousel-item {
     /* width: 100vh !important; */
-    height: 70vh;
+    height: auto;
     align-items: center;
 }
 #categories-left {

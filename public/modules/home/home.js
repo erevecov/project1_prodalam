@@ -90,7 +90,7 @@ async function initProducts() {
             title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
             sku: el.sku,
             description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
+            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
             info: (findProductInfo)
         }
 

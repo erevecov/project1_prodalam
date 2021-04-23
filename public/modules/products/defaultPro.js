@@ -1,28 +1,121 @@
+let internalss = {
+    productsRel: []
+}
 
-const handleModal = (originalProductData) => {
-    let el = originalProductData
-    let findProductImg
+initProductRel()
 
-    console.log(el)
+Array.from(querySelectorAll('.viewMore')).forEach(el => {
+    el.addEventListener('click', () => {
+        handleModal()
+    })
+})
+
+async function initProductRel() {
+    loadingHandler('start')
+
+    const queryString = window.location.href
+    const urlParams = new URL(queryString)
+    const page = urlParams.searchParams.get('page')
+    const search = urlParams.searchParams.get('search')
+    const cate = urlParams.searchParams.get('category')
+
+    let productApi = 'api/categoriesProducts'
+
+    // console.log(productApiURL)
+
+    let productss = await axios.get(productApi)
+
+    // console.log('products', products)
+
+    internalss.productss = productss.cats
+
+    document.querySelector('#connected').innerHTML = productss.cats.reduce((acc,el,i)=> {
+
+        let findProductImg
+
         el.info.forEach(a => {
             if (a.name == "Imagen") {
                 findProductImg = a.data
             }
         });
 
-
         let findProductTitle = el.title
         let findProductDescription = el.description
         let findProductInfo = el.info
 
-        let productData = {
+
+        let productDatas = {
             _id: el._id,
             title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
             sku: el.sku,
             description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
+            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
             info: (findProductInfo)
         }
+
+        acc += `
+
+        <div class="container">
+
+            <h3 class="title1">Productos relacionados</h3>
+
+            <div class="row" id="connected">
+
+                <div class="col-lg-3">
+                    <div class="card card-custom">
+                        <!-- <button class="btn addToFavBtn"></button> -->
+                        <div class="card-body card-body-custom">
+                            <img src="${productDatas.img}" class="card-img-top" alt="producto">
+                            <p class="card-text card-product-title">Producto relacionado</p>
+
+                            <p class="card-product-description">${productDatas.description}</p>
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-custom2" data-productid="${productDatas._id}">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+
+        return acc
+    }, '')
+
+    Array.from(querySelectorAll('.viewMore')).forEach(el => {
+        el.addEventListener('click', () => {
+            let productData = internalss.productsRel.find(elProduct=>elProduct._id === el.dataset.productid)
+
+            handleModal(productData)
+        })
+    })
+
+    loadingHandler('stop')
+}
+
+const handleModal = (originalProductData) => {
+    let el = originalProductData
+    let findProductImg
+
+    console.log(el)
+    el.info.forEach(a => {
+        if (a.name == "Imagen") {
+            findProductImg = a.data
+        }
+    });
+
+    let findProductTitle = el.title
+    let findProductDescription = el.description
+    let findProductInfo = el.info
+
+    let productData = {
+        _id: el._id,
+        title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+        sku: el.sku,
+        description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+        img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+        info: (findProductInfo)
+    }
 
 
 
@@ -76,75 +169,6 @@ const handleModal = (originalProductData) => {
         </div>
     </div>
 
-
-
-    <div class="container">
-
-        <h3 class="title1">Productos relacionados</h3>
-
-        <div class="row" id="connected">
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 	`
 
     let productInfo = ''
