@@ -188,6 +188,7 @@ body {
 .navbar .nav-item {
     padding-top: 20px;
     height: 80px !important;
+    margin-left: 50px;
 }
 
 .navbar .nav-link {
@@ -205,6 +206,9 @@ body {
 
 .nav-link {
     color: white !important;
+    display: flex;
+    justify-content:space-around;
+    align-items:flex-start;
 }
 
 .navbar-search {
@@ -222,7 +226,14 @@ body {
     font-style: italic;
     font-family: SFProDisplay-Light;
 }
-#navbarSupportedContent{
+/* #navbarSupportedContent{
     display: flex;
     flex-wrap: wrap;
+} */
+@media (min-width: 992px){
+    .navbar-expand-lg .navbar-nav {
+        -ms-flex-direction: row;
+        flex-direction: row;
+        margin-left: 10px;
+    }
 }
