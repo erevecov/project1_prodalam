@@ -4,25 +4,25 @@ const handleModal = (originalProductData) => {
     let findProductImg
 
     console.log(el)
-        el.info.forEach(a => {
-            if (a.name == "Imagen") {
-                findProductImg = a.data
-            }
-        });
-
-
-        let findProductTitle = el.title
-        let findProductDescription = el.description
-        let findProductInfo = el.info
-
-        let productData = {
-            _id: el._id,
-            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
-            sku: el.sku,
-            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
-            info: (findProductInfo)
+    el.info.forEach(a => {
+        if (a.name == "Imagen") {
+            findProductImg = a.data
         }
+    });
+
+
+    let findProductTitle = el.title
+    let findProductDescription = el.description
+    let findProductInfo = el.info
+
+    let productData = {
+        _id: el._id,
+        title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+        sku: el.sku,
+        description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+        img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+        info: (findProductInfo)
+    }
 
 
 
@@ -150,7 +150,6 @@ const handleModal = (originalProductData) => {
         }
 
     });
-
 
     $('#modal').modal('show')
 }

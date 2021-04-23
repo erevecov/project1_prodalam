@@ -4,25 +4,44 @@
 <link rel="stylesheet" type="text/css" href="/public/modules/favorites/favorites.css">
 {{/extend}}
 
-
-<div class="container-fluid">
-    <h2>Lista de Favoritos</h2>
+<h2>Lista de Favoritos</h2>
     <hr>
-    <!-- <a id="infos-up" href="#">
-        <i class="fas fa-chevron-up fa-2x"></i>
-    </a>
-    <a href="" id="numPage0"><span>#</span></a> -->
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-1"></div>
+            <div class="col-md-10 text-center">
+                <a id="star-up" href="#">
+                    <i class="fas fa-chevron-up fa-2x"></i>
+                </a>
 
-    <ul>
-        <li class="listFav">No hay productos seleccionados</li>
-    </ul>
+                <div class="row" id="product-star-container"> <!--  AQUI ITERAR  -->
+                </div>
 
-    <!-- <a href="" id="numPage"><span>#</span></a>
-    <a id="infos-down" href="#">
-        <i class="fas fa-chevron-down fa-2x"></i>
-    </a> -->
+                <a id="star-down" href="#">
+                    <i class="fas fa-chevron-down fa-2x"></i>
+                </a>
+            </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal"  role="dialog" aria-labelledby="modal">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_body"></div>
+            <div class="modal-footer" id="modal_footer"></div>
+        </div>
+    </div>
 </div>
 
 {{#extend "js"}}
-<!-- <script src="/public/modules/info/info.js"></script> -->
+<script src="/public/modules/favorites/favorites.js"></script>
+
 {{/extend}}
