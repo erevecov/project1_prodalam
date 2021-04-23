@@ -167,6 +167,7 @@
     font-size: small;
     text-align: left;
     margin-left: 25px;
+    min-height: 60px;
 }
 
 .product-item h2 {
@@ -190,6 +191,7 @@
     align-items: center;
     justify-content: center;
     padding-left: 0;
+    /* height: 250px; */
 }
 .product-img-modal {
     display: flex;
@@ -235,6 +237,7 @@
 }
 .product-item a {
     font-family: SFProDisplay-Semibold;
+
 }
 
 /* .product-item p{
