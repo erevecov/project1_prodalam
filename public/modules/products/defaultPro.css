@@ -144,15 +144,18 @@
     float: left;
     margin-left: 25px;
 }
+
 .btn-custom2 {
     color: var(--grey1);
     border: 1px solid var(--grey1);
     border-radius: 50px;
     font-size: inherit;
 }
+
 .product-item {
     width: 100% !important;
-    min-height: 200px !important;
+    min-height: 250px !important;
+    /* max-height: 300px !important; */
     border-radius: 30px;
     background-color: #E3E3E3;
     padding-bottom: 20px;

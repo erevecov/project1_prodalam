@@ -3,6 +3,7 @@ const handleModal = (originalProductData) => {
     let el = originalProductData
     let findProductImg
 
+    console.log(el)
         el.info.forEach(a => {
             if (a.name == "Imagen") {
                 findProductImg = a.data
