@@ -17,16 +17,12 @@ async function initProducts() {
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
-    const cate = urlParams.searchParams.get('category')
 
-    let productApiURL = 'api/productsPaginate'
+    let productApiURL = 'api/productsPaginateFav'
 
     if (page) {
         productApiURL += `?page=${page}`
 
-        if (cate) {
-            productApiURL += `&category=${cate}`
-        }
         if (search) {
             productApiURL += `&search=${search}`
         }
@@ -34,23 +30,17 @@ async function initProducts() {
         if (search) {
             productApiURL += `?search=${search}`
         }
-        if (cate) {
-            productApiURL += `?category=${cate}`
-        }
+
     }
 
     // console.log(productApiURL)
-
-    let products = await axios.get(productApiURL)
-
-    // console.log('products', products)
+    let itemStar = JSON.parse(localStorage.getItem("favor"))
+    let products = await axios.post(productApiURL, itemStar)
 
     internals.products = products.data.docs
 
     let productsUpSelector = document.querySelector('#star-up')
     let productsDownSelector = document.querySelector('#star-down')
-
-
 
     if (products.data.prevPage) {
         let prevPageURL = `?page=${products.data.prevPage}`
@@ -239,31 +229,24 @@ const handleModal = (originalProductData) => {
 
     document.querySelector('#product-info-container').innerHTML = productInfo
 
-    let favorites = JSON.parse(localStorage.getItem('favas')) || [];
-    // add class 'fav' to each favorite
-    // --------------------console.log("favss", favorites);
-    // favorites.forEach(function (favorite) {
-    //     document.getElementById(favorite).className = 'favas';
-    // });
-    // register click event listener
-
+    let favorites = JSON.parse(localStorage.getItem('favor')) || [];
     if (favorites.includes(productData.sku)) {
-        // console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
         $('#picStar').html("<i class=\"fas fa-star\"></i>")
     }
 
 
     $('#picStar').on('click', function () {
-        let pic
-        // console.log("asdsadsa", productData.sku);
         if (this.innerHTML.includes("fas")) {
             this.innerHTML = "<i class=\"far fa-star\"></i>"
+            favorites = favorites.filter(e => e !== productData.sku);
+            localStorage.setItem('favor', JSON.stringify(favorites))
+            initProducts()
         } else {
             favorites.push(productData.sku)
             this.innerHTML = "<i class=\"fas fa-star\"></i>"
-            localStorage.setItem('favas', JSON.stringify(favorites))
+            localStorage.setItem('favor', JSON.stringify(favorites))
+            initProducts()
         }
-
     });
 
     $('#modal').modal('show')

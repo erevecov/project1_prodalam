@@ -124,11 +124,11 @@ const handleModal = (originalProductData) => {
 
     document.querySelector('#product-info-container').innerHTML = productInfo
 
-    let favorites = JSON.parse(localStorage.getItem('favas')) || [];
+    let favorites = JSON.parse(localStorage.getItem('favor')) || [];
     // add class 'fav' to each favorite
     // --------------------console.log("favss", favorites);
     // favorites.forEach(function (favorite) {
-    //     document.getElementById(favorite).className = 'favas';
+    //     document.getElementById(favorite).className = 'favor';
     // });
     // register click event listener
 
@@ -144,9 +144,13 @@ const handleModal = (originalProductData) => {
         if (this.innerHTML.includes("fas")) {
             this.innerHTML = "<i class=\"far fa-star\"></i>"
         } else {
+            // let favo = {
+            //     sku: productData.sku
+            // }
+
             favorites.push(productData.sku)
             this.innerHTML = "<i class=\"fas fa-star\"></i>"
-            localStorage.setItem('favas', JSON.stringify(favorites))
+            localStorage.setItem('favor', JSON.stringify(favorites))
         }
 
     });

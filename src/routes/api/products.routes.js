@@ -108,6 +108,47 @@ module.exports = [
         }
     },
     {
+        method: 'POST',
+        path: '/api/productsPaginateFav',
+        options: {
+            auth: false,
+            description: 'get products paginate',
+            notes: 'get products paginate',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let queryParams = request.query
+                    let query = {}
+
+                    query = {
+                        $or: [
+                            {
+                                sku: {$in: request.payload}
+                            }
+                        ]
+                    }
+                   
+
+                    const options = {
+                        page: queryParams.page || 1,
+                        limit: queryParams.limit || 6,
+                        collation: {
+                            locale: 'en',
+                        },
+                    }
+
+                    let result = await Product.paginate(query, options)
+
+                    return result
+                } catch (error) {
+                    console.log(error)
+
+                    return Boom.badImplementation(error)
+                }
+            }
+        }
+    },
+    {
         method: 'GET',
         path: '/api/products',
         options: {
@@ -185,6 +226,48 @@ module.exports = [
 
                     return h.response({
                         error: 'Ha ocurrido un error al destacar producto, por favor recargue la página e intentelo nuevamente.'
+                    }).code(500);
+                }
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/api/productsStarFiltered',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let query = {
+                        $or: [
+                            {
+                                star: 'yes'
+                            }
+                        ]
+                    }
+
+                    let result = await Product.find(query).lean();
+                    
+                    let maxRes = []
+                    let rando
+
+                    while (maxRes.length < 8) {
+                        rando = result[Math.floor(Math.random() * result.length)]
+                        if (!maxRes.includes(rando)) {
+                            maxRes.push(rando)
+                        }
+                    }
+
+                    return maxRes;
+
+                } catch (error) {
+                    console.log(error);
+
+                    return h.response({
+                        error: 'Ha ocurrido un error al buscar Productos, por favor recargue la página e intentelo nuevamente.'
                     }).code(500);
                 }
             }

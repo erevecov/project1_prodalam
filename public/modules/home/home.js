@@ -13,12 +13,14 @@ initProducts()
 async function initProducts() {
     loadingHandler('start')
 
+    let arrayStar = []
+
     const queryString = window.location.href
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
 
-    let starApiURL = 'api/productsStar'
+    let starApiURL = 'api/productsStarFiltered'
 
     if (page) {
         starApiURL += `?page=${page}`
@@ -35,6 +37,10 @@ async function initProducts() {
     // console.log(starApiURL)
 
     let stars = await axios.get(starApiURL)
+
+    arrayStar.push(stars)
+
+    console.log("starrrrrr", stars);
 
     // console.log('products', stars)
 

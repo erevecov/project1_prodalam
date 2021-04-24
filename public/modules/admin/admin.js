@@ -37,6 +37,10 @@ async function initProductsTable() {
         //     $(row).find('td:eq(1)').html(capitalizeAll(data.name))
         // },
         order: [[1, 'desc']],
+        columnDefs: [
+            { "width": "100px", "targets": 0 },
+            { "width": "1150px", "targets": 1 }
+        ],
         ordering: true,
         searchHighlight: true,
         responsive: false,
@@ -102,7 +106,7 @@ async function initProductsTable() {
     $('#productsTable tbody').on('click', '.modProduct', function () {
         var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
         // alert("Modificar: " + data.sku);
-        initMod()
+        initMod(data)
     });
 
     $('#filterStar').on('change', function () {
@@ -113,7 +117,9 @@ async function initProductsTable() {
         }
     })
 
-    const initMod = () => {
+    async function initMod(product) {
+        let categoriesList = await axios.get('api/categories')
+
         const modalMod = {
             title: document.querySelector('#modal_title'),
             body: document.querySelector('#modal_body'),
@@ -122,12 +128,13 @@ async function initProductsTable() {
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                width: 'resolve'
+                width: 'resolve',
+                data: categoriesList.data[0].cats
             });
         });
 
         modalMod.title.innerHTML = `
-            Modificar producto SKU:
+            Modificar producto SKU: ${product.sku}
         `
         modalMod.body.innerHTML = `
         <div class="row">
@@ -138,34 +145,17 @@ async function initProductsTable() {
             
 
             <div class="col-md-6" style="margin-top:10px;">
-                <input id="modTitulo" type="text" placeholder="Producto 1" class="form-control border-input">
+                <input id="modTitulo" type="text" value="${product.title}" class="form-control border-input">
             </div>
             
             <div class="col-md-6" style="margin-top:10px;">
-                <input id="modDesc" type="text" placeholder="Descripción" class="form-control border-input">
+                <input id="modDesc" type="text" value="${product.description}" class="form-control border-input">
             </div>
 
             <div class="col-md-12" style="margin-top:10px;">
             Categoría</div>
             <div class="col-md-12" style="margin-top:10px;">
-                <select class="js-example-basic-single" name="state">
-                    <option value="admin">Accesorios Agrícolas</option>
-                    
-                    <option value="sadmin">Aceros y Metalurgia</option>
-                    
-                    <option value="sadmin">Alambres Cercos y Mallas</option>
-                   
-                    <option value="sadmin">Cabos y Cadenas</option>
-                   
-                    <option value="sadmin">Clavos y Fijaciones</option>
-                    
-                    <option value="sadmin">Construcción y Terminaciones</option>
-                    
-                    <option value="sadmin">Contención y Fortificación</option>
-                    
-                    <option value="sadmin">Hidráulica y Accesorios</option>
-                    
-                    <option value="sadmin">Seguridad Electrónica y Automatización</option>
+                <select class="js-example-basic-single" id="selectCategory" name="state">
                 </select>
             </div>
             <div class="col-md-12" style="margin-top:10px;"><br><br><br><br></div>
@@ -181,6 +171,8 @@ async function initProductsTable() {
         <i style="color:#3498db;" class="fas fa-check"></i> Guardar
         </button>
         `
+        console.log("catefasd",product.category);
+        // $("#selectCategory").val().find(product.category)
 
         $('#modal').modal('show')
     }
@@ -209,19 +201,26 @@ async function loadDataToProductsTable(filter) {
 
         let productsData = result.data
 
-        productsData.map(el => {
-            if (!el.subCategory) el.subCategory = '-'
-            if (!el.star) el.star = 'no'
-            if (!el.modificar) el.modificar = '-'
-            if (!el.eliminar) el.eliminar = '-'
-        })
+
+        if (Array.isArray(productsData)) {
+            productsData.map(el => {
+                if (!el.modificar) el.modificar = '-'
+                if (!el.eliminar) el.eliminar = '-'
+            })
+        } else {
+            console.log("asdad");
+            productsData.modificar = '-'
+            productsData.eliminar = '-'
+            productsData = [productsData]
+        }
+        
 
         internals.tables.products.datatable.clear().draw()
         internals.tables.products.datatable.rows.add(productsData).draw()
 
     } catch (error) {
         console.log(error)
-
+        console.log("error? wat");
         internals.tables.products.datatable.clear().draw()
     }
     loadingHandler('stop')
