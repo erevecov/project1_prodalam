@@ -40,8 +40,6 @@ async function initProducts() {
 
     arrayStar.push(stars)
 
-    console.log("starrrrrr", stars);
-
     // console.log('products', stars)
 
     internals.stars = stars.data

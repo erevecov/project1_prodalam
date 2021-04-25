@@ -51,6 +51,8 @@ module.exports = [
                     let queryParams = request.query
                     let query = {}
 
+                    console.log("params", queryParams);
+
                     if (queryParams.search && !queryParams.category) {
                         query = {
                             $or: [
@@ -250,7 +252,7 @@ module.exports = [
                     }
 
                     let result = await Product.find(query).lean();
-                    
+
                     let maxRes = []
                     let rando
 

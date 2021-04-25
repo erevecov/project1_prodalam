@@ -60,8 +60,8 @@ async function initProducts() {
     if (products.data.prevPage) {
         let prevPageURL = `?page=${products.data.prevPage}`
 
-        if (search) {
-            prevPageURL += `&search=${search}`
+        if (cate) {
+            prevPageURL += `&category=${cate}`
         }
 
         productsUpSelector.setAttribute('href', prevPageURL)
@@ -70,8 +70,8 @@ async function initProducts() {
     if (products.data.nextPage) {
         let nextPageURL = `?page=${products.data.nextPage}`
 
-        if (search) {
-            nextPageURL += `&search=${search}`
+        if (cate) {
+            nextPageURL += `&category=${cate}`
         }
 
         productsDownSelector.setAttribute('href', nextPageURL)
