@@ -51,8 +51,6 @@ module.exports = [
                     let queryParams = request.query
                     let query = {}
 
-                    console.log("params", queryParams);
-
                     if (queryParams.search && !queryParams.category) {
                         query = {
                             $or: [

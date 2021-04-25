@@ -64,6 +64,10 @@ async function initProducts() {
             prevPageURL += `&category=${cate}`
         }
 
+        if (search) {
+            prevPageURL += `&search=${search}`
+        }
+
         productsUpSelector.setAttribute('href', prevPageURL)
     }
 
@@ -72,6 +76,10 @@ async function initProducts() {
 
         if (cate) {
             nextPageURL += `&category=${cate}`
+        }
+
+        if (search) {
+            nextPageURL += `&search=${search}`
         }
 
         productsDownSelector.setAttribute('href', nextPageURL)
