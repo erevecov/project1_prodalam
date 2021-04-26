@@ -29,12 +29,13 @@ async function initBannersTable() {
 		responsive: false,
 		columns: [
 			{ data: 'nameFile' },
-			{ data: 'insertUrl'},
+			{ data: 'fileUrl'},
+			{ data: 'modificar' },
 			{ data: 'eliminar' }
 		],
 		rowCallback: function (row, data, index) {
-            $(row).find('td:eq(1)').html('<center> <button type="button" class="btn btn-secondary btn-sm modBanner"><i class="fas fa-edit"></i></button> </center> ')
-			$(row).find('td:eq(2)').html('<center> <button type="button" class="btn btn-secondary btn-sm delBanner"><i class="fas fa-trash"></i></button> </center> ')
+            $(row).find('td:eq(2)').html('<center> <button type="button" class="btn btn-secondary btn-sm modBanner"><i class="fas fa-edit"></i></button> </center> ')
+			$(row).find('td:eq(3)').html('<center> <button type="button" class="btn btn-secondary btn-sm delBanner"><i class="fas fa-trash"></i></button> </center> ')
         },
 	}))
 
@@ -165,6 +166,8 @@ async function loadDataToBannersTable() {
 			console.log("compara default", res.data);
 
 			res.data.map(el => {
+				if (!el.fileUrl) el.fileUrl = '-'
+				if (!el.modificar) el.modificar = '-'
 				if (!el.eliminar) el.eliminar = '-'
 			})
 
