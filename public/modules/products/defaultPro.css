@@ -251,7 +251,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
 } */
-.card-body-custom {
+.card-body-custom1 {
     text-align: center !important;
     color: var(--grey1);
     background-color: #f8f8f8;

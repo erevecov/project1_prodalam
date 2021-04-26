@@ -12,17 +12,25 @@ banImg()
 
 async function banImg() {
     let res = await axios.get('/api/getBanner')
-    if(res.data.ok) {
-    // var span = document.createElement('span');
+    if (res.data.ok) {
+        // var span = document.createElement('span');
 
-    document.querySelector('#carouselExampleControls').innerHTML =`
+        document.querySelector('#carouselExampleControls').innerHTML = `
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <a href="" ><img src="${res.data.ok[0]}" class="d-block w-100" alt=" "></a>
                 </div>
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
         `
-    // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
+        // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
 
         $('#list').html(span)
 
@@ -96,7 +104,7 @@ async function initProducts() {
     //     productsDownSelector.setAttribute('href', nextPageURL)
     // }
 
-    document.querySelector('#featuredProducts').innerHTML = stars.data.reduce((acc,el,i)=> {
+    document.querySelector('#featuredProducts').innerHTML = stars.data.reduce((acc, el, i) => {
 
         let findProductImg
 
@@ -146,7 +154,7 @@ async function initProducts() {
 
     Array.from(querySelectorAll('.viewMore')).forEach(el => {
         el.addEventListener('click', () => {
-            let productData = internals.stars.find(elProduct=>elProduct._id === el.dataset.productid)
+            let productData = internals.stars.find(elProduct => elProduct._id === el.dataset.productid)
 
             handleModal(productData)
         })

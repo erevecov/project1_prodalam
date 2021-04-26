@@ -36,7 +36,7 @@ const handleModal = (originalProductData) => {
 	modalSelector.title.innerHTML = productData.title
 	modalSelector.body.innerHTML=`
     <div class="product-modal">
-        <div class="row">
+        <div class="row" style="flex-flow: row wrap-reverse;">
             <div class="col-lg-6 uno">
                 <h2>${productData.title}</h2>
 
@@ -87,13 +87,24 @@ const handleModal = (originalProductData) => {
             <div class="col-lg-3">
                 <div class="card card-custom">
                     <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
+                    <div class="card-body card-body-custom1"
+                    style="text-align: center !important;
+                    color: var(--grey1);
+                    background-color: #f8f8f8;">
                         <img src="${productData.img}" class="card-img-top" alt="producto">
                         <p class="card-text card-product-title">Producto relacionado</p>
 
-                        <p class="card-product-description">${productData.description}</p>
+                        <p class="card-product-description">${cutText(productData.description, 100)}</p>
                         <div class="d-grid gap-2">
-                            <a class="btn btn-custom2" data-productid="${productData._id}">Ver más</a>
+                            <a class="btn btn-custom2" style="    color: var(--grey1);
+                            border: 1px solid var(--grey1);
+                            border-radius: 20px;
+                            font-size: 18px;
+                            padding-top: 2px;
+                            padding-bottom: 2px;
+                            padding-right: 15px;
+                            padding-left: 15px;"
+                             data-productid="${productData._id}">Ver más</a>
                         </div>
                     </div>
                 </div>
