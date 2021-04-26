@@ -240,8 +240,18 @@ const handleModal = () => {
     <br>
     <br>
     	<input type="file" id="excelFile" accept=".xlsx"/>
-    <br>
-    <br><br>
+        <br><br><br><br>
+        <div class="alert alert-dismissible alert-warning">
+            <h4 class="alert-heading">Los campos excel requeridos son:</h4>
+            <p class="mb-0">
+            <br>SKU
+            <br>ID producto (product_id)
+            <br>Titulo
+            <br>Categoría (padre)
+            <br>Descripción
+            <br>Info_status = COMPLETADO
+            </p>
+        </div>
     <br>
     `
     modalSelector.footer.innerHTML = `

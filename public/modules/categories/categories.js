@@ -78,7 +78,7 @@ async function initCategory() {
         acc += `
         <div class="col-md-6 category-item-container">
         <a href="/products?category=${el}">
-            <div class="category-item" style="background-image: url('/public/modules/categories/imgCat/${el.replace(',','')}.jpg');">
+            <div class="category-item" style=" background-image: linear-gradient(transparent,transparent, black), url('/public/modules/categories/imgCat/${el.replace(',','')}.jpg');">
 
                 <h2>${el}</h2>
             </div>
