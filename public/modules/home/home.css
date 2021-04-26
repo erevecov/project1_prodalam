@@ -80,8 +80,8 @@ h5{
     color: var(--grey1);
     background-color: #f8f8f8;
     min-width: 150px;
-    min-height: 400px;
-    max-height: 400px;
+    min-height: 350px;
+    max-height: 350px;
 }
 
 .card-footer-custom {
@@ -115,8 +115,8 @@ h5{
 .card-body-custom img {
     border-radius: 0px !important;
     margin-bottom: 5px;
-    max-height: 300px;
-    max-width: 300px;
+    max-height: 200px;
+    max-width: 250px;
 }
 
 .title1 {
@@ -127,11 +127,7 @@ h5{
     text-align: center;
 }
 
-.carousel-item {
-    /* width: 100vh !important; */
-    height: auto;
-    align-items: center;
-}
+
 #categories-left {
     color: var(--orange);
     display: flex;
@@ -282,3 +278,27 @@ h5{
     width: 100%!important;
     height: inherit;
 }
+
+/* ------------css banner --------------- */
+
+/* .carousel-item {
+    height: auto;
+    align-items: center;
+    width:100%;
+
+    background:url(/public/img/DESKTOP_PRODALAM.jpg) center center;
+    background-size: 300px 300px;
+} */
+
+/* @media only screen and (min-width: 768px) and (max-width: 985px) {
+    
+} */
+
+/* @media (max-width: 768px) {
+    .carousel-item {
+        width:100%;
+        height:auto;
+        background:url(/public/img/metrored_servicios.jpg) center center;
+        background-size: 200px 200px;
+    }
+} */

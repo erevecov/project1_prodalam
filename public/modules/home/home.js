@@ -3,12 +3,34 @@ let internals = {
 }
 
 initProducts()
-
+banImg()
 // Array.from(querySelectorAll('.viewMore')).forEach(el => {
 //     el.addEventListener('click', () => {
 //         handleModal()
 //     })
 // })
+
+async function banImg() {
+    let res = await axios.get('/api/getBanner')
+    if(res.data.ok) {
+    // var span = document.createElement('span');
+
+    document.querySelector('#carouselExampleControls').innerHTML =`
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="" ><img src="${res.data.ok[0]}" class="d-block w-100" alt=" "></a>
+                </div>
+            </div>
+        `
+    // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
+
+        $('#list').html(span)
+
+    } else {
+
+        toastr.warning("sin banner")
+    }
+}
 
 async function initProducts() {
     loadingHandler('start')

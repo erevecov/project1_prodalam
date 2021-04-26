@@ -35,96 +35,112 @@ async function initProducts() {
 
     // console.log(productApiURL)
     let itemStar = JSON.parse(localStorage.getItem("favor"))
-    let products = await axios.post(productApiURL, itemStar)
+ console.log("star", itemStar);
 
-    internals.products = products.data.docs
 
-    let productsUpSelector = document.querySelector('#star-up')
-    let productsDownSelector = document.querySelector('#star-down')
 
-    if (products.data.prevPage) {
-        let prevPageURL = `?page=${products.data.prevPage}`
+   
 
-        if (search) {
-            prevPageURL += `&search=${search}`
-        }
+    if (itemStar == null || itemStar.length == 0) {
+        document.querySelector('#product-star-container').innerHTML = `
+        <br>
+        
+        <div class="col-md-3"></div>
+        <div class="col-md-6"><h2>Sin Productos seleccionados</h2></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-12"></div>
+        `
+        loadingHandler('stop')
+    } else {
+        let products = await axios.post(productApiURL, itemStar)
+        internals.products = products.data.docs
 
-        productsUpSelector.setAttribute('href', prevPageURL)
-    }
-
-    if (products.data.nextPage) {
-        let nextPageURL = `?page=${products.data.nextPage}`
-
-        if (search) {
-            nextPageURL += `&search=${search}`
-        }
-
-        productsDownSelector.setAttribute('href', nextPageURL)
-    }
-
-    document.querySelector('#product-star-container').innerHTML = products.data.docs.reduce((acc,el,i)=> {
-
-        let findProductImg
-
-        el.info.forEach(a => {
-            if (a.name == "Imagen") {
-                findProductImg = a.data
+        let productsUpSelector = document.querySelector('#star-up')
+        let productsDownSelector = document.querySelector('#star-down')
+    
+        if (products.data.prevPage) {
+            let prevPageURL = `?page=${products.data.prevPage}`
+    
+            if (search) {
+                prevPageURL += `&search=${search}`
             }
-        });
-
-        let findProductTitle = el.title
-        let findProductDescription = el.description
-        let findProductInfo = el.info
-
-
-        let productData = {
-            _id: el._id,
-            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
-            sku: el.sku,
-            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
-            info: (findProductInfo)
+    
+            productsUpSelector.setAttribute('href', prevPageURL)
+        }
+    
+        if (products.data.nextPage) {
+            let nextPageURL = `?page=${products.data.nextPage}`
+    
+            if (search) {
+                nextPageURL += `&search=${search}`
+            }
+    
+            productsDownSelector.setAttribute('href', nextPageURL)
         }
 
-        acc += `
-        <div class="col-md-6 product-item-container">
-            <div class="product-item">
-                <div class="row" style="padding-top: 15px;">
-                    <div class="col-7">
-                        <h2>${cutText(productData.title, 23)}</h2>
+        document.querySelector('#product-star-container').innerHTML = products.data.docs.reduce((acc,el,i)=> {
 
-                        <h5>SKU: ${productData.sku}</h5>
+            let findProductImg
 
-                        <p class="text-product">${cutText(productData.description, 70)}</p>
+            el.info.forEach(a => {
+                if (a.name == "Imagen") {
+                    findProductImg = a.data
+                }
+            });
 
-                    </div>
+            let findProductTitle = el.title
+            let findProductDescription = el.description
+            let findProductInfo = el.info
 
-                    <div class="col-5 product-img-container" style="padding-top: 30px;">
-                        <img src="${productData.img}" alt="">
-                    </div>
-                    <div class="col-12" style="padding-bottom: 10px;">
-                    <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+
+            let productData = {
+                _id: el._id,
+                title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+                sku: el.sku,
+                description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+                img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+                info: (findProductInfo)
+            }
+
+            acc += `
+            <div class="col-md-6 product-item-container">
+                <div class="product-item">
+                    <div class="row" style="padding-top: 15px;">
+                        <div class="col-7">
+                            <h2>${cutText(productData.title, 23)}</h2>
+
+                            <h5>SKU: ${productData.sku}</h5>
+
+                            <p class="text-product">${cutText(productData.description, 70)}</p>
+
+                        </div>
+
+                        <div class="col-5 product-img-container" style="padding-top: 30px;">
+                            <img src="${productData.img}" alt="">
+                        </div>
+                        <div class="col-12" style="padding-bottom: 10px;">
+                        <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        `
+            `
 
-        return acc
-    }, '')
+            return acc
+        }, '')
 
-    Array.from(querySelectorAll('.viewMore')).forEach(el => {
-        el.addEventListener('click', () => {
+        Array.from(querySelectorAll('.viewMore')).forEach(el => {
+            el.addEventListener('click', () => {
 
-            let productData = internals.products.find(elProduct=>elProduct._id === el.dataset.productid)
+                let productData = internals.products.find(elProduct=>elProduct._id === el.dataset.productid)
 
-            handleModal(productData)
+                handleModal(productData)
+            })
         })
-    })
 
-    loadingHandler('stop')
+        loadingHandler('stop')
+    }
 }
-
 
 // ------------------------------------------------------------------------
 

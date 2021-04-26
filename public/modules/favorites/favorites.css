@@ -188,23 +188,29 @@ h2 {
     color: #444444;
     font-size: small;
     text-align: left;
-    margin-left: 25px;
+    margin-left: 29px;
     min-height: 60px;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: unset;
 }
 
 .product-item h2 {
     /* font-size: x-large; */
-    margin-top: 20px;
     font-size: 25px;
+    
     text-align: left;
-    margin-left: 25px;
+    margin-left: -20px;
     color: #291D29;
 }
 
 .product-item h5 {
     font-family: SFProDisplay-Light;
     text-align: left;
-    margin-left: 25px;
+    margin-left: 29px;
     color: #444444;
 }
 
@@ -254,12 +260,12 @@ h2 {
     padding-right: inherit;
 }
 
-#products-up {
+#star-up {
     color: var(--orange);
     text-decoration: none;
 }
 
-#products-down {
+#star-down {
     color: var(--orange);
     text-decoration: none;
 }

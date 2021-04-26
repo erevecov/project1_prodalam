@@ -143,7 +143,7 @@ module.exports = [
                 } catch (error) {
                     console.log(error)
 
-                    return Boom.badImplementation(error)
+                    return error
                 }
             }
         }
