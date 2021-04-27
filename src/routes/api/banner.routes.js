@@ -59,6 +59,7 @@ module.exports = [
         method: 'GET',
         path: '/api/getBanner',
         options: {
+            auth: false,
             handler: async (request, h) => {
                 try {
                     let reado = await readdir('./public/modules/banner/imgBan/')

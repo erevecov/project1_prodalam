@@ -156,14 +156,11 @@ const handleModalBanner = () => {
 
 async function loadDataToBannersTable() {
     let res = await axios.get('api/bannerNames')
-	console.log("resooa", res);
     // let cate = await axios.get('api/categories')
     // console.log("categorias", cate.data);
         if (res.err) {
             toastr.warning(res.err)
         } else if(res.data) {
-
-			console.log("compara default", res.data);
 
 			res.data.map(el => {
 				if (!el.fileUrl) el.fileUrl = '-'
