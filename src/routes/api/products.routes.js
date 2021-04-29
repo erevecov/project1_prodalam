@@ -88,6 +88,10 @@ module.exports = [
                         }
                     }
 
+                    if (queryParams.subCategory) {
+                        query = { subCategory: queryParams.subCategory }
+                    }
+
                     const options = {
                         page: queryParams.page || 1,
                         limit: queryParams.limit || 6,
