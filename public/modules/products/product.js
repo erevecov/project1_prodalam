@@ -112,21 +112,20 @@ async function initProducts() {
         acc += `
         <div class="col-md-6 product-item-container">
             <div class="product-item">
-                <div class="row" style="padding-top: 15px;">
-                    <div class="col-7">
+                <div class="row" style="padding-top: 25px; padding-bottom: 15px;">
+                    <div class="col-sm-7">
                         <h2>${cutText(productData.title, 23)}</h2>
 
                         <h5>SKU: ${productData.sku}</h5>
 
                         <p class="text-product">${cutText(productData.description, 70)}</p>
-
+                        <div  style="padding-bottom: 10px;">
+                        <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                        </div>
                     </div>
 
-                    <div class="col-5 product-img-container" style="padding-top: 30px;">
+                    <div class="col-sm-5 product-img-container">
                         <img src="${productData.img}" alt="">
-                    </div>
-                    <div class="col-12" style="padding-bottom: 10px;">
-                    <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
                     </div>
                 </div>
             </div>

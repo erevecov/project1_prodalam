@@ -1,3 +1,10 @@
+let internal = {
+    menuCat: []
+}
+
+initMenu()
+
+
 function loadingHandler(status) {
     let loadingSelector = querySelector('#loadingScreen')
 
@@ -11,7 +18,116 @@ function loadingHandler(status) {
     }
 }
 
+// nav-link1
 
+async function initMenu() {
+    loadingHandler('start')
+
+    let arrayMenu = []
+
+    const queryString = window.location.href
+    const urlParams = new URL(queryString)
+    const page = urlParams.searchParams.get('page')
+    const search = urlParams.searchParams.get('search')
+
+    // let starApiURL = 'api/productsStarFiltered'
+
+    // if (page) {
+    //     starApiURL += `?page=${page}`
+
+    //     if (search) {
+    //         starApiURL += `&search=${search}`
+    //     }
+    // } else {
+    //     if (search) {
+    //         starApiURL += `?search=${search}`
+    //     }
+    // }
+
+    // console.log(starApiURL)
+
+    // let stars = await axios.get(starApiURL)
+
+    // arrayMenu.push(menuCat)
+
+    // console.log('products', stars)
+
+    // internals.menuCat = menuCat.data
+
+    // let productsUpSelector = document.querySelector('#products-up')
+    // let productsDownSelector = document.querySelector('#products-down')
+    // let infonumPage = document.querySelector('#numPage')
+    // let infonumPage0 = document.querySelector('#numPage0')
+
+
+    // if (products.data.page) {
+    //     infonumPage.innerHTML= products.data.page
+    //     infonumPage0.innerHTML= products.data.page
+    // }
+    // if (products.data.prevPage) {
+    //     let prevPageURL = `?page=${products.data.prevPage}`
+
+    //     if (search) {
+    //         prevPageURL += `&search=${search}`
+    //     }
+
+    //     productsUpSelector.setAttribute('href', prevPageURL)
+    // }
+
+    // if (products.data.nextPage) {
+    //     let nextPageURL = `?page=${products.data.nextPage}`
+
+    //     if (search) {
+    //         nextPageURL += `&search=${search}`
+    //     }
+
+    //     productsDownSelector.setAttribute('href', nextPageURL)
+    // }
+
+    document.querySelector('#nav-link1').innerHTML = menuCat.data.reduce((acc, el, i) => {
+
+        // let findProductImg
+
+        // el.info.forEach(a => {
+        //     if (a.name == "Imagen") {
+        //         findProductImg = a.data
+        //     }
+        // });
+
+        // let findProductTitle = el.title
+        // let findProductDescription = el.description
+        // let findProductInfo = el.info
+
+
+        let menuData = {
+            _id: el._id,
+        }
+
+        acc += `
+        <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+        `
+
+        return acc
+    }, '')
+
+    Array.from(querySelectorAll('.viewMore')).forEach(el => {
+        el.addEventListener('click', () => {
+            let productData = internal.menuCat.find(elProduct => elProduct._id === el.dataset.productid)
+
+            handleModal(productData)
+        })
+    })
+
+    loadingHandler('stop')
+}
 
 // const storageStar = document.querySelector('.addToFavorite')
 // const showFav = document.querySelector('.listFav')

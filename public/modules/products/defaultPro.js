@@ -1,5 +1,5 @@
 
-const handleModal = (originalProductData) => {
+const handleModal = async (originalProductData) => {
     let el = originalProductData
     let findProductImg
 
@@ -18,6 +18,7 @@ const handleModal = (originalProductData) => {
     let productData = {
         _id: el._id,
         title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+        category: el.category,
         sku: el.sku,
         description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
         img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
@@ -82,34 +83,8 @@ const handleModal = (originalProductData) => {
 
         <h3 class="title1">Productos relacionados</h3>
 
-        <div class="row" id="connected">
+        <div class="row" id="connected"></div>
 
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom1"
-                    style="text-align: center !important;
-                    color: var(--grey1);
-                    background-color: #f8f8f8;">
-                        <img src="${productData.img}" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">${cutText(productData.description, 100)}</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2" style="    color: var(--grey1);
-                            border: 1px solid var(--grey1);
-                            border-radius: 20px;
-                            font-size: 18px;
-                            padding-top: 2px;
-                            padding-bottom: 2px;
-                            padding-right: 15px;
-                            padding-left: 15px;"
-                             data-productid="${productData._id}">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 	`
 
@@ -165,6 +140,77 @@ const handleModal = (originalProductData) => {
         }
 
     });
+// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    let cate = {
+        category: productData.category
+    }
+
+    let relacionPro = await axios.post('api/productsRelated', cate )
+
+    document.querySelector('#connected').innerHTML = relacionPro.data.reduce((acc, el, i) => {
+
+        let findProductImg
+
+        el.info.forEach(a => {
+            if (a.name == "Imagen") {
+                findProductImg = a.data
+            }
+        });
+
+        let findProductTitle = el.title
+        let findProductDescription = el.description
+        let findProductInfo = el.info
+
+
+        let productData = {
+            _id: el._id,
+            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+            sku: el.sku,
+            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+            info: (findProductInfo)
+        }
+
+        acc += `
+        <div class="col-lg-3">
+                <div class="card card-custom">
+                    <!-- <button class="btn addToFavBtn"></button> -->
+                    <div class="card-body card-body-custom1"
+                    style="text-align: center !important;
+                    color: var(--grey1);
+                    background-color: #f8f8f8;">
+                        <img src="${productData.img}" class="card-img-top" alt="producto">
+                        <p class="card-text card-product-title">Producto relacionado</p>
+
+                        <p class="card-product-description">${cutText(productData.description, 100)}</p>
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-custom2 viewMore" style="    color: var(--grey1);
+                            border: 1px solid var(--grey1);
+                            border-radius: 20px;
+                            font-size: 18px;
+                            padding-top: 2px;
+                            padding-bottom: 2px;
+                            padding-right: 15px;
+                            padding-left: 15px;"
+                             data-productid="${productData._id}">Ver más</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        `
+
+        return acc
+    }, '')
+
+    Array.from(querySelectorAll('.viewMore')).forEach(el => {
+
+        el.addEventListener('click', () => {
+            let productData = relacionPro.data.find(elProduct => elProduct._id === el.dataset.productid)
+
+            window.location.href = `products?search=${productData.sku}`
+        })
+    })
 
     $('#modal').modal('show')
 }
