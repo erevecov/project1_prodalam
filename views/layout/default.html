@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="/public/img/LOGO_CATALOGO.png" alt="" class="img-responsive" width="140" height="70">
         </a>
 
@@ -31,9 +31,22 @@
                 </li>
 
                 <li class="nav-item {{#if pageSelectedCategories}} active {{/if}}">
-                    <a class="nav-link" href="/categories">Categorias</a>
+                    <a class="nav-link" href="/categories">Categorías</a>
                 </li>
-
+                <li class="nav-menu">
+                    <div class="btn-group">
+                    <button type="button" id="nav-link1" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <!-- <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                        </div> -->
+                    </div>
+                </li>
                 <li class="nav-item {{#if pageSelectedInfo}} active {{/if}}">
                     <a class="nav-link" href="/info">Información de tiendas</a>
                 </li>
@@ -49,7 +62,7 @@
                         <input name="search" id="navbar-search-input" type="text" class="form-control" aria-label="" placeholder="Buscar Producto">
                         <div class="input-group-append">
                             <div class="input-group-append">
-                                <button class="btn btn-link" type="button" id="searchBtn"><i class="fas fa-search fa-rotate-90"></i></button>
+                                <button class="btn btn-link" type="submit" id="searchBtn" ><i class="fas fa-search fa-flip-horizontal"></i></button>
                             </div>
                         </div>
                     </div>
@@ -115,7 +128,7 @@
                     <img src="/public/img/LOGO_CATALOGO.png" alt="" width="150" height="75">
                 </a>
             </div>
-            <div class="col-md-12 copyright">
+            <div class="col-md-12 copyright" style="padding-bottom: 20px;">
             Prodalam<span>®</span> 2021 Todos los Derechos Reservados
             </div>
         </div>
@@ -127,8 +140,8 @@
   <!-- Footer -->
     <div id="loadingScreen">
         <div>
-        <img src="/public/img/Loading.svg" alt="loading">
-        <h3>Cargando...</h3>
+            <img src="/public/img/Loading.svg" alt="loading">
+            <h3>Cargando...</h3>
         </div>
     </div>
 
@@ -137,6 +150,7 @@
     <script src="/public/axios/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/public/modules/default/tools.js"></script>
+    <script src="/public/modules/default/default.js"></script>
     {{#block "js"}}
     {{/block}}
 </body>
@@ -154,3 +168,4 @@
         <li><a class="dropdown-item" href="#">Categoria 3</a></li>
     </ul>
 </li> -->
+

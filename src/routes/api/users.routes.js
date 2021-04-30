@@ -121,7 +121,15 @@ module.exports = [
             tags: ['api'],
             handler: async (request, h) => {
                 try {
-                    let result = await User.find({}).lean();
+                    let query = {
+                        $or: [
+                            {
+                                scope: { $not: { $eq: 'dev'} }
+                            }
+                        ]
+                    }
+
+                    let result = await User.find(query).lean();
 
                     return result.map(el => {
                         delete el.password;

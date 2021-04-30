@@ -37,6 +37,10 @@ async function initProductsTable() {
         //     $(row).find('td:eq(1)').html(capitalizeAll(data.name))
         // },
         order: [[1, 'desc']],
+        columnDefs: [
+            { "width": "100px", "targets": 0 },
+            { "width": "1150px", "targets": 1 }
+        ],
         ordering: true,
         searchHighlight: true,
         responsive: false,
@@ -83,20 +87,26 @@ async function initProductsTable() {
         }
     });
 
-    $('#productsTable tbody').on('click', '.delProduct', function () {
+    $('#productsTable tbody').on('click', '.delProduct', async function () {
         var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
-        // alert("Borrar: " + data.sku);
+
+        dataProd = {
+            sku: data.sku
+        }
+
+        await axios.post('/api/deleteProduct', dataProd)
 
         internals.tables.products.datatable
             .row($(this).parents('tr'))
             .remove()
             .draw()
+            toastr.success('Producto Eliminado correctamente')
     });
 
     $('#productsTable tbody').on('click', '.modProduct', function () {
         var data = internals.tables.products.datatable.row($(this).parents('tr')).data();
         // alert("Modificar: " + data.sku);
-        initMod()
+        initMod(data)
     });
 
     $('#filterStar').on('change', function () {
@@ -107,21 +117,24 @@ async function initProductsTable() {
         }
     })
 
-    const initMod = () => {
+    async function initMod(product) {
+        let categoriesList = await axios.get('api/categories')
+
         const modalMod = {
             title: document.querySelector('#modal_title'),
             body: document.querySelector('#modal_body'),
             footer: document.querySelector('#modal_footer'),
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.js-example-basic-single').select2({
-                width: 'resolve'
+                width: 'resolve',
+                data: categoriesList.data[0].cats
             });
         });
 
         modalMod.title.innerHTML = `
-            Modificar producto SKU:
+            Modificar producto SKU: ${product.sku}
         `
         modalMod.body.innerHTML = `
         <div class="row">
@@ -132,34 +145,17 @@ async function initProductsTable() {
             
 
             <div class="col-md-6" style="margin-top:10px;">
-                <input id="modTitulo" type="text" placeholder="Producto 1" class="form-control border-input">
+                <input id="modTitulo" type="text" value="${product.title}" class="form-control border-input">
             </div>
             
             <div class="col-md-6" style="margin-top:10px;">
-                <input id="modDesc" type="text" placeholder="Descripción" class="form-control border-input">
+                <input id="modDesc" type="text" value="${product.description}" class="form-control border-input">
             </div>
 
             <div class="col-md-12" style="margin-top:10px;">
             Categoría</div>
             <div class="col-md-12" style="margin-top:10px;">
-                <select class="js-example-basic-single" name="state">
-                    <option value="admin">Accesorios Agrícolas</option>
-                    
-                    <option value="sadmin">Aceros y Metalurgia</option>
-                    
-                    <option value="sadmin">Alambres Cercos y Mallas</option>
-                   
-                    <option value="sadmin">Cabos y Cadenas</option>
-                   
-                    <option value="sadmin">Clavos y Fijaciones</option>
-                    
-                    <option value="sadmin">Construcción y Terminaciones</option>
-                    
-                    <option value="sadmin">Contención y Fortificación</option>
-                    
-                    <option value="sadmin">Hidráulica y Accesorios</option>
-                    
-                    <option value="sadmin">Seguridad Electrónica y Automatización</option>
+                <select class="js-example-basic-single" id="selectCategory" name="state">
                 </select>
             </div>
             <div class="col-md-12" style="margin-top:10px;"><br><br><br><br></div>
@@ -175,6 +171,8 @@ async function initProductsTable() {
         <i style="color:#3498db;" class="fas fa-check"></i> Guardar
         </button>
         `
+        console.log("catefasd",product.category);
+        // $("#selectCategory").val().find(product.category)
 
         $('#modal').modal('show')
     }
@@ -203,19 +201,26 @@ async function loadDataToProductsTable(filter) {
 
         let productsData = result.data
 
-        productsData.map(el => {
-            if (!el.subCategory) el.subCategory = '-'
-            if (!el.destacado) el.destacado = '-'
-            if (!el.modificar) el.modificar = '-'
-            if (!el.eliminar) el.eliminar = '-'
-        })
+
+        if (Array.isArray(productsData)) {
+            productsData.map(el => {
+                if (!el.modificar) el.modificar = '-'
+                if (!el.eliminar) el.eliminar = '-'
+            })
+        } else {
+            console.log("asdad");
+            productsData.modificar = '-'
+            productsData.eliminar = '-'
+            productsData = [productsData]
+        }
+        
 
         internals.tables.products.datatable.clear().draw()
         internals.tables.products.datatable.rows.add(productsData).draw()
-        
+
     } catch (error) {
         console.log(error)
-
+        console.log("error? wat");
         internals.tables.products.datatable.clear().draw()
     }
     loadingHandler('stop')
@@ -235,8 +240,18 @@ const handleModal = () => {
     <br>
     <br>
     	<input type="file" id="excelFile" accept=".xlsx"/>
-    <br>
-    <br><br>
+        <br><br><br><br>
+        <div class="alert alert-dismissible alert-warning">
+            <h4 class="alert-heading">Los campos excel requeridos son:</h4>
+            <p class="mb-0">
+            <br>SKU
+            <br>ID producto (product_id)
+            <br>Titulo
+            <br>Categoría (padre)
+            <br>Descripción
+            <br>Info_status = COMPLETADO
+            </p>
+        </div>
     <br>
     `
     modalSelector.footer.innerHTML = `
@@ -244,18 +259,167 @@ const handleModal = () => {
     <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
     </button>
 
-    <button class="btn btn-dark" id="saveUser">
+    <button class="btn btn-dark" id="saveExcel">
     <i style="color:#3498db;" class="fas fa-check"></i> Guardar
     </button>
 	`
 
     $('#modal').modal('show')
-
+    let arrayBuffer
     const fileSelector = document.getElementById('excelFile');
     fileSelector.addEventListener('change', (event) => {
-        const fileList = event.target.files;
-        //console.log(fileList);
-        apiTes(fileList)
+
+        const file = event.target.files[0];
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = async function (event) {
+            arrayBuffer = reader.result;
+        };
+
     });
 
+    $('#saveExcel').on('click', async function () {
+        if (!arrayBuffer || arrayBuffer == '') {
+            toastr.warning('Debe seleccionar un excel')
+        } else {
+            loadingHandler('start')
+            saveExcel(arrayBuffer)
+        }
+    });
+
+}
+
+async function saveExcel(arrayBuffer) {
+
+    var workbook = new ExcelJS.Workbook();
+    workbook.xlsx.load(arrayBuffer).then(async function (workbook) {
+        // console.log("rows", workbook._worksheets[1]._rows[1]._cells[13]._value.model.value)
+        let arraydata = []
+        // if cells > 12 = atributos
+
+        let data = workbook._worksheets[1]._rows
+
+        let final = []
+        let keyobj = []
+        let keyobjRaw = []
+        data.forEach((ed, i) => {
+            if (i == 1) {
+                ed._cells.forEach((el) => {
+                    keyobj.push(
+                        (removeAccents2(removeSpecials2((el._value.model.value).trim()))).toLowerCase()
+                    )
+                    keyobjRaw.push(
+                        el._value.model.value
+                    )
+                })
+            }
+        });
+
+        data.forEach((ed, i) => {
+            if (i !== 0 && i !== 1) {
+                let rowProd = {}
+                ed._cells.forEach((cell, o) => {
+                    //console.log("waaataa",cell._value.model.value);
+                    if (cell._value.model.value !== '') {
+                        rowProd[keyobj[o]] = cell._value.model.value;
+                        //console.log("wat", rowProd);
+                    }
+                    if (o === ed._cells.length - 1) {
+                        final.push(rowProd)
+                    }
+                })
+            }
+        })
+
+        final.forEach((el, i) => {
+            let a = {}
+            //let xEl = workbook._worksheets[1]._rows[1]._cells[i]._value.model.value
+            if (el.infostatus == 'COMPLETADO' && el.sku && el.productid && el.descripcion && el.titulo && 
+            el.categoriapadrecategorianodefinidaensap && 
+            el.categoriacategoriapadresap && el.subcategoriacategoriasap) {
+                let copyEl = el
+                a.sku = el.sku
+                a.productId = el.productid
+                a.title = el.titulo
+                a.star = 'no'
+                a.status = 'enabled'
+                a.category = el.categoriapadrecategorianodefinidaensap
+                a.subCategory = el.categoriacategoriapadresap
+                a.subCategory2 = el.subcategoriacategoriasap
+                a.description = el.descripcion
+                a.use = el.uso
+                a.benefits = el.beneficio
+                // if ((el.descripcion) ? a.description = el.descripcion : a.description = '')
+                // if ((el.uso) ? a.use = el.uso : a.use = '')
+                // if ((el.beneficio) ? a.benefits = el.beneficio : a.benefits = '')
+
+                delete copyEl.sku
+                delete copyEl.productid
+                delete copyEl.infostatus
+                delete copyEl.titulo
+                delete copyEl.caracteristicas
+                delete copyEl.categoriapadrecategorianodefinidaensap
+                delete copyEl.categoriacategoriapadresap
+                delete copyEl.subcategoriacategoriasap
+                delete copyEl.descripcion
+                delete copyEl.uso
+                delete copyEl.beneficio
+
+
+                let infoFin = []
+                Object.keys(copyEl).forEach(e => {
+                    let dataNam = {}
+                    keyobjRaw.forEach(ell => {
+                        let clare = (removeAccents2(removeSpecials2((ell).trim()))).toLowerCase()
+                        if (e == clare) {
+                            dataNam.name = ell
+                            dataNam.data = copyEl[e]
+                            infoFin.push(dataNam)
+                        }
+                    });
+
+                });
+
+                // a.info = copyEl
+                a.info = infoFin
+                arraydata.push(a)
+            }
+        })
+        // console.log("aaaa", arraydata[0]);
+        try {
+            if (arraydata.length === 0) {
+                toastr.warning('No se ha encontrado ningun producto valido para ser ingresado')
+            } else {
+                let res = await axios.post('/api/products', arraydata)
+
+                if (res.data.ok) {
+
+                    loadDataToProductsTable()
+
+                    loadingHandler('stop')
+                    toastr.success('Producto(s) subido(s) correctamente')
+                    $('#modal').modal('hide')
+                } else {
+                    toastr.warning('Ha ocurrido un error al ingresar productos en la base de datos')
+                }
+            }
+            
+            
+        } catch (error) {
+            console.log("err", error)
+        }
+    });
+
+}
+
+
+function removeSpecials2(data) {
+    data = data.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '');
+    data = data.replace(/\s/g, '')
+    data = data.replace(/-/g, '')
+    return data
+}
+function removeAccents2(data) {
+    data = data.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    return data
 }

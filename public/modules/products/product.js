@@ -4,12 +4,6 @@ let internals = {
 
 initProducts()
 
-Array.from(querySelectorAll('.viewMore')).forEach(el => {
-    el.addEventListener('click', () => {
-        handleModal()
-    })
-})
-
 async function initProducts() {
     loadingHandler('start')
 
@@ -60,6 +54,10 @@ async function initProducts() {
     if (products.data.prevPage) {
         let prevPageURL = `?page=${products.data.prevPage}`
 
+        if (cate) {
+            prevPageURL += `&category=${cate}`
+        }
+
         if (search) {
             prevPageURL += `&search=${search}`
         }
@@ -69,6 +67,10 @@ async function initProducts() {
 
     if (products.data.nextPage) {
         let nextPageURL = `?page=${products.data.nextPage}`
+
+        if (cate) {
+            nextPageURL += `&category=${cate}`
+        }
 
         if (search) {
             nextPageURL += `&search=${search}`
@@ -97,25 +99,26 @@ async function initProducts() {
             title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
             sku: el.sku,
             description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
+            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
             info: (findProductInfo)
         }
 
         acc += `
         <div class="col-md-6 product-item-container">
             <div class="product-item">
-                <div class="row">
-                    <div class="col-7">
-                        <h2>${cutText(productData.title, 22)}</h2>
+                <div class="row" style="padding-top: 25px; padding-bottom: 15px;">
+                    <div class="col-sm-7">
+                        <h2>${cutText(productData.title, 23)}</h2>
 
                         <h5>SKU: ${productData.sku}</h5>
 
                         <p class="text-product">${cutText(productData.description, 70)}</p>
-
+                        <div  style="padding-bottom: 10px;">
                         <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                        </div>
                     </div>
 
-                    <div class="col-5 product-img-container">
+                    <div class="col-sm-5 product-img-container">
                         <img src="${productData.img}" alt="">
                     </div>
                 </div>
@@ -131,7 +134,7 @@ async function initProducts() {
 
             let productData = internals.products.find(elProduct=>elProduct._id === el.dataset.productid)
 
-            handleModal(productData)
+            handleModal(productData,true)
         })
     })
 

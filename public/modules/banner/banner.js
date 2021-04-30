@@ -29,12 +29,13 @@ async function initBannersTable() {
 		responsive: false,
 		columns: [
 			{ data: 'nameFile' },
-			{ data: 'insertUrl'},
+			{ data: 'fileUrl'},
+			{ data: 'modificar' },
 			{ data: 'eliminar' }
 		],
 		rowCallback: function (row, data, index) {
-            $(row).find('td:eq(1)').html('<center> <button type="button" class="btn btn-secondary btn-sm modProduct"><i class="fas fa-edit"></i></button> </center> ')
-			$(row).find('td:eq(2)').html('<center> <button type="button" class="btn btn-secondary btn-sm delProduct"><i class="fas fa-trash"></i></button> </center> ')
+            $(row).find('td:eq(2)').html('<center> <button type="button" class="btn btn-secondary btn-sm modBanner"><i class="fas fa-edit"></i></button> </center> ')
+			$(row).find('td:eq(3)').html('<center> <button type="button" class="btn btn-secondary btn-sm delBanner"><i class="fas fa-trash"></i></button> </center> ')
         },
 	}))
 
@@ -42,13 +43,11 @@ async function initBannersTable() {
 
 	$('#bannersTable tbody').on('click', '.delBanner', async function () {
 		var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
-
 		dataImg = {
 			filename: data.nameFile
 		}
-
-		let deleteImage = await axios.post('/api/deleteBanner', dataImg)
-		console.log("dataDelete", deleteImage);
+		await axios.post('/api/deleteBanner', dataImg)
+		// console.log("dataDelete", deleteImage);
 
 		internals.tables.banners.datatable
 			.row($(this).parents('tr'))
@@ -57,6 +56,11 @@ async function initBannersTable() {
 			toastr.success('imagen Eliminada correctamente')
 	});
 
+	$('#bannersTable tbody').on('click', '.modBanner', function () {
+        var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
+        // alert("Modificar: " + data.sku);
+        initMod()
+    });
 }
 
 const handleModalBanner = () => {
@@ -89,22 +93,6 @@ const handleModalBanner = () => {
 	$('#modal').modal('show')
 	let b64img = ''
 	let nameBan = ''
-
-
-	async function banImg() {
-		let res = await axios.get('/api/getBanner')
-		if(res.data.ok) {
-			var span = document.createElement('span');
-
-			span.innerHTML = ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
-
-			$('#list').html(span)
-			
-		} else {
-			
-			toastr.warning("sin banner")
-		}
-	}
 
 	const fileSelector = document.getElementById('photoFile');
 	fileSelector.addEventListener('change', function () {
@@ -168,16 +156,15 @@ const handleModalBanner = () => {
 
 async function loadDataToBannersTable() {
     let res = await axios.get('api/bannerNames')
-	console.log("resooa", res);
     // let cate = await axios.get('api/categories')
     // console.log("categorias", cate.data);
         if (res.err) {
             toastr.warning(res.err)
         } else if(res.data) {
 
-			console.log("compara default", res.data);
-
 			res.data.map(el => {
+				if (!el.fileUrl) el.fileUrl = '-'
+				if (!el.modificar) el.modificar = '-'
 				if (!el.eliminar) el.eliminar = '-'
 			})
 

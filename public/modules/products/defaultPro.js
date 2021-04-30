@@ -1,30 +1,29 @@
 
-const handleModal = (originalProductData) => {
+const handleModal = async (originalProductData,showrels) => {
     let el = originalProductData
     let findProductImg
 
     console.log(el)
-        el.info.forEach(a => {
-            if (a.name == "Imagen") {
-                findProductImg = a.data
-            }
-        });
-
-
-        let findProductTitle = el.title
-        let findProductDescription = el.description
-        let findProductInfo = el.info
-
-        let productData = {
-            _id: el._id,
-            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
-            sku: el.sku,
-            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
-            info: (findProductInfo)
+    el.info.forEach(a => {
+        if (a.name == "Imagen") {
+            findProductImg = a.data
         }
+    });
 
 
+    let findProductTitle = el.title
+    let findProductDescription = el.description
+    let findProductInfo = el.info
+
+    let productData = {
+        _id: el._id,
+        title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+        category: el.category,
+        sku: el.sku,
+        description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+        img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+        info: (findProductInfo)
+    }
 
 	const modalSelector = {
         title: document.querySelector('#modal_title'),
@@ -36,7 +35,7 @@ const handleModal = (originalProductData) => {
 	modalSelector.title.innerHTML = productData.title
 	modalSelector.body.innerHTML=`
     <div class="product-modal">
-        <div class="row">
+        <div class="row" style="flex-flow: row wrap-reverse;">
             <div class="col-lg-6 uno">
                 <h2>${productData.title}</h2>
 
@@ -76,76 +75,21 @@ const handleModal = (originalProductData) => {
         </div>
     </div>
 
+    ${
+        (showrels) ? `
+            <div class="container">
 
+                <h3 class="title1">Productos relacionados</h3>
 
-    <div class="container">
+                <div class="row" id="connected"></div>
 
-        <h3 class="title1">Productos relacionados</h3>
-
-        <div class="row" id="connected">
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom">
-                        <img src="/public/img/tornillo1.png" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        `
+        :
+        ''
+    }
 	`
+
 
     let productInfo = ''
 
@@ -169,11 +113,11 @@ const handleModal = (originalProductData) => {
 
     document.querySelector('#product-info-container').innerHTML = productInfo
 
-    let favorites = JSON.parse(localStorage.getItem('favas')) || [];
+    let favorites = JSON.parse(localStorage.getItem('favor')) || [];
     // add class 'fav' to each favorite
     // --------------------console.log("favss", favorites);
     // favorites.forEach(function (favorite) {
-    //     document.getElementById(favorite).className = 'favas';
+    //     document.getElementById(favorite).className = 'favor';
     // });
     // register click event listener
 
@@ -189,13 +133,90 @@ const handleModal = (originalProductData) => {
         if (this.innerHTML.includes("fas")) {
             this.innerHTML = "<i class=\"far fa-star\"></i>"
         } else {
+            // let favo = {
+            //     sku: productData.sku
+            // }
+
             favorites.push(productData.sku)
             this.innerHTML = "<i class=\"fas fa-star\"></i>"
-            localStorage.setItem('favas', JSON.stringify(favorites))
+            localStorage.setItem('favor', JSON.stringify(favorites))
         }
 
     });
+// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    let cate = {
+        category: productData.category
+    }
 
+    if (showrels) {
+        let relacionPro =  axios.post('api/productsRelated', cate )
+
+        document.querySelector('#connected').innerHTML = relacionPro.data.reduce((acc, el, i) => {
+
+            let findProductImg
+
+            el.info.forEach(a => {
+                if (a.name == "Imagen") {
+                    findProductImg = a.data
+                }
+            });
+
+            let findProductTitle = el.title
+            let findProductDescription = el.description
+            let findProductInfo = el.info
+
+
+            let productData = {
+                _id: el._id,
+                title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+                sku: el.sku,
+                description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+                img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+                info: (findProductInfo)
+            }
+
+            acc += `
+            <div class="col-lg-3">
+                    <div class="card card-custom">
+                        <!-- <button class="btn addToFavBtn"></button> -->
+                        <div class="card-body card-body-custom1"
+                        style="text-align: center !important;
+                        color: var(--grey1);
+                        background-color: #f8f8f8;">
+                            <img src="${productData.img}" class="card-img-top" alt="producto">
+                            <p class="card-text card-product-title">Producto relacionado</p>
+
+                            <p class="card-product-description">${cutText(productData.description, 100)}</p>
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-custom2 viewMore" style="    color: var(--grey1);
+                                border: 1px solid var(--grey1);
+                                border-radius: 20px;    x
+                                font-size: 18px;
+                                padding-top: 2px;
+                                padding-bottom: 2px;
+                                padding-right: 15px;
+                                padding-left: 15px;"
+                                data-productid="${productData._id}">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `
+
+            return acc
+        }, '')
+        Array.from(querySelectorAll('.viewMore')).forEach(el => {
+
+            el.addEventListener('click', () => {
+                let productData = relacionPro.data.find(elProduct => elProduct._id === el.dataset.productid)
+    
+                window.location.href = `products?search=${productData.sku}`
+            })
+        })
+    } 
+    // else {
+        
+    // }
 
     $('#modal').modal('show')
 }

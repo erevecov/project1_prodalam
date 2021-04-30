@@ -3,22 +3,54 @@ let internals = {
 }
 
 initProducts()
-
+banImg()
 // Array.from(querySelectorAll('.viewMore')).forEach(el => {
 //     el.addEventListener('click', () => {
 //         handleModal()
 //     })
 // })
 
+async function banImg() {
+    let res = await axios.get('/api/getBanner')
+    if (res.data.ok) {
+        // var span = document.createElement('span');
+
+        document.querySelector('#carouselExampleControls').innerHTML = `
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="" ><img src="${res.data.ok[0]}" class="d-block w-100" alt=" "></a>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+        `
+        // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
+
+        $('#list').html(span)
+
+    } else {
+
+        toastr.warning("sin banner")
+    }
+}
+
 async function initProducts() {
     loadingHandler('start')
+
+    let arrayStar = []
 
     const queryString = window.location.href
     const urlParams = new URL(queryString)
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
 
-    let starApiURL = 'api/productsStar'
+    let starApiURL = 'api/productsStarFiltered'
 
     if (page) {
         starApiURL += `?page=${page}`
@@ -35,6 +67,8 @@ async function initProducts() {
     // console.log(starApiURL)
 
     let stars = await axios.get(starApiURL)
+
+    arrayStar.push(stars)
 
     // console.log('products', stars)
 
@@ -70,7 +104,7 @@ async function initProducts() {
     //     productsDownSelector.setAttribute('href', nextPageURL)
     // }
 
-    document.querySelector('#featuredProducts').innerHTML = stars.data.reduce((acc,el,i)=> {
+    document.querySelector('#featuredProducts').innerHTML = stars.data.reduce((acc, el, i) => {
 
         let findProductImg
 
@@ -90,7 +124,7 @@ async function initProducts() {
             title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
             sku: el.sku,
             description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/noimg.jpeg',
+            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
             info: (findProductInfo)
         }
 
@@ -100,7 +134,7 @@ async function initProducts() {
                 <!-- <button class="btn addToFavBtn"></button> -->
                 <div class="card-body card-body-custom">
                     <img src="${productData.img}" alt="" class="card-img-top" alt="producto">
-                    <p class="card-text card-product-title">Destacado de la semana</p>
+                    <p class="card-text card-product-title">Destacado del mes</p>
 
                     <p class="card-product-description">${cutText(productData.description, 100)}</p>
                 </div>
@@ -120,7 +154,7 @@ async function initProducts() {
 
     Array.from(querySelectorAll('.viewMore')).forEach(el => {
         el.addEventListener('click', () => {
-            let productData = internals.stars.find(elProduct=>elProduct._id === el.dataset.productid)
+            let productData = internals.stars.find(elProduct => elProduct._id === el.dataset.productid)
 
             handleModal(productData)
         })
