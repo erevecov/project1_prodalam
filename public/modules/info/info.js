@@ -17,6 +17,14 @@ async function initInfos() {
 
     if (page) {
         infoApiURL += `?page=${page}`
+
+        if (search) {
+            infoApiURL += `&search=${search}`
+        }
+    } else {
+        if (search) {
+            infoApiURL += `?search=${search}`
+        }
     }
 
     let infos = await axios.get(infoApiURL)

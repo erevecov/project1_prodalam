@@ -303,4 +303,10 @@
         padding-top: 10px;
         margin-left: 26px;
     }
+
+    .col-sm-7 {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
 }

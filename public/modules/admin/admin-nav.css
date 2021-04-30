@@ -136,18 +136,27 @@ h3{
 #navbar-search-input {
     border-radius: 50px;
 }
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
     line-height: 28px;
     min-width: 364px;
-    font-family: 'SFProDisplay-Semibold';
+    font-family: SFProDisplay-Semibold;
+}
+
+.dataTables_wrapper {
+    position: relative;
+    clear: both;
+    /* *zoom: 1; */
+    padding-bottom: 100px;
+    zoom: 1;
 }
 
 .row.alineacion {
     display: -ms-flexbox;
     display: flex;
     justify-content: space-around;
-    margin-right: -15px;
+    margin-right: 10px;
     margin-left: -15px;
 }
 .card {
