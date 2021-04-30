@@ -403,8 +403,6 @@ async function saveExcel(arrayBuffer) {
                     toastr.warning('Ha ocurrido un error al ingresar productos en la base de datos')
                 }
             }
-            
-            
         } catch (error) {
             console.log("err", error)
         }

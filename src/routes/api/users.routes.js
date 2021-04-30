@@ -1,5 +1,7 @@
 const User = require('../../models/userModel');
 const Joi = require('joi')
+import { hashPassword } from '../../utils/passwordHandler'
+import { validatePassword } from '../../utils/passwordHandler'
 
 module.exports = [
     {
@@ -34,6 +36,11 @@ module.exports = [
                             if (request.payload.password == '') {
                                 request.payload.password = userExist[0].password
                             }
+
+                            if (!validatePassword(userExist[0].password, request.payload.password)) {
+                                request.payload.password = hashPassword(request.payload.password)
+                            }
+
                             delete request.payload.mod
                             let user = await User(request.payload);
                             user._id = userExist[0]._id
@@ -50,6 +57,16 @@ module.exports = [
                             }
                         }
                     }
+
+                    // let userPassword = generatePassword()
+
+                    //     let newUser = new User({
+                    //         cod: payload.cod,
+                    //         status: payload.status,
+                    //         scope: payload.scope,
+                    //         password: hashPassword(userPassword)
+                    //     })
+                    request.payload.password = hashPassword(request.payload.password)
 
                     delete request.payload.mod
                     let user = await User(request.payload);
