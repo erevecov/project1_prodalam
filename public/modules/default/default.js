@@ -30,21 +30,21 @@ async function initMenu() {
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
 
-    // let starApiURL = 'api/productsStarFiltered'
+    let sub = '/api/subCategories'
 
-    // if (page) {
-    //     starApiURL += `?page=${page}`
+    if (page) {
+        sub += `?page=${page}`
 
-    //     if (search) {
-    //         starApiURL += `&search=${search}`
-    //     }
-    // } else {
-    //     if (search) {
-    //         starApiURL += `?search=${search}`
-    //     }
-    // }
+        if (search) {
+            sub += `&search=${search}`
+        }
+    } else {
+        if (search) {
+            sub += `?search=${search}`
+        }
+    }
 
-    // console.log(starApiURL)
+    console.log(sub,'aeaeae')
 
     // let stars = await axios.get(starApiURL)
 

@@ -4,12 +4,6 @@ let internals = {
 
 initProducts()
 
-Array.from(querySelectorAll('.viewMore')).forEach(el => {
-    el.addEventListener('click', () => {
-        handleModal()
-    })
-})
-
 async function initProducts() {
     loadingHandler('start')
 
@@ -140,7 +134,7 @@ async function initProducts() {
 
             let productData = internals.products.find(elProduct=>elProduct._id === el.dataset.productid)
 
-            handleModal(productData)
+            handleModal(productData,true)
         })
     })
 

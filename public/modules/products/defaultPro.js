@@ -1,5 +1,5 @@
 
-const handleModal = async (originalProductData) => {
+const handleModal = async (originalProductData,showrels) => {
     let el = originalProductData
     let findProductImg
 
@@ -24,8 +24,6 @@ const handleModal = async (originalProductData) => {
         img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
         info: (findProductInfo)
     }
-
-
 
 	const modalSelector = {
         title: document.querySelector('#modal_title'),
@@ -77,16 +75,21 @@ const handleModal = async (originalProductData) => {
         </div>
     </div>
 
+    ${
+        (showrels) ? `
+            <div class="container">
 
+                <h3 class="title1">Productos relacionados</h3>
 
-    <div class="container">
+                <div class="row" id="connected"></div>
 
-        <h3 class="title1">Productos relacionados</h3>
-
-        <div class="row" id="connected"></div>
-
-    </div>
+            </div>
+        `
+        :
+        ''
+    }
 	`
+
 
     let productInfo = ''
 
@@ -145,72 +148,75 @@ const handleModal = async (originalProductData) => {
         category: productData.category
     }
 
-    let relacionPro = await axios.post('api/productsRelated', cate )
+    if (showrels) {
+        let relacionPro =  axios.post('api/productsRelated', cate )
 
-    document.querySelector('#connected').innerHTML = relacionPro.data.reduce((acc, el, i) => {
+        document.querySelector('#connected').innerHTML = relacionPro.data.reduce((acc, el, i) => {
 
-        let findProductImg
+            let findProductImg
 
-        el.info.forEach(a => {
-            if (a.name == "Imagen") {
-                findProductImg = a.data
+            el.info.forEach(a => {
+                if (a.name == "Imagen") {
+                    findProductImg = a.data
+                }
+            });
+
+            let findProductTitle = el.title
+            let findProductDescription = el.description
+            let findProductInfo = el.info
+
+
+            let productData = {
+                _id: el._id,
+                title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+                sku: el.sku,
+                description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+                img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+                info: (findProductInfo)
             }
-        });
 
-        let findProductTitle = el.title
-        let findProductDescription = el.description
-        let findProductInfo = el.info
+            acc += `
+            <div class="col-lg-3">
+                    <div class="card card-custom">
+                        <!-- <button class="btn addToFavBtn"></button> -->
+                        <div class="card-body card-body-custom1"
+                        style="text-align: center !important;
+                        color: var(--grey1);
+                        background-color: #f8f8f8;">
+                            <img src="${productData.img}" class="card-img-top" alt="producto">
+                            <p class="card-text card-product-title">Producto relacionado</p>
 
-
-        let productData = {
-            _id: el._id,
-            title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
-            sku: el.sku,
-            description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-            img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
-            info: (findProductInfo)
-        }
-
-        acc += `
-        <div class="col-lg-3">
-                <div class="card card-custom">
-                    <!-- <button class="btn addToFavBtn"></button> -->
-                    <div class="card-body card-body-custom1"
-                    style="text-align: center !important;
-                    color: var(--grey1);
-                    background-color: #f8f8f8;">
-                        <img src="${productData.img}" class="card-img-top" alt="producto">
-                        <p class="card-text card-product-title">Producto relacionado</p>
-
-                        <p class="card-product-description">${cutText(productData.description, 100)}</p>
-                        <div class="d-grid gap-2">
-                            <a class="btn btn-custom2 viewMore" style="    color: var(--grey1);
-                            border: 1px solid var(--grey1);
-                            border-radius: 20px;
-                            font-size: 18px;
-                            padding-top: 2px;
-                            padding-bottom: 2px;
-                            padding-right: 15px;
-                            padding-left: 15px;"
-                             data-productid="${productData._id}">Ver más</a>
+                            <p class="card-product-description">${cutText(productData.description, 100)}</p>
+                            <div class="d-grid gap-2">
+                                <a class="btn btn-custom2 viewMore" style="    color: var(--grey1);
+                                border: 1px solid var(--grey1);
+                                border-radius: 20px;    x
+                                font-size: 18px;
+                                padding-top: 2px;
+                                padding-bottom: 2px;
+                                padding-right: 15px;
+                                padding-left: 15px;"
+                                data-productid="${productData._id}">Ver más</a>
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
-            </div>
-        `
+            `
 
-        return acc
-    }, '')
+            return acc
+        }, '')
+        Array.from(querySelectorAll('.viewMore')).forEach(el => {
 
-    Array.from(querySelectorAll('.viewMore')).forEach(el => {
-
-        el.addEventListener('click', () => {
-            let productData = relacionPro.data.find(elProduct => elProduct._id === el.dataset.productid)
-
-            window.location.href = `products?search=${productData.sku}`
+            el.addEventListener('click', () => {
+                let productData = relacionPro.data.find(elProduct => elProduct._id === el.dataset.productid)
+    
+                window.location.href = `products?search=${productData.sku}`
+            })
         })
-    })
+    } 
+    // else {
+        
+    // }
 
     $('#modal').modal('show')
 }
