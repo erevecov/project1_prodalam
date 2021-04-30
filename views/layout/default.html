@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     {{#block "css"}}
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu>a:after {
+            content: "\f0da";
+            float: right;
+            border: none;
+            font-family: 'FontAwesome';
+        }
+
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: 0px;
+            margin-left: 0px;
+        }
+    </style>
     {{/block}}
 </head>
 <body>
@@ -30,23 +49,60 @@
                     <a class="nav-link" href="/">Portada <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item {{#if pageSelectedCategories}} active {{/if}}">
+                <!-- <li class="nav-item {{#if pageSelectedCategories}} active {{/if}}">
                     <a class="nav-link" href="/categories">Categorías</a>
                 </li>
+
                 <li class="nav-menu">
                     <div class="btn-group">
-                    <button type="button" id="nav-link1" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                    <!-- <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                        </div> -->
+                        <button type="button" id="nav-link1" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
                     </div>
+                </li> -->
+
+                <li class="nav-item dropdown">
+                    <a id="dropdownMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Categorías</a>
+
+                    <ul id="categoriesDropdown1" aria-labelledby="dropdownMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="/categories" class="dropdown-item">Todas las categorías</a></li>
+
+                        <!-- <li class="dropdown-submenu">
+                            <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
+                            <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                                <li>
+                                    <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                                </li>
+
+                                <li><a href="#" class="dropdown-item">level 2</a></li>
+                                <li><a href="#" class="dropdown-item">level 2</a></li>
+                                <li><a href="#" class="dropdown-item">level 2</a></li>
+                                <li><a href="#" class="dropdown-item">level 2</a></li>
+                                <li><a href="#" class="dropdown-item">level 2</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown-submenu">
+                            <a id="dropdownMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
+                            <ul aria-labelledby="dropdownMenu3" class="dropdown-menu border-0 shadow">
+                                <li>
+                                    <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                                </li>
+
+                                <li><a href="#" class="dropdown-item">level 3</a></li>
+                                <li><a href="#" class="dropdown-item">level 3</a></li>
+                            </ul>
+                        </li> -->
+
+
+                    </ul>
                 </li>
+
                 <li class="nav-item {{#if pageSelectedInfo}} active {{/if}}">
                     <a class="nav-link" href="/info">Información de tiendas</a>
                 </li>
@@ -151,6 +207,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/public/modules/default/tools.js"></script>
     <script src="/public/modules/default/default.js"></script>
+
     {{#block "js"}}
     {{/block}}
 </body>

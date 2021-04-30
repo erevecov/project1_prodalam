@@ -30,6 +30,52 @@ async function initMenu() {
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
 
+
+    let categories = await axios.get('/api/subCategories')
+
+    document.querySelector('#categoriesDropdown1').innerHTML += categories.data.reduce((acc,el,i) => {
+        acc += `
+        <li class="dropdown-submenu">
+            <a id="dropdownMenuSub-${i}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">${el.parent}</a>
+
+            <ul aria-labelledby="dropdownMenuSub-${i}" class="dropdown-menu border-0 shadow">
+                ${
+                    el.sub.reduce((accSub,elSub,iSub) => {
+                        accSub += `
+                            <li>
+                                <a tabindex="-1" href="/products?category=${elSub}" class="dropdown-item">${elSub}</a>
+                            </li>
+                        `
+
+                        return accSub
+                    }, '')
+                }
+            </ul>
+        </li>
+        `
+
+        return acc
+    }, '')
+
+    $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        $(this).siblings().toggleClass("show");
+
+
+        if (!$(this).next().hasClass('show')) {
+        $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        }
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+        $('.dropdown-submenu .show').removeClass("show");
+        });
+
+    });
+
+    // console.log(categories, subCategories)
+
+
     let sub = '/api/subCategories'
 
     if (page) {
@@ -104,15 +150,15 @@ async function initMenu() {
         }
 
         acc += `
-        <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
         `
 
         return acc

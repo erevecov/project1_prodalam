@@ -10,6 +10,21 @@ banImg()
 //     })
 // })
 
+// window.onresize = () => {
+//     changeBannerImg()
+// }
+
+// function changeBannerImg() {
+//     Array.from(document.querySelectorAll('.carouselImg')).forEach(el=> {
+//         el.style.height = `${window.innerWidth / 2}px`
+//     })
+
+//     console.log({
+//         width: window.innerWidth,
+//         height: window.innerHeight
+//     })
+// }
+
 async function banImg() {
     let res = await axios.get('/api/getBanner')
     if (res.data.ok) {
@@ -18,22 +33,26 @@ async function banImg() {
         document.querySelector('#carouselExampleControls').innerHTML = `
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <a href="" ><img src="${res.data.ok[0]}" class="d-block w-100" alt=" "></a>
+                    <a href="" >
+                        <img src="${res.data.ok[0]}" class="d-block w-100 carouselImg" alt=" ">
+                    </a>
                 </div>
             </div>
+
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         `
         // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
 
-        $('#list').html(span)
+        // $('#list').html(span)
 
+        changeBannerImg()
     } else {
 
         toastr.warning("sin banner")
