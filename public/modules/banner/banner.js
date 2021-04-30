@@ -59,8 +59,45 @@ async function initBannersTable() {
 	$('#bannersTable tbody').on('click', '.modBanner', function () {
         var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
         // alert("Modificar: " + data.sku);
-        initMod()
+        initMod(data)
     });
+
+	async function initMod(product) {
+        let categoriesList = await axios.get('api/categories')
+
+        const modalMod = {
+            title: document.querySelector('#modal_title'),
+            body: document.querySelector('#modal_body'),
+            footer: document.querySelector('#modal_footer'),
+        }
+
+        // $(document).ready(function () {
+        //     $('.js-example-basic-single').select2({
+        //         width: 'resolve',
+        //         data: categoriesList.data[0].cats
+        //     });
+        // });
+
+        modalMod.title.innerHTML = `
+            Agregar banner mobile
+        `
+        modalMod.body.innerHTML = `
+		<input type="file" id="photoFileM" accept=".jpg"/>
+            `
+        modalMod.footer.innerHTML = `
+        <button class="btn btn-dark" data-dismiss="modal">
+		<i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
+		</button>
+
+		<button class="btn btn-dark" id="uploadPhoto">
+		<i style="color:#3498db;" class="fas fa-check"></i> Guardar
+		</button>
+        `
+        console.log("catefasd",product.category);
+        // $("#selectCategory").val().find(product.category)
+
+        $('#modal').modal('show')
+    }
 }
 
 const handleModalBanner = () => {
@@ -93,6 +130,31 @@ const handleModalBanner = () => {
 	$('#modal').modal('show')
 	let b64img = ''
 	let nameBan = ''
+
+	const fileSelectorM = document.getElementById('photoFileM');
+	fileSelectorM.addEventListener('change', function () {
+		const readerM = new FileReader();
+		nameBan = this.files[0].name
+
+		if (this.files[0].size/1024 > 10000) {
+			toastr.warning('Imagen supera tamaño máximo de 10Mb')
+		} else {
+			readerM.addEventListener("load", () => {
+				localStorage.setItem("recent-image", readerM.result)
+			})
+	
+			reader.readAsDataURL(this.files[0])
+			// const recentImageDataUrl = localStorage.getItem("recent-image");
+	
+			// if (recentImageDataUrl) {
+			// 	document.querySelector("#imgPreview").setAttribute("src", recentImageDataUrl)
+			// }
+	
+			reader.onload = function (event) {
+				b64img = event.target.result
+			};
+		}
+	});
 
 	const fileSelector = document.getElementById('photoFile');
 	fileSelector.addEventListener('change', function () {

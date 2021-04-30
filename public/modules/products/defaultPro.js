@@ -149,7 +149,7 @@ const handleModal = async (originalProductData,showrels) => {
     }
 
     if (showrels) {
-        let relacionPro =  axios.post('api/productsRelated', cate )
+        let relacionPro =  await    axios.post('api/productsRelated', cate )
 
         document.querySelector('#connected').innerHTML = relacionPro.data.reduce((acc, el, i) => {
 
