@@ -35,7 +35,7 @@ async function initMenu() {
 
     document.querySelector('#categoriesDropdown1').innerHTML += categories.data.reduce((acc,el,i) => {
         acc += `
-        <li class="dropdown-submenu">
+        <li class="dropdown-submenu dropright">
             <a id="dropdownMenuSub-${i}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">${el.parent}</a>
 
             <ul aria-labelledby="dropdownMenuSub-${i}" class="dropdown-menu border-0 shadow">
@@ -43,7 +43,7 @@ async function initMenu() {
                     el.sub.reduce((accSub,elSub,iSub) => {
                         accSub += `
                             <li>
-                                <a tabindex="-1" href="/products?category=${elSub}" class="dropdown-item">${elSub}</a>
+                                <a tabindex="-1" href="/products?subCategory=${elSub}" class="dropdown-item">${elSub}</a>
                             </li>
                         `
 

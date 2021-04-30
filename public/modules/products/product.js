@@ -12,6 +12,7 @@ async function initProducts() {
     const page = urlParams.searchParams.get('page')
     const search = urlParams.searchParams.get('search')
     const cate = urlParams.searchParams.get('category')
+    const subCate = urlParams.searchParams.get('subCategory')
 
     let productApiURL = 'api/productsPaginate'
 
@@ -20,6 +21,9 @@ async function initProducts() {
 
         if (cate) {
             productApiURL += `&category=${cate}`
+        }
+        if (subCate) {
+            productApiURL += `&subCategory=${subCate}`
         }
         if (search) {
             productApiURL += `&search=${search}`
@@ -30,6 +34,9 @@ async function initProducts() {
         }
         if (cate) {
             productApiURL += `?category=${cate}`
+        }
+        if (subCate) {
+            productApiURL += `?subCategory=${subCate}`
         }
     }
 
