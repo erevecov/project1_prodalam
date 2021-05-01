@@ -29,7 +29,7 @@ async function initBannersTable() {
 		responsive: false,
 		columns: [
 			{ data: 'nameFile' },
-			{ data: 'fileUrl'},
+			{ data: 'urlBanner'},
 			{ data: 'modificar' },
 			{ data: 'eliminar' }
 		],
@@ -60,44 +60,61 @@ async function initBannersTable() {
         var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
         // alert("Modificar: " + data.sku);
         initMod(data)
+		console.log("aaaaaaaadaa",data);
+
+		// $('#saveBanner').on('click', async function(){
+		// 	saveBanner(data)
+		// })
     });
+}
 
-	async function initMod(product) {
-        let categoriesList = await axios.get('api/categories')
+// async function saveBanner(data) {
+// 	let saveUserRes = await axios.post('/api/users', userData)
+// 	console.log("modUrl", $('#modUrl').val() );
+// }
 
-        const modalMod = {
-            title: document.querySelector('#modal_title'),
-            body: document.querySelector('#modal_body'),
-            footer: document.querySelector('#modal_footer'),
-        }
+async function initMod(ban) {
 
-        // $(document).ready(function () {
-        //     $('.js-example-basic-single').select2({
-        //         width: 'resolve',
-        //         data: categoriesList.data[0].cats
-        //     });
-        // });
+	const modalMod = {
+		title: document.querySelector('#modal_title'),
+		body: document.querySelector('#modal_body'),
+		footer: document.querySelector('#modal_footer'),
+	}
 
-        modalMod.title.innerHTML = `
-            Agregar banner mobile
-        `
-        modalMod.body.innerHTML = `
-		<input type="file" id="photoFileM" accept=".jpg"/>
-            `
-        modalMod.footer.innerHTML = `
-        <button class="btn btn-dark" data-dismiss="modal">
+	modalMod.title.innerHTML = `
+		Modificar Banner: ${ban.nameFile}
+	`
+	modalMod.body.innerHTML = `
+	<div class="row">
+		<div class="col-md-12" style="margin-top:10px;">
+			Direccion Url
+			<input id="modUrl" type="text" value="${ban.urlBanner}" placeholder="Ingrese la url a la cual redireccionará el banner" class="form-control border-input">
+		</div>
+		
+		<div class="col-md-12" style="margin-top:10px;"><br></div>
+
+		<div class="col-md-12" style="margin-top:10px;">
+			Agregar banner mobile</div>
+			<div class="col-md-12" style="margin-top:10px;">
+			<input type="file" id="photoFile" accept=".jpg"/>
+		</div>
+
+		
+
+	</div>
+		`
+	modalMod.footer.innerHTML = `
+	<button class="btn btn-dark" data-dismiss="modal">
 		<i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
-		</button>
+	</button>
 
-		<button class="btn btn-dark" id="uploadPhoto">
-		<i style="color:#3498db;" class="fas fa-check"></i> Guardar
-		</button>
-        `
-        console.log("catefasd",product.category);
-        // $("#selectCategory").val().find(product.category)
-
-        $('#modal').modal('show')
-    }
+	<button class="btn btn-dark" id="uploadPhoto">
+    	<i style="color:#3498db;" class="fas fa-check"></i> Guardar
+    </button>
+	`
+	$('#modal').modal('show')
+	
+	uploadBanner(ban)
 }
 
 const handleModalBanner = () => {
@@ -128,33 +145,29 @@ const handleModalBanner = () => {
 	`
 
 	$('#modal').modal('show')
+
+	uploadBanner()
+}
+
+async function loadDataToBannersTable() {
+    let res = await axios.get('api/bannerNames')
+        if (res.err) {
+            toastr.warning(res.err)
+        } else if(res.data) {
+
+			res.data.map(el => {
+				// if (!el.urlBanner) el.urlBanner = '-'
+				if (!el.modificar) el.modificar = '-'
+				if (!el.eliminar) el.eliminar = '-'
+			})
+
+            internals.tables.banners.datatable.rows.add(res.data).draw()
+        }
+}
+
+async function uploadBanner(ban) {
 	let b64img = ''
 	let nameBan = ''
-
-	const fileSelectorM = document.getElementById('photoFileM');
-	fileSelectorM.addEventListener('change', function () {
-		const readerM = new FileReader();
-		nameBan = this.files[0].name
-
-		if (this.files[0].size/1024 > 10000) {
-			toastr.warning('Imagen supera tamaño máximo de 10Mb')
-		} else {
-			readerM.addEventListener("load", () => {
-				localStorage.setItem("recent-image", readerM.result)
-			})
-	
-			reader.readAsDataURL(this.files[0])
-			// const recentImageDataUrl = localStorage.getItem("recent-image");
-	
-			// if (recentImageDataUrl) {
-			// 	document.querySelector("#imgPreview").setAttribute("src", recentImageDataUrl)
-			// }
-	
-			reader.onload = function (event) {
-				b64img = event.target.result
-			};
-		}
-	});
 
 	const fileSelector = document.getElementById('photoFile');
 	fileSelector.addEventListener('change', function () {
@@ -169,11 +182,6 @@ const handleModalBanner = () => {
 			})
 	
 			reader.readAsDataURL(this.files[0])
-			// const recentImageDataUrl = localStorage.getItem("recent-image");
-	
-			// if (recentImageDataUrl) {
-			// 	document.querySelector("#imgPreview").setAttribute("src", recentImageDataUrl)
-			// }
 	
 			reader.onload = function (event) {
 				b64img = event.target.result
@@ -182,54 +190,70 @@ const handleModalBanner = () => {
 	});
 
 	$('#uploadPhoto').on('click', async function () {
-		if (!b64img || b64img == '') {
-			toastr.warning('Debe seleccionar una imagen')
+		let varUlr
+		if (!$('#modUrl').val()) { //se envia url
+			varUlr = ''
 		} else {
+			varUlr = $('#modUrl').val()
+		}
+		if (!b64img) { //se envia imagen
+			b64img = ''
+			nameBan = ''
+		}
+
+		// if (!b64img || b64img == '') {
+		// 	toastr.warning('Debe seleccionar una imagen')
+		// } else {
+
 			let dataImg =
 			{
 				img: b64img,
-				filename: nameBan
+				filename: nameBan,
+				urlBanner: varUlr,
+				mod: ban
 			}
+
 			let saveImage = await axios.post('/api/uploadImg', dataImg)
-			console.log("compa new ima", saveImage);
+
+			console.log("save imagee", saveImage);
+
 			if (saveImage.data.ok) {
 				let newBanData = saveImage.data.ok
 
+				newBanData.modificar = '-'
 				newBanData.eliminar = '-'
 
-				let newBannerAdded = internals.tables.banners.datatable
+				if (newBanData.nameFileM == '') {
+					let newBannerAdded = internals.tables.banners.datatable
                     .row.add(newBanData)
                     .draw()
                     .node();
     
-                $(newBannerAdded).css('color', '#1abc9c');
-                setTimeout(() => {
-                    $(newBannerAdded).css('color', '#484848');
-                }, 5000);
+					$(newBannerAdded).css('color', '#1abc9c');
+					setTimeout(() => {
+						$(newBannerAdded).css('color', '#484848');
+					}, 5000);
+				} else {
+					// internals.tables.banners.datatable
+                    // .row(newBanData)
+                    // .remove()
+                    // .draw();
 
-				toastr.success('imagen subida correctamente')
+					let newBannerAdded = internals.tables.banners.datatable
+                    .row.add(newBanData)
+                    .draw()
+                    .node();
+    
+					$(newBannerAdded).css('color', '#1abc9c');
+					setTimeout(() => {
+						$(newBannerAdded).css('color', '#484848');
+					}, 5000);
+				}
+				toastr.success('Datos cargados correctamente')
 				$('#modal').modal('hide')
 			} else {
 				toastr.warning(saveImage.data.err)
 			}
-		}
+		// }
 	});
-}
-
-async function loadDataToBannersTable() {
-    let res = await axios.get('api/bannerNames')
-    // let cate = await axios.get('api/categories')
-    // console.log("categorias", cate.data);
-        if (res.err) {
-            toastr.warning(res.err)
-        } else if(res.data) {
-
-			res.data.map(el => {
-				if (!el.fileUrl) el.fileUrl = '-'
-				if (!el.modificar) el.modificar = '-'
-				if (!el.eliminar) el.eliminar = '-'
-			})
-
-            internals.tables.banners.datatable.rows.add(res.data).draw()
-        }
 }

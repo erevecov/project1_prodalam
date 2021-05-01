@@ -16,9 +16,13 @@ module.exports = [
                 maxBytes: 1000 * 1000 * 10 // 10mb
             },
             handler: async (request, h) => {
-                let reado = await readdir('./public/modules/banner/imgBan/')
-                if (reado.length >= 6) {
-                    return { err: "El maximo de imagenes de banner es 6, elimine alguna imagen e intentelo nuevamente" };
+                let ban = request.payload.mod
+
+                if (request.payload.img !== '') {
+                    let reado = await readdir('./public/modules/banner/imgBan/')
+                    if (reado.length >= 12) {
+                        return { err: "El maximo de imagenes de banner es 12 (6 principales y 6 mobiles), elimine alguna imagen e intentelo nuevamente" };
+                    }
                 }
 
                 let nameVeri = await Banner.find({nameFile: request.payload.filename}).lean();
@@ -30,27 +34,48 @@ module.exports = [
                 let img = request.payload.img
                 let name = removeSpecials(moment().format('YYYY-MM-DDTHH:mm:ss.SSSSS'))
                 try {
-                    await writeFile('./public/modules/banner/imgBan/' + name + '.txt', img);
-
+                    if (ban) {
+                        name = ban.nameNew+"M"
+                    }
+                    if (request.payload.img !== '') {
+                        await writeFile('./public/modules/banner/imgBan/' + name + '.txt', img);
+                    }
+                    
 
                     let saveBan = {
                         nameFile: request.payload.filename,
                         nameNew: name
                     }
 
-                    let banner = await Banner(saveBan);
-                    let newBanImg = await banner.save();
+                    if (ban) {
+                        let saveMod = ban
+                        if (ban.nameFileM !== '') {
+                            request.payload.filename = ban.nameFileM
+                        }
+                        saveMod.nameFileM = request.payload.filename
+                        saveMod.nameNewM = name
+                        saveMod.urlBanner = request.payload.urlBanner
+                        let banner = await Banner(saveMod);
+                        await Banner.findByIdAndUpdate(ban._id, banner)
+                        return { ok: saveMod };
 
-                    return { ok: newBanImg };
+                    } else {
+                        let banner = await Banner(saveBan);
+                        let newBanImg = await banner.save();
+                        return { ok: newBanImg };
+                    }
+                    
                 } catch (error) {
-                    return { err: "error en la subida" };
+                    return { err: "error en la subida de banner" };
                 }
 
             },
             validate: {
                 payload: Joi.object().keys({
-                    img: Joi.string().required(),
-                    filename: Joi.string().required()
+                    img: Joi.string().allow(''),
+                    filename: Joi.string().allow(''),
+                    urlBanner: Joi.string().allow(''),
+                    mod: Joi.object()
                 })
             }
         }
@@ -62,18 +87,53 @@ module.exports = [
             auth: false,
             handler: async (request, h) => {
                 try {
+                    let result = await Banner.find({}).lean();
                     let reado = await readdir('./public/modules/banner/imgBan/')
                     if (reado.length == 0) {
                         return { err: "No se han encontrado imagenes" };
                     }
                     let images = []
 
+                    
+
+
                     reado.forEach((el, i) => {
                         const data = fs.readFileSync('./public/modules/banner/imgBan/' + el);
-                        images.push(data.toString())
+                        if (!el.includes("M")) {
+                            images.push({
+                                name: el.replace(".txt", ""),
+                                banner: data.toString()
+                            })
+                        } else {
+                            images.push({
+                                name: el.replace("M.txt", ""),
+                                bannerM: data.toString()
+                            })
+                        }
                     })
 
-                    return { ok : images }
+                    let final = []
+
+                    result.forEach(el => {
+                        let banData = {
+                            banner: '',
+                            bannerMovil: '',
+                            ulrBan: ''
+                        }
+                        images.forEach(elban => {
+                            if (el.nameNew == elban.name) {
+                                if (elban.bannerM) {
+                                    banData.bannerMovil = elban.bannerM
+                                } else{
+                                    banData.banner = elban.banner
+                                }
+                                banData.ulrBan = el.urlBanner
+                            }
+                        });
+                        final.push(banData)
+                    });
+
+                    return { ok : final }
 
                 } catch (error) {
                     return { err: "error al traer imagen" };
@@ -121,6 +181,10 @@ module.exports = [
                     }
 
                     let result = await Banner.find(query).lean();
+
+                    if (result[0].nameNewM !== '') {
+                        fs.unlinkSync('./public/modules/banner/imgBan/' + result[0].nameNewM + '.txt')
+                    }
 
                     fs.unlinkSync('./public/modules/banner/imgBan/' + result[0].nameNew + '.txt')
 
