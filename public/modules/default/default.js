@@ -90,7 +90,6 @@ async function initMenu() {
         }
     }
 
-    console.log(sub,'aeaeae')
 
     // let stars = await axios.get(starApiURL)
 
@@ -130,39 +129,39 @@ async function initMenu() {
     //     productsDownSelector.setAttribute('href', nextPageURL)
     // }
 
-    document.querySelector('#nav-link1').innerHTML = menuCat.data.reduce((acc, el, i) => {
+    // document.querySelector('#nav-link1').innerHTML = menuCat.data.reduce((acc, el, i) => {
 
-        // let findProductImg
+    //     // let findProductImg
 
-        // el.info.forEach(a => {
-        //     if (a.name == "Imagen") {
-        //         findProductImg = a.data
-        //     }
-        // });
+    //     // el.info.forEach(a => {
+    //     //     if (a.name == "Imagen") {
+    //     //         findProductImg = a.data
+    //     //     }
+    //     // });
 
-        // let findProductTitle = el.title
-        // let findProductDescription = el.description
-        // let findProductInfo = el.info
+    //     // let findProductTitle = el.title
+    //     // let findProductDescription = el.description
+    //     // let findProductInfo = el.info
 
 
-        let menuData = {
-            _id: el._id,
-        }
+    //     let menuData = {
+    //         _id: el._id,
+    //     }
 
-        acc += `
-                        <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-        `
+    //     acc += `
+    //                     <div class="dropdown-menu">
+    //                     <a class="dropdown-item" href="#">Action</a>
+    //                     <div class="dropdown-divider"></div>
+    //                     <a class="dropdown-item" href="#">Another action</a>
+    //                     <div class="dropdown-divider"></div>
+    //                     <a class="dropdown-item" href="#">Something else here</a>
+    //                     <div class="dropdown-divider"></div>
+    //                     <a class="dropdown-item" href="#">Separated link</a>
+    //                     </div>
+    //     `
 
-        return acc
-    }, '')
+    //     return acc
+    // }, '')
 
     Array.from(querySelectorAll('.viewMore')).forEach(el => {
         el.addEventListener('click', () => {

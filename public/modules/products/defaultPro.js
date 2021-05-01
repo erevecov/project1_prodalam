@@ -176,31 +176,24 @@ const handleModal = async (originalProductData,showrels) => {
             }
 
             acc += `
-            <div class="col-lg-3">
-                    <div class="card card-custom">
-                        <!-- <button class="btn addToFavBtn"></button> -->
-                        <div class="card-body card-body-custom1"
-                        style="text-align: center !important;
-                        color: var(--grey1);
-                        background-color: #f8f8f8;">
-                            <img src="${productData.img}" class="card-img-top" alt="producto">
-                            <p class="card-text card-product-title">Producto relacionado</p>
+            <div class="col-lg-3 destacados">
+            <div class="card card-custom">
+                <!-- <button class="btn addToFavBtn"></button> -->
+                <div class="card-body card-body-custom">
+                    <img src="${productData.img}" alt="" class="card-img-top" alt="producto">
+                    <p class="card-text card-product-title">Producto relacionado</p>
 
-                            <p class="card-product-description">${cutText(productData.description, 100)}</p>
-                            <div class="d-grid gap-2">
-                                <a class="btn btn-custom2 viewMore" style="    color: var(--grey1);
-                                border: 1px solid var(--grey1);
-                                border-radius: 20px;    x
-                                font-size: 18px;
-                                padding-top: 2px;
-                                padding-bottom: 2px;
-                                padding-right: 15px;
-                                padding-left: 15px;"
-                                data-productid="${productData._id}">Ver más</a>
-                            </div>
-                        </div>
+                    <p class="card-product-description">${cutText(productData.description, 100)}</p>
+                </div>
+
+                <div class="card-footer card-footer-custom">
+                    <div class="d-grid gap-2">
+                    <a class="btn btn-custom2 viewMore" data-productid="${productData._id}">Ver más</a>
                     </div>
                 </div>
+            </div>
+            <br>
+        </div>
             `
 
             return acc
