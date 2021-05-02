@@ -123,8 +123,8 @@ async function initProductsTable() {
                 toastr.success('Producto Eliminado correctamente')
                 
                 swalWithBootstrapButtons.fire(
-                'Deleted!',
-                'Your file has been deleted.',
+                'Eliminado',
+                '',
                 'success'
               )
             } else if (
@@ -133,7 +133,7 @@ async function initProductsTable() {
             ) {
               swalWithBootstrapButtons.fire(
                 'Cancelado',
-                'Your imaginary file is safe :)',
+                '',
                 'error'
               )
             }
@@ -346,13 +346,11 @@ async function selectSave() {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-
-                saveExcel(arrayBuffer)
                 swalWithBootstrapButtons.fire(
                 'El archivo fue subido correctamente',
                 'success'
                 )
-
+                saveExcel(arrayBuffer)
             } else if (
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel

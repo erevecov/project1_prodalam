@@ -204,12 +204,11 @@ async function selectSave() {
 	}).then((result) => {
 		if (result.isConfirmed) {
 			uploadBanner()
-
-			saveExcel(arrayBuffer)
 			swalWithBootstrapButtons.fire(
 			'El archivo fue subido correctamente',
 			'success'
 			)
+			
 
 		} else if (
 		  /* Read more about handling dismissals below */
