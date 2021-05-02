@@ -96,11 +96,50 @@ async function initProductsTable() {
 
         await axios.post('/api/deleteProduct', dataProd)
 
-        internals.tables.products.datatable
-            .row($(this).parents('tr'))
-            .remove()
-            .draw()
-            toastr.success('Producto Eliminado correctamente')
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-danger',
+              cancelButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro?',
+            text: "No se podra revertir la eliminación de un producto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, borrar',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                
+
+                internals.tables.products.datatable
+                .row($(this).parents('tr'))
+                .remove()
+                .draw()
+                toastr.success('Producto Eliminado correctamente')
+                
+                swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelado',
+                'Your imaginary file is safe :)',
+                'error'
+              )
+            }
+          })
+        
+        
     });
 
     $('#productsTable tbody').on('click', '.modProduct', function () {
@@ -258,7 +297,7 @@ const handleModal = () => {
     <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
     </button>
 
-    <button class="btn btn-dark" id="saveExcel">
+    <button  class="btn btn-dark" id="saveExcel">
     <i style="color:#3498db;" class="fas fa-check"></i> Guardar
     </button>
 	`
@@ -281,11 +320,49 @@ const handleModal = () => {
         if (!arrayBuffer || arrayBuffer == '') {
             toastr.warning('Debe seleccionar un excel')
         } else {
-            loadingHandler('start')
-            saveExcel(arrayBuffer)
+
+            await selectSave()
         }
     });
 
+}
+
+async function selectSave() {
+        const  swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Subir',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                saveExcel(arrayBuffer)
+                swalWithBootstrapButtons.fire(
+                'El archivo fue subido correctamente',
+                'success'
+                )
+
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelado',
+                'error'
+              )
+            }
+        })
 }
 
 async function saveExcel(arrayBuffer) {

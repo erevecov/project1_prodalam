@@ -10,9 +10,9 @@ banImg()
 //     })
 // })
 
-// window.onresize = () => {
-//     changeBannerImg()
-// }
+window.onresize = () => {
+    changeBannerImg()
+}
 
 // function changeBannerImg() {
 //     Array.from(document.querySelectorAll('.carouselImg')).forEach(el=> {

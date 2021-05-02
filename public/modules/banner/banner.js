@@ -29,13 +29,14 @@ async function initBannersTable() {
 		responsive: false,
 		columns: [
 			{ data: 'nameFile' },
+			{ data: 'nameFile2' },
 			{ data: 'urlBanner'},
 			{ data: 'modificar' },
 			{ data: 'eliminar' }
 		],
 		rowCallback: function (row, data, index) {
-            $(row).find('td:eq(2)').html('<center> <button type="button" class="btn btn-secondary btn-sm modBanner"><i class="fas fa-edit"></i></button> </center> ')
-			$(row).find('td:eq(3)').html('<center> <button type="button" class="btn btn-secondary btn-sm delBanner"><i class="fas fa-trash"></i></button> </center> ')
+            $(row).find('td:eq(3)').html('<center> <button type="button" class="btn btn-secondary btn-sm modBanner"><i class="fas fa-edit"></i></button> </center> ')
+			$(row).find('td:eq(4)').html('<center> <button type="button" class="btn btn-secondary btn-sm delBanner"><i class="fas fa-trash"></i></button> </center> ')
         },
 	}))
 
@@ -48,12 +49,48 @@ async function initBannersTable() {
 		}
 		await axios.post('/api/deleteBanner', dataImg)
 		// console.log("dataDelete", deleteImage);
+		const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-danger',
+              cancelButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro?',
+            text: "No se podra revertir la eliminación de un archivo.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, borrar',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                
+				internals.tables.banners.datatable
+				.row($(this).parents('tr'))
+				.remove()
+				.draw()
+				toastr.success('imagen Eliminada correctamente')
 
-		internals.tables.banners.datatable
-			.row($(this).parents('tr'))
-			.remove()
-			.draw()
-			toastr.success('imagen Eliminada correctamente')
+				swalWithBootstrapButtons.fire(
+				'Eliminado',
+				'',
+				'success'
+				)
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+				swalWithBootstrapButtons.fire(
+				'Cancelado',
+				'',
+				'error'
+				)
+            }
+        })
+
 	});
 
 	$('#bannersTable tbody').on('click', '.modBanner', function () {
@@ -139,15 +176,53 @@ const handleModalBanner = () => {
     <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
     </button>
 
-    <button class="btn btn-dark" id="uploadPhoto">
+    <button onclick="selectSave()" class="btn btn-dark" id="uploadPhoto">
     <i style="color:#3498db;" class="fas fa-check"></i> Guardar
     </button>
 	`
 
 	$('#modal').modal('show')
-
-	uploadBanner()
 }
+
+async function selectSave() {
+	const  swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+		  confirmButton: 'btn btn-success',
+		  cancelButton: 'btn btn-danger'
+		},
+		buttonsStyling: false
+	})
+
+	swalWithBootstrapButtons.fire({
+		title: '¿Estas seguro?',
+		text: "",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Subir',
+		cancelButtonText: 'Cancelar',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.isConfirmed) {
+			uploadBanner()
+
+			saveExcel(arrayBuffer)
+			swalWithBootstrapButtons.fire(
+			'El archivo fue subido correctamente',
+			'success'
+			)
+
+		} else if (
+		  /* Read more about handling dismissals below */
+		  result.dismiss === Swal.DismissReason.cancel
+		) {
+		  swalWithBootstrapButtons.fire(
+			'Cancelado',
+			'error'
+		  )
+		}
+	})
+}
+
 
 async function loadDataToBannersTable() {
     let res = await axios.get('api/bannerNames')
