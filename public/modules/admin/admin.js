@@ -208,7 +208,6 @@ async function loadDataToProductsTable(filter) {
                 if (!el.eliminar) el.eliminar = '-'
             })
         } else {
-            console.log("asdad");
             productsData.modificar = '-'
             productsData.eliminar = '-'
             productsData = [productsData]
@@ -319,10 +318,12 @@ async function saveExcel(arrayBuffer) {
             if (i !== 0 && i !== 1) {
                 let rowProd = {}
                 ed._cells.forEach((cell, o) => {
-                    //console.log("waaataa",cell._value.model.value);
                     if (cell._value.model.value !== '') {
-                        rowProd[keyobj[o]] = cell._value.model.value;
-                        //console.log("wat", rowProd);
+                        if (typeof cell._value.model.value == 'undefined' && cell._value.model.text !== '') {
+                            rowProd[keyobj[o]] = cell._value.model.text
+                        } else {
+                            rowProd[keyobj[o]] = cell._value.model.value
+                        }
                     }
                     if (o === ed._cells.length - 1) {
                         final.push(rowProd)
@@ -390,6 +391,7 @@ async function saveExcel(arrayBuffer) {
             if (arraydata.length === 0) {
                 toastr.warning('No se ha encontrado ningun producto valido para ser ingresado')
             } else {
+                
                 let res = await axios.post('/api/products', arraydata)
 
                 if (res.data.ok) {

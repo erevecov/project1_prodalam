@@ -163,7 +163,28 @@ module.exports = [
             handler: async (request, h) => {
                 try {
                     let result = await Product.find({}).lean();
-
+                    if (result[0]) {
+                        result.forEach(el => {
+                            el.info.forEach(a => {
+                                if (a.name == "Imagen") {
+                                    if (a.data.includes(',')) {
+                                        a.data = a.data.split(',')
+                                    }
+                                }
+                                if (a.name == "video") {
+                                    if (a.data.includes(',')) {
+                                        a.data = a.data.split(',')
+                                    }
+                                }
+                                if (a.name == "doc") {
+                                    if (a.data.includes(',')) {
+                                        a.data = a.data.split(',')
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    
                     return result;
 
                 } catch (error) {
