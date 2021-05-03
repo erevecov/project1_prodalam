@@ -321,13 +321,13 @@ const handleModal = () => {
             toastr.warning('Debe seleccionar un excel')
         } else {
 
-            await selectSave()
+            await selectSave(arrayBuffer)
         }
     });
 
 }
 
-async function selectSave() {
+async function selectSave(arrayBuffer) {
         const  swalWithBootstrapButtons = Swal.mixin({
             customClass: {
               confirmButton: 'btn btn-success',

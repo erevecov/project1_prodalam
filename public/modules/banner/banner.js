@@ -208,7 +208,6 @@ async function selectSave() {
 			'El archivo fue subido correctamente',
 			'success'
 			)
-			
 
 		} else if (
 		  /* Read more about handling dismissals below */
