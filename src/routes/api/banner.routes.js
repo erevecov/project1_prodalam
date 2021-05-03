@@ -16,27 +16,29 @@ module.exports = [
                 maxBytes: 1000 * 1000 * 10 // 10mb
             },
             handler: async (request, h) => {
-                let ban = request.payload.mod
-
-                if (request.payload.img !== '') {
-                    let reado = await readdir('./public/modules/banner/imgBan/')
-                    if (reado.length >= 12) {
-                        return { err: "El maximo de imagenes de banner es 12 (6 principales y 6 mobiles), elimine alguna imagen e intentelo nuevamente" };
-                    }
-                }
-
-                let nameVeri = await Banner.find({nameFile: request.payload.filename}).lean();
-
-                if (nameVeri[0]) {
-                    return { err: "Ya existe una imagen de este nombre, modifiquelo e intentelo nuevamente" };
-                }
-
-                let img = request.payload.img
-                let name = removeSpecials(moment().format('YYYY-MM-DDTHH:mm:ss.SSSSS'))
                 try {
+                    let ban = request.payload.mod
+
+                    if (request.payload.img !== '') {
+                        let reado = await readdir('./public/modules/banner/imgBan/')
+                        if (reado.length >= 12) {
+                            return { err: "El maximo de imagenes de banner es 12 (6 principales y 6 mobiles), elimine alguna imagen e intentelo nuevamente" };
+                        }
+                    }
+
+                    let nameVeri = await Banner.find({nameFile: request.payload.filename}).lean();
+
+                    if (nameVeri[0]) {
+                        return { err: "Ya existe una imagen de este nombre, modifiquelo e intentelo nuevamente" };
+                    }
+
+                    let img = request.payload.img
+                    let name = removeSpecials(moment().format('YYYY-MM-DDTHH:mm:ss.SSSSS'))
+                
                     if (ban) {
                         name = ban.nameNew+"M"
                     }
+
                     if (request.payload.img !== '') {
                         await writeFile('./public/modules/banner/imgBan/' + name + '.txt', img);
                     }
@@ -66,6 +68,8 @@ module.exports = [
                     }
                     
                 } catch (error) {
+                    console.log(error)
+
                     return { err: "error en la subida de banner" };
                 }
 

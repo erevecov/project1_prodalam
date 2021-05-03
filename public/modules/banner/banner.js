@@ -176,13 +176,13 @@ const handleModalBanner = () => {
     <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
     </button>
 
-    <button onclick="selectSave()" class="btn btn-dark" id="uploadPhoto">
+    <button class="btn btn-dark" id="uploadPhoto">
     <i style="color:#3498db;" class="fas fa-check"></i> Guardar
     </button>
 	`
 
 	$('#modal').modal('show')
-
+	uploadBanner()
 }
 
 async function selectSave() {
@@ -194,7 +194,7 @@ async function selectSave() {
 		buttonsStyling: false
 	})
 
-	swalWithBootstrapButtons.fire({
+	let save = await swalWithBootstrapButtons.fire({
 		title: '¿Estas seguro?',
 		text: "",
 		icon: 'warning',
@@ -202,25 +202,19 @@ async function selectSave() {
 		confirmButtonText: 'Subir',
 		cancelButtonText: 'Cancelar',
 		reverseButtons: true
-	}).then((result) => {
-		if (result.isConfirmed) {
-			uploadBanner()
-
-			swalWithBootstrapButtons.fire(
-			'El archivo fue subido correctamente',
-			'success'
-			)
-
-		} else if (
-		  /* Read more about handling dismissals below */
-		  result.dismiss === Swal.DismissReason.cancel
-		) {
-		  swalWithBootstrapButtons.fire(
-			'Cancelado',
-			'error'
-		  )
-		}
 	})
+
+	if (save.isConfirmed) {
+		return true
+
+		// swalWithBootstrapButtons.fire(
+		// 	'El archivo fue subido correctamente',
+		// 	'success'
+		// )
+
+	} else {
+		return false
+	}
 }
 
 
@@ -236,6 +230,7 @@ async function loadDataToBannersTable() {
 				if (!el.eliminar) el.eliminar = '-'
 			})
 
+			internals.tables.banners.datatable.clear().draw()
             internals.tables.banners.datatable.rows.add(res.data).draw()
         }
 }
@@ -265,70 +260,75 @@ async function uploadBanner(ban) {
 	});
 
 	$('#uploadPhoto').on('click', async function () {
-		let varUlr
-		if (!$('#modUrl').val()) { //se envia url
-			varUlr = ''
-		} else {
-			varUlr = $('#modUrl').val()
-		}
-		if (!b64img) { //se envia imagen
-			b64img = ''
-			nameBan = ''
-		}
+		let confirm = await selectSave()
 
-		// if (!b64img || b64img == '') {
-		// 	toastr.warning('Debe seleccionar una imagen')
-		// } else {
-
-			let dataImg =
-			{
-				img: b64img,
-				filename: nameBan,
-				urlBanner: varUlr,
-				mod: ban
-			}
-
-			let saveImage = await axios.post('/api/uploadImg', dataImg)
-
-			console.log("save imagee", saveImage);
-
-			if (saveImage.data.ok) {
-				let newBanData = saveImage.data.ok
-
-				newBanData.modificar = '-'
-				newBanData.eliminar = '-'
-
-				if (newBanData.nameFileM == '') {
-					let newBannerAdded = internals.tables.banners.datatable
-                    .row.add(newBanData)
-                    .draw()
-                    .node();
-    
-					$(newBannerAdded).css('color', '#1abc9c');
-					setTimeout(() => {
-						$(newBannerAdded).css('color', '#484848');
-					}, 5000);
-				} else {
-					// internals.tables.banners.datatable
-                    // .row(newBanData)
-                    // .remove()
-                    // .draw();
-
-					let newBannerAdded = internals.tables.banners.datatable
-                    .row.add(newBanData)
-                    .draw()
-                    .node();
-    
-					$(newBannerAdded).css('color', '#1abc9c');
-					setTimeout(() => {
-						$(newBannerAdded).css('color', '#484848');
-					}, 5000);
-				}
-				toastr.success('Datos cargados correctamente')
-				$('#modal').modal('hide')
+		if (confirm) {
+			let varUlr
+			if (!$('#modUrl').val()) { //se envia url
+				varUlr = ''
 			} else {
-				toastr.warning(saveImage.data.err)
+				varUlr = $('#modUrl').val()
 			}
-		// }
+			if (!b64img) { //se envia imagen
+				b64img = ''
+				nameBan = ''
+			}
+
+			// if (!b64img || b64img == '') {
+			// 	toastr.warning('Debe seleccionar una imagen')
+			// } else {
+
+				let dataImg =
+				{
+					img: b64img,
+					filename: nameBan,
+					urlBanner: varUlr,
+					mod: ban
+				}
+
+				let saveImage = await axios.post('/api/uploadImg', dataImg)
+
+				console.log("save imagee", saveImage);
+
+				if (saveImage.data.ok) {
+					let newBanData = saveImage.data.ok
+
+					newBanData.modificar = '-'
+					newBanData.eliminar = '-'
+
+					loadDataToBannersTable()
+					// if (newBanData.nameFileM == '') {
+					// 	let newBannerAdded = internals.tables.banners.datatable
+					// 	.row.add(newBanData)
+					// 	.draw()
+					// 	.node();
+		
+					// 	$(newBannerAdded).css('color', '#1abc9c');
+					// 	setTimeout(() => {
+					// 		$(newBannerAdded).css('color', '#484848');
+					// 	}, 5000);
+					// } else {
+					// 	// internals.tables.banners.datatable
+					// 	// .row(newBanData)
+					// 	// .remove()
+					// 	// .draw();
+
+					// 	let newBannerAdded = internals.tables.banners.datatable
+					// 	.row.add(newBanData)
+					// 	.draw()
+					// 	.node();
+		
+					// 	$(newBannerAdded).css('color', '#1abc9c');
+					// 	setTimeout(() => {
+					// 		$(newBannerAdded).css('color', '#484848');
+					// 	}, 5000);
+					// }
+					toastr.success('Datos cargados correctamente')
+					$('#modal').modal('hide')
+				} else {
+					toastr.warning(saveImage.data.err)
+				}
+			// }
+		}
 	});
 }
