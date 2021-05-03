@@ -182,6 +182,7 @@ const handleModalBanner = () => {
 	`
 
 	$('#modal').modal('show')
+
 }
 
 async function selectSave() {
@@ -204,6 +205,7 @@ async function selectSave() {
 	}).then((result) => {
 		if (result.isConfirmed) {
 			uploadBanner()
+
 			swalWithBootstrapButtons.fire(
 			'El archivo fue subido correctamente',
 			'success'
