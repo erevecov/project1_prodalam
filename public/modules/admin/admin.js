@@ -17,9 +17,11 @@ const internals = {
         }
     }
 }
+let categoriesList
 
 ready(async () => {
     initProductsTable()
+    categoriesList = await axios.get('api/subCategories')
 })
 
 document.querySelector('#nuevaCargaBtn').addEventListener('click', () => {
@@ -157,7 +159,6 @@ async function initProductsTable() {
     })
 
     async function initMod(product) {
-        let categoriesList = await axios.get('api/categories')
 
         const modalMod = {
             title: document.querySelector('#modal_title'),
@@ -165,12 +166,6 @@ async function initProductsTable() {
             footer: document.querySelector('#modal_footer'),
         }
 
-        $(document).ready(function () {
-            $('.js-example-basic-single').select2({
-                width: 'resolve',
-                data: categoriesList.data[0].cats
-            });
-        });
 
         modalMod.title.innerHTML = `
             Modificar producto SKU: ${product.sku}
@@ -178,26 +173,56 @@ async function initProductsTable() {
         modalMod.body.innerHTML = `
         <div class="row">
             <div class="col-md-6" style="margin-top:10px;">
-            Título</div>
-            <div class="col-md-6" style="margin-top:10px;">
-            Descripción</div>
-            
-
-            <div class="col-md-6" style="margin-top:10px;">
+            Título *
                 <input id="modTitulo" type="text" value="${product.title}" class="form-control border-input">
             </div>
-            
+
             <div class="col-md-6" style="margin-top:10px;">
+            Descripción *
                 <input id="modDesc" type="text" value="${product.description}" class="form-control border-input">
             </div>
 
-            <div class="col-md-12" style="margin-top:10px;">
-            Categoría</div>
-            <div class="col-md-12" style="margin-top:10px;">
-                <select class="js-example-basic-single" id="selectCategory" name="state">
+            <div class="col-md-6" style="margin-top:10px;">
+            Categoría *
+                <select id="selectCategory" class="custom-select">
+                    <option value="0">Seleccione una categoria </option>
                 </select>
             </div>
-            <div class="col-md-12" style="margin-top:10px;"><br><br><br><br></div>
+            <div class="col-md-6" style="margin-top:10px;">
+            Subcategoría *
+                <select id="selectSubcategory" class="custom-select">
+                    <option value="0">Seleccione una categoria </option>
+                </select>
+            </div>
+
+            <div class="col-md-6" style="margin-top:10px;">
+            Imagen(es)
+                <input id="modImg" type="text" class="form-control border-input">
+            </div>
+
+            <div class="col-md-6" style="margin-top:10px;">
+            Video(s)
+                <input id="modVid" type="text" class="form-control border-input">
+            </div>
+
+            <div class="col-md-6" style="margin-top:10px;">
+            PDF(s)
+                <input id="modPdf" type="text" class="form-control border-input">
+            </div>
+            <div class="col-md-12" style="margin-top:10px;"><br><br></div>
+            
+            <div class="alert alert-dismissible alert-warning">
+                <h4 class="alert-heading">Para guardar un video/imagen/pdf es necesario lo siguiente:</h4>
+                <p class="mb-0">
+                <br>Los accesos a las imagenes deben ser links directos
+                <br>Solo se admitiran videos subidos a Youtube <i class="fab fa-youtube"></i>
+                <br>Los accesos a pdf deben ser links directos
+                <br>En caso de tener mas de un link deberan separarse mediante comas (, )
+                </p>
+            </div>
+
+            <br>
+            <div class="col-md-12" id="modProdErrorMessage"></div>
 
         </div>
             `
@@ -206,14 +231,123 @@ async function initProductsTable() {
         <i style="color:#e74c3c;" class="fas fa-times"></i> Cancelar
         </button>
     
-        <button class="btn btn-dark" id="saveUser">
+        <button class="btn btn-dark" id="saveProduct">
         <i style="color:#3498db;" class="fas fa-check"></i> Guardar
         </button>
         `
-        console.log("catefasd",product.category);
-        // $("#selectCategory").val().find(product.category)
+
+        //CATEGORIA
+        let parentArray = []
+
+        categoriesList.data.forEach((el, i) => {
+            let a = {
+                id: el.parent,
+                text: el.parent
+            }
+            parentArray.push(a)
+        })
+
+        $('#selectCategory').empty();
+        $('#selectCategory').select2({
+            width: '100%',
+            minimumResultsForSearch: -1,
+            data: parentArray
+        })
+
+        // $('#selectCategory').on('select2:select', function (e) {
+        //     // console.log("tipo seleccionado", e.params.data.id);
+        // });
+
+
+        //SUBCATEGORIA
+        $('#selectSubcategory').empty();
+        $('#selectSubcategory').select2({
+            width: '100%',
+            minimumResultsForSearch: -1,
+            data: [{ id: '-1', text: '- Seleccione una categoria primero -' }]
+        })
+
+        $('#selectCategory').on('change', function (el) {
+            if (el.target.value !== "-1") {
+
+                let subArray = []
+                categoriesList.data.forEach((cat, i) => {
+                    cat.sub.forEach(sub => {
+                        if (cat.parent == el.target.value) {
+                            let a = {
+                                id: sub,
+                                text: sub
+                            }
+                            subArray.push(a)
+                        }
+                    });
+                    
+                })
+
+                subArray.unshift({ id: '-1', text: '- Seleccione una subCategoria -' })
+
+
+                $('#selectSubcategory').empty();
+                $('#selectSubcategory').select2({
+                    width: '100%',
+                    minimumResultsForSearch: -1,
+                    data: subArray
+                })
+
+                // $('#selectSubcategory').on('select2:select', function (e) {
+                //     // console.log("tipo seleccionado", el.target.value);
+                //     // console.log("envase seleccionado", e.params.data.id);
+                    
+                // });
+
+
+            } else {
+                $('#selectSubcategory').empty();
+                $('#selectSubcategory').select2({
+                    width: '100%',
+                    minimumResultsForSearch: -1,
+                    data: [{ id: '-1', text: '- Seleccione una categoria primero -' }]
+                })
+
+            }
+
+        })
+
+
+        if (product) {
+            if (product.category) {
+                $('#selectCategory').val(product.category).trigger('change');
+            }
+            if (product.subCategory) {
+                $('#selectSubcategory').val(product.subCategory).trigger('change');
+            }
+
+            product.info.forEach(el => {
+                if (el.name == 'Imagen') {
+                    if (el.data !== '') {
+                        $('#modImg').val(el.data)
+                    }
+                }
+                if (el.name == 'video') {
+                    if (el.data !== '') {
+                        $('#modVid').val(el.data)
+                    }
+                }
+                if (el.name == 'pdf') {
+                    if (el.data !== '') {
+                        $('#modPdf').val(el.data)
+                    }
+                }
+            });
+        }
+
 
         $('#modal').modal('show')
+
+        $('#saveProduct').on('click', async function(){
+            saveProduct(product)
+        })
+
     }
     // $('#productsTable tbody').on('click', 'tr', function () {
     // 	internals.tables.products.rowSelected = internals.tables.products.datatable.row($(this).closest('tr'))
@@ -487,6 +621,182 @@ async function saveExcel(arrayBuffer) {
 
 }
 
+async function saveProduct(product) {
+
+    let saveMod = {
+        sku: product.sku,
+        title: $('#modTitulo').val(),
+        description: $('#modDesc').val(),
+        category: $('#selectCategory').val(),
+        subCategory: $('#selectSubcategory').val(),
+        image: $('#modImg').val(),
+        video: $('#modVid').val(),
+        pdf: $('#modPdf').val(),
+    }
+    let validateProd = await validateProductData(saveMod)
+
+    if (validateProd.ok) {
+        let saveProd = await axios.post('/api/modProducts', saveMod)
+        if (!saveProd.data.error) {
+            toastr.success('El producto se ha modificado correctamente')
+    
+            internals.tables.products.datatable
+            .row( product )
+            .remove()
+            .draw()
+    
+            product.title = saveMod.title
+            product.description = saveMod.description
+            product.category = saveMod.category
+            product.subCategory = saveMod.subCategory
+
+            product.info.forEach(el => {
+                if (el.name == 'Imagen') {
+                    el.data = saveMod.image
+                }
+                if (el.name == 'video') {
+                    el.data = saveMod.video
+                }
+                if (el.name == 'pdf') {
+                    el.data = saveMod.pdf
+                }
+            });
+
+            product.info.forEach((el, i) => {
+                if (el.name !== 'Imagen') {
+                    if (i == product.info.length-1 ) {
+                        product.info.push({
+                            name: 'Imagen',
+                            data: saveMod.image
+                        })
+                    }
+                }
+                if (el.name !== 'video') {
+                    if (i == product.info.length-1 ) {
+                        product.info.push({
+                            name: 'video',
+                            data: saveMod.video
+                        })
+                    }
+                }
+                if (el.name !== 'pdf') {
+                    if (i == product.info.length-1 ) {
+                        product.info.push({
+                            name: 'pdf',
+                            data: saveMod.pdf
+                        })
+                    }
+                }
+            });
+    
+            let modProdAdded = internals.tables.products.datatable
+            .row.add(product)
+            .draw()
+            .node();
+    
+            $(modProdAdded).css( 'color', '#1abc9c' )
+            setTimeout(() => {
+                $(modProdAdded).css( 'color', '#484848' )
+            }, 5000);
+    
+            $('#modal').modal('hide')
+    
+        }else {
+            toastr.warning(saveProd.data.error)
+        }
+    } else {
+        toastr.warning('Ha ocurrido un error al verificar los datos del producto')
+    }
+    
+}
+
+async function validateProductData(prodData) {
+    // console.log(prodData)
+    let validationCounter = 0
+    let errorMessage = ''
+
+    // let saveMod = {
+    //     sku: product.sku,
+    //     title: $('#modTitulo').val(),
+    //     description: $('#modDesc').val(),
+    //     category: $('#selectCategory').val(),
+    //     subCategory: $('#selectSubcategory').val()
+    // }
+
+    if(prodData.title.length > 1) { // 1
+        validationCounter++
+        $('#modTitulo').css('border', '1px solid #3498db')
+    } else {
+        errorMessage += `<br>Debe ingresar el titulo del producto`
+        $('#modTitulo').css('border', '1px solid #e74c3c')
+    }
+
+    if(prodData.description.length > 1) { // 2
+        validationCounter++
+        $('#modDesc').css('border', '1px solid #3498db')
+    } else {
+        errorMessage += `<br>Debe ingresar la descripcion del producto</b>`
+        $('#modDesc').css('border', '1px solid #e74c3c')
+    }
+
+    if(prodData.category) { // 3
+        validationCounter++
+        $('#selectCategory').css('border', '1px solid #3498db')
+    } else {
+        errorMessage += `<br>Debe seleccionar una categoria`
+        $('#selectCategory').css('border', '1px solid #e74c3c')
+    }
+
+
+    if(prodData.subCategory !== "-1") { // 4
+        validationCounter++
+        $('#selectSubcategory').css('border', '1px solid #3498db')
+    } else {
+        errorMessage += `<br>Debe seleccionar una sub categoria`
+        $('#selectSubcategory').css('border', '1px solid #e74c3c')
+    }
+
+    // if(prodData.image.length > 1) { // 5
+    //     validationCounter++
+    //     $('#modImg').css('border', '1px solid #3498db')
+    // } else {
+    //     errorMessage += `<br>Debe ingresar un link`
+    //     $('#modImg').css('border', '1px solid #e74c3c')
+    // }
+
+    // if(prodData.video.length > 1) { // 6
+    //     validationCounter++
+    //     $('#selectSubcategory').css('border', '1px solid #3498db')
+    // } else {
+    //     errorMessage += `<br>Debe ingresar un link`
+    //     $('#selectSubcategory').css('border', '1px solid #e74c3c')
+    // }
+
+    // if(prodData.pdf.length > 1) { // 7
+    //     validationCounter++
+    //     $('#selectSubcategory').css('border', '1px solid #3498db')
+    // } else {
+    //     errorMessage += `<br>Debe ingresar un link`
+    //     $('#selectSubcategory').css('border', '1px solid #e74c3c')
+    // }
+
+
+    // console.log('validation', validationCounter)
+    if(validationCounter == 4) {
+        $('#modProdErrorMessage').empty()
+        return {ok: prodData}
+    } else {
+        $('#modProdErrorMessage').html(`
+        <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Debe solucionar los siguientes errores</h4>
+            <p class="mb-0">${errorMessage}</p>
+        </div>
+        `)
+
+        return {err: prodData}
+    }
+}
 
 function removeSpecials2(data) {
     data = data.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '');

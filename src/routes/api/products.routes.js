@@ -198,6 +198,133 @@ module.exports = [
         }
     },
     {
+        method: 'POST',
+        path: '/api/modProducts',
+        options: {
+            auth: { mode: 'try' },
+            description: 'check api',
+            notes: 'if api doesn t exist return error',
+            tags: ['api'],
+            handler: async (request, h) => {
+                try {
+                    let query = {
+                        $or: [
+                            {
+                                sku: request.payload.sku
+                            }
+                        ]
+                    }
+
+                    let productExist = await Product.find(query)
+                    console.log("payload", request.payload);
+                    if (productExist[0]) {
+    
+                        let product = productExist[0]
+                        product.title = request.payload.title
+                        product.description = request.payload.description
+                        product.category = request.payload.category
+                        product.subCategory = request.payload.subCategory
+
+                        let aux = {
+                            img: 'no',
+                            vid: 'no',
+                            pdf: 'no'
+                        }
+
+                        product.info.forEach(el => {
+                            if (el.name == 'Imagen') {
+                                el.data = request.payload.image
+                                aux.img = 'yes'
+                            }
+                            if (el.name == 'video') {
+                                el.data = request.payload.video
+                                aux.vid = 'yes'
+                            }
+                            if (el.name == 'pdf') {
+                                el.data = request.payload.pdf
+                                aux.pdf = 'yes'
+                            }
+                        });
+
+                        if (aux.img == 'no') {
+                            product.info.push({
+                                name: 'Imagen',
+                                data: request.payload.image
+                            })
+                        }
+
+                        if (aux.vid == 'no') {
+                            product.info.push({
+                                name: 'video',
+                                data: request.payload.video
+                            })
+                        }
+
+                        if (aux.pdf == 'no') {
+                            product.info.push({
+                                name: 'pdf',
+                                data: request.payload.pdf
+                            })
+                        }
+
+                        product.info.forEach((el, i) => {
+                            if (el.name == 'Imagen') {
+                                el.data = request.payload.image
+                                aux.img = 'yes'
+                                // if (el.data == '') {
+                                //     delete product.info[i]
+                                // }
+                            }
+                            if (el.name == 'video') {
+                                el.data = request.payload.video
+                                aux.vid = 'yes'
+                                // if (el.data == '') {
+                                //     delete product.info[i]
+                                // }
+                            }
+                            if (el.name == 'pdf') {
+                                el.data = request.payload.pdf
+                                aux.pdf = 'yes'
+                                // if (el.data == '') {
+                                //     delete product.info[i]
+                                // }
+                            }
+                        });
+
+
+                        console.log("produasdadasd", product.info);
+
+                        let productSaved = await Product.findByIdAndUpdate(productExist[0]._id, product)
+
+
+                        return productSaved
+                    }
+
+                    return { error: 'No se ha encontrado el producto a modificar, por favor recargue la pagina'}
+
+                } catch (error) {
+                    console.log(error);
+                    return {
+                        error: 'Ha ocurrido un error al modificar el producto, por favor recargue la página e intentelo nuevamente.'
+                    }
+                }
+
+            },
+            validate: {
+                payload: Joi.object().keys({
+                    sku: Joi.string().required(),
+                    title: Joi.string().required(),
+                    description: Joi.string().required(),
+                    category: Joi.string().required(),
+                    subCategory: Joi.string().required(),
+                    image: Joi.string().allow(''),
+                    video: Joi.string().allow(''),
+                    pdf: Joi.string().allow('')
+                })
+            }
+        }
+    },
+    {
         method: 'GET',
         path: '/api/productsStar',
         options: {

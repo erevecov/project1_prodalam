@@ -16,6 +16,7 @@ const productSchema = new Schema({
     star: { type: String, required: true, default: 'no' },
     status: { type: String, required: true, default: 'enabled' },
     info: [{
+        _id: false,
         name: {type: String, required: true},
         data: {type: String, required: true}
     }],
