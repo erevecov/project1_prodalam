@@ -29,7 +29,7 @@ async function initBannersTable() {
 		responsive: false,
 		columns: [
 			{ data: 'nameFile' },
-			{ data: 'nameFile2' },
+			{ data: 'nameFileM' },
 			{ data: 'urlBanner'},
 			{ data: 'modificar' },
 			{ data: 'eliminar' }
@@ -274,9 +274,9 @@ async function uploadBanner(ban) {
 				nameBan = ''
 			}
 
-			// if (!b64img || b64img == '') {
-			// 	toastr.warning('Debe seleccionar una imagen')
-			// } else {
+			if (b64img == '' && ban == undefined ) {
+				toastr.warning('Debe seleccionar una imagen')
+			} else {
 
 				let dataImg =
 				{
@@ -328,7 +328,7 @@ async function uploadBanner(ban) {
 				} else {
 					toastr.warning(saveImage.data.err)
 				}
-			// }
+			}
 		}
 	});
 }

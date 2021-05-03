@@ -57,6 +57,10 @@ module.exports = [
                         saveMod.nameFileM = request.payload.filename
                         saveMod.nameNewM = name
                         saveMod.urlBanner = request.payload.urlBanner
+
+                        if (saveMod.nameFileM == '') {
+                            saveMod.nameNewM = ''
+                        }
                         let banner = await Banner(saveMod);
                         await Banner.findByIdAndUpdate(ban._id, banner)
                         return { ok: saveMod };
