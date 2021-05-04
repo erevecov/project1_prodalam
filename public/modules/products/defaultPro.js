@@ -1,3 +1,21 @@
+function changeImg(productData) {
+
+
+        document.querySelector('#carrouselId').innerHTML = productData.img.reduce((acc, el, i) => {
+            let isa = ''
+            if (i == 0) {
+                isa = "active"
+            }
+            acc +=`
+            <div class="carousel-item ${isa}">
+                <a href='' >
+                    <img src="${productData.img}" class="d-block w-100">
+                </a>
+            </div>
+            `
+            return acc
+        }, '')
+}
 
 const handleModal = async (originalProductData,showrels) => {
     let el = originalProductData
@@ -56,21 +74,19 @@ const handleModal = async (originalProductData,showrels) => {
             </div>
 
             <div class="col-lg-6 dos">
-                <div class="row">
-
-                <div class="col-lg-1 flecha">
-
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div id="carrouselId" class="carousel-inner">
                 </div>
 
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 product-img-modal">
-                    <img src="${productData.img}" alt="">
-                </div>
-
-                <div class="col-lg-1 flecha">
-
-                </div>
-
-                </div>
+                <a class="carousel-control-prev" id="products-left" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <i class="fas fa-chevron-left fa-2x"></i>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" id="products-right" href="#carouselExampleControls" role="button" data-slide="next">
+                        <i class="fas fa-chevron-right fa-2x"></i>
+                <span class="sr-only">Next</span>
+                </a>
+          </div>
             </div>
         </div>
     </div>
@@ -89,6 +105,7 @@ const handleModal = async (originalProductData,showrels) => {
         ''
     }
 	`
+    changeImg(productData)
 
 
     let productInfo = ''
@@ -101,6 +118,8 @@ const handleModal = async (originalProductData,showrels) => {
 
         if (elInfoKey.name === 'Imagen') {
         } else if (elInfoKey.name === 'Título SAP') {
+        } else if (elInfoKey.name === 'video') {
+        } else if (elInfoKey.name === 'pdf') {
         } else {
             productInfo += `
                 <tr>
@@ -174,7 +193,7 @@ const handleModal = async (originalProductData,showrels) => {
                 img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
                 info: (findProductInfo)
             }
-
+//cambiar destacados name
             acc += `
             <div class="col-lg-3 destacados">
             <div class="card card-custom">
@@ -202,13 +221,13 @@ const handleModal = async (originalProductData,showrels) => {
 
             el.addEventListener('click', () => {
                 let productData = relacionPro.data.find(elProduct => elProduct._id === el.dataset.productid)
-    
+
                 window.location.href = `products?search=${productData.sku}`
             })
         })
-    } 
+    }
     // else {
-        
+
     // }
 
     $('#modal').modal('show')

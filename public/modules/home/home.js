@@ -1,6 +1,7 @@
 let internals = {
     stars: []
 }
+let banners = []
 
 initProducts()
 banImg()
@@ -14,29 +15,72 @@ window.onresize = () => {
     changeBannerImg()
 }
 
-// function changeBannerImg() {
-//     Array.from(document.querySelectorAll('.carouselImg')).forEach(el=> {
-//         el.style.height = `${window.innerWidth / 2}px`
-//     })
+function changeBannerImg() {
+    console.log("aaaaaaaaaaaaaaaaaaaaa", banners);
+    if (window.innerWidth < '768') {
+        document.querySelector('#carrouselId').innerHTML = banners.reduce((acc, el, i) => {
+            let isa = ''
+            if (i == 0) {
+                isa = "active"
+            }
+            acc +=`
+            <div class="carousel-item ${isa}">
+                <a href='${el.urlBan}' >
+                    <img src="${el.bannerMovil}" class="d-block w-100">
+                </a>
+            </div>
 
-//     console.log({
-//         width: window.innerWidth, 
-//         height: window.innerHeight
-//     })
-// }
+            `
+            return acc
+        }, '')
+    } else {
+        document.querySelector('#carrouselId').innerHTML = banners.reduce((acc, el, i) => {
+            let isa = ''
+            if (i == 0) {
+                isa = "active"
+            }
+
+            acc +=`
+            <div class="carousel-item ${isa}">
+                <a href='${el.urlBan}' >
+                    <img src="${el.banner}" class="d-block w-100">
+                </a>
+            </div>
+
+            `
+            return acc
+        }, '')
+    }
+
+
+
+
+
+
+
+
+
+
+    // Array.from(document.querySelectorAll('.carouselImg')).forEach(el=> {
+    //     el.style.height = `${window.innerWidth / 2}px`
+        
+    // })
+// :^) iwi :c =D
+    // console.log({
+    //     width: window.innerWidth,
+    //     height: window.innerHeight
+    // })
+}
 
 async function banImg() {
     let res = await axios.get('/api/getBanner')
+    console.log("ress", res);
+    banners = res.data.ok
     if (res.data.ok) {
         // var span = document.createElement('span');
 
         document.querySelector('#carouselExampleControls').innerHTML = `
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <a href="" >
-                        <img src="${res.data.ok[0]}" class="d-block w-100 carouselImg" alt=" ">
-                    </a>
-                </div>
+            <div id="carrouselId" class="carousel-inner">
             </div>
 
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -48,6 +92,17 @@ async function banImg() {
                 <span class="sr-only">Next</span>
             </a>
         `
+
+        // document.querySelector('#carrouselId').innerHTML = `
+        // <div class="carousel-item active">
+        //     <a href='${banners[0].urlBan}' >
+        //         <img src="${banners[0].banner}" class="d-block w-100 carouselImg" alt=" ">
+        //     </a>
+        // </div>
+        // `
+        
+
+
         // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
 
         // $('#list').html(span)

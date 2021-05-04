@@ -230,6 +230,16 @@
     color: var(--orange);
     text-decoration: none;
 }
+
+#products-left {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+#products-right {
+    color: var(--orange);
+    text-decoration: none;
+}
 #numPage0{
     color: var(--orange);
     display: flex;

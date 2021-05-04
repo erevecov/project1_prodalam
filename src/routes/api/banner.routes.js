@@ -34,7 +34,7 @@ module.exports = [
 
                     let img = request.payload.img
                     let name = removeSpecials(moment().format('YYYY-MM-DDTHH:mm:ss.SSSSS'))
-                
+
                     if (ban) {
                         name = ban.nameNew+"M"
                     }
@@ -42,7 +42,7 @@ module.exports = [
                     if (request.payload.img !== '') {
                         await writeFile('./public/modules/banner/imgBan/' + name + '.txt', img);
                     }
-                    
+
 
                     let saveBan = {
                         nameFile: request.payload.filename,
@@ -70,7 +70,7 @@ module.exports = [
                         let newBanImg = await banner.save();
                         return { ok: newBanImg };
                     }
-                    
+
                 } catch (error) {
                     console.log(error)
 
@@ -102,9 +102,6 @@ module.exports = [
                     }
                     let images = []
 
-                    
-
-
                     reado.forEach((el, i) => {
                         const data = fs.readFileSync('./public/modules/banner/imgBan/' + el);
                         if (!el.includes("M")) {
@@ -126,7 +123,7 @@ module.exports = [
                         let banData = {
                             banner: '',
                             bannerMovil: '',
-                            ulrBan: ''
+                            urlBan: ''
                         }
                         images.forEach(elban => {
                             if (el.nameNew == elban.name) {
@@ -135,7 +132,7 @@ module.exports = [
                                 } else{
                                     banData.banner = elban.banner
                                 }
-                                banData.ulrBan = el.urlBanner
+                                banData.urlBan = el.urlBanner
                             }
                         });
                         final.push(banData)
