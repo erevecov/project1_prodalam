@@ -105,7 +105,7 @@ async function initProductsTable() {
             },
             buttonsStyling: false
           })
-          
+
           swalWithBootstrapButtons.fire({
             title: '¿Estas seguro?',
             text: "No se podra revertir la eliminación de un producto.",
@@ -116,7 +116,6 @@ async function initProductsTable() {
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
-                
 
                 internals.tables.products.datatable
                 .row($(this).parents('tr'))

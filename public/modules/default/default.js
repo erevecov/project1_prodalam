@@ -34,9 +34,10 @@ async function initMenu() {
     let categories = await axios.get('/api/subCategories')
 
     document.querySelector('#categoriesDropdown1').innerHTML += categories.data.reduce((acc,el,i) => {
+
         acc += `
-        <li class="dropdown-submenu dropright">
-            <a id="dropdownMenuSub-${i}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">${el.parent}</a>
+        <li class="dropdown-submenu dropright" style="width: max-content;">
+            <a id="dropdownMenuSub-${i}" href="#" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" class="dropdown-item dropdown-toggle">${el.parent}</a>
 
             <ul aria-labelledby="dropdownMenuSub-${i}" class="dropdown-menu border-0 shadow">
                 ${

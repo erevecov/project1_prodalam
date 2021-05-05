@@ -44,11 +44,13 @@ async function initBannersTable() {
 
 	$('#bannersTable tbody').on('click', '.delBanner', async function () {
 		var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
+
 		dataImg = {
 			filename: data.nameFile
 		}
+
 		await axios.post('/api/deleteBanner', dataImg)
-		// console.log("dataDelete", deleteImage);
+
 		const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
               confirmButton: 'btn btn-danger',
@@ -56,7 +58,7 @@ async function initBannersTable() {
             },
             buttonsStyling: false
           })
-          
+
           swalWithBootstrapButtons.fire({
             title: '¿Estas seguro?',
             text: "No se podra revertir la eliminación de un archivo.",
@@ -97,7 +99,7 @@ async function initBannersTable() {
         var data = internals.tables.banners.datatable.row($(this).parents('tr')).data();
         // alert("Modificar: " + data.sku);
         initMod(data)
-		console.log("aaaaaaaadaa",data);
+		// console.log("aaaaaaaadaa",data);
 
 		// $('#saveBanner').on('click', async function(){
 		// 	saveBanner(data)

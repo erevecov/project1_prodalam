@@ -178,9 +178,14 @@ function modNewUser(modUserData) {   //NEW AND MOD USER
             <input id="newUserLastname" type="text" placeholder="Apellido del usuario" class="form-control border-input">
         </div>
 
-        <div class="col-md-4" style="margin-top:10px;">
+        <div class="col-md-3" style="margin-top:10px;">
         Contraseña del usuario
             <input id="newUserPassword" type="password" placeholder="Contraseña del usuario" class="form-control border-input">
+        </div>
+
+        <div class="col-md-1" style="margin-top:43px; font-size: 16px;">
+        <i class="fas fa-eye"></i>
+        <input type="checkbox" onclick="showPass()">
         </div>
 
         <div class="col-md-4" style="margin-top:10px;">
@@ -266,6 +271,15 @@ function modNewUser(modUserData) {   //NEW AND MOD USER
     `)
 
 }
+
+function showPass() {
+    var x = document.getElementById("newUserPassword");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
 
 async function saveUser(mod) {
 

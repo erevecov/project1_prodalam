@@ -23,3 +23,14 @@ h3{
 .toastr-warning{
     background-color: red;
 }
+
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    margin-left: 3px;
+}
+
+.fa-eye:before {
+    content: "\f06e";
+    font-size: 15px;
+}
