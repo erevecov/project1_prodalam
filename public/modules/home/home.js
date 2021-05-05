@@ -184,7 +184,12 @@ async function initProducts() {
 
         el.info.forEach(a => {
             if (a.name == "Imagen") {
-                findProductImg = a.data
+                if (a.data.includes(",")) {
+                    findProductImg = a.data.split(",")
+                    findProductImg = findProductImg[0]
+                } else {
+                    findProductImg = a.data
+                }
             }
         });
 
@@ -207,7 +212,7 @@ async function initProducts() {
             <div class="card card-custom">
                 <!-- <button class="btn addToFavBtn"></button> -->
                 <div class="card-body card-body-custom">
-                    <img src="${productData.img}" alt="" class="card-img-top" alt="producto">
+                    <img src="${findProductImg}" alt="" class="card-img-top" alt="producto">
                     <p class="card-text card-product-title">Destacado del mes</p>
 
                     <p class="card-product-description">${cutText(productData.description, 100)}</p>

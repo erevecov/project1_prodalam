@@ -100,7 +100,12 @@ async function initProducts() {
 
         el.info.forEach(a => {
             if (a.name == "Imagen") {
-                findProductImg = a.data
+                if (a.data.includes(",")) {
+                    findProductImg = a.data.split(",")
+                    findProductImg = findProductImg[0]
+                } else {
+                    findProductImg = a.data
+                }
             }
         });
 
