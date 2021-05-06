@@ -44,12 +44,16 @@ async function initProducts() {
     if (itemStar == null || itemStar.length == 0) {
         document.querySelector('#product-star-container').innerHTML = `
         <br>
-        
+
         <div class="col-md-3"></div>
-        <div class="col-md-6"><h2>Sin Productos seleccionados</h2></div>
+        <div class="col-md-6" style="
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-top: 167px;
+            padding-bottom: 180px;
+        "><h2>Sin Productos seleccionados</h2></div>
         <div class="col-md-3"></div>
         <div class="col-md-12"></div>
-        
         <br>
         `
         loadingHandler('stop')
@@ -201,7 +205,7 @@ const handleModal = (originalProductData) => {
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> </button>
             </div>
 
             <div class="col-lg-6 dos">
