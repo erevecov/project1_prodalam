@@ -26,9 +26,9 @@
     --grey1: grey;
 }
 
-.dropdown-submenu {
+/* .dropdown-submenu {
     position: relative;
-}
+} */
 
 .dropdown-submenu>a:after {
     content: "\f0da";
@@ -36,7 +36,9 @@
     /* border: none; */
     font-family: 'FontAwesome';
 }
-
+.dropdown-menu .show{
+    display: block;
+}
 .dropdown-submenu .dropdown-menu {
     top: 0;
     left: 100%;
@@ -193,7 +195,10 @@ body {
 .bg-light {
     border-bottom: 5px solid var(--orange) !important;
 }
-
+.navbar-nav .dropdown-menu {
+    position: relative;
+    float: none;
+}
 .navbar {
     font-family: SFProDisplay-Medium;
     background-color: #005EB8 !important;
@@ -340,3 +345,7 @@ body {
     cursor: pointer;
   }
 
+a, a:hover {
+    text-decoration: none;
+    transition: all .2s ease-in-out;
+}

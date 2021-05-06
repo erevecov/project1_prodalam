@@ -48,6 +48,7 @@
     position: absolute;
     right: 30px;
     /* display: none; */
+    margin-top: 5px;
 }
 
 .addToFavBtn:hover {
@@ -365,4 +366,10 @@
         font-size: x-large;
         margin-bottom: 20px;
     }
+}
+#aPdf{
+    color: #616161;
+    text-decoration: none;
+    background-color: transparent;
+    padding-left: 19px;
 }

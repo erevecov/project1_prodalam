@@ -119,7 +119,7 @@ const handleModal = async (originalProductData, showrels) => {
         sku: el.sku,
         description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
         img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
-        info: (findProductInfo)
+        info: (findProductInfo),
     }
 
 	const modalSelector = {
@@ -145,7 +145,7 @@ const handleModal = async (originalProductData, showrels) => {
                         <tbody id="product-info-container"></tbody>
                     </table>
                 </div>
-
+                <a id="aPdf" href="${productData.pdf}">Descargar ficha técnica</a>
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>

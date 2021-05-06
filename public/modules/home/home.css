@@ -60,7 +60,15 @@ h5{
 /* .btn-custom span {
     font-size: 20px;
 } */
+#products-left {
+    color: var(--orange);
+    text-decoration: none;
+}
 
+#products-right {
+    color: var(--orange);
+    text-decoration: none;
+}
 .addToFavBtn {
     background: #025DB8;
     text-align: center;

@@ -16,7 +16,7 @@ window.onresize = () => {
 }
 
 function changeBannerImg() {
-    console.log("aaaaaaaaaaaaaaaaaaaaa", banners);
+
     if (window.innerWidth < '768') {
         document.querySelector('#carrouselId').innerHTML = banners.reduce((acc, el, i) => {
             let isa = ''
@@ -51,15 +51,6 @@ function changeBannerImg() {
             return acc
         }, '')
     }
-
-
-
-
-
-
-
-
-
 
     // Array.from(document.querySelectorAll('.carouselImg')).forEach(el=> {
     //     el.style.height = `${window.innerWidth / 2}px`

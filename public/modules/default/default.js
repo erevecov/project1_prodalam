@@ -37,9 +37,9 @@ async function initMenu() {
 
         acc += `
         <li class="dropdown-submenu dropright" style="width: max-content;">
-            <a id="dropdownMenuSub-${i}" href="#" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" class="dropdown-item dropdown-toggle">${el.parent}</a>
+            <a id="dropdownMenuSub-${i}" href="#" role="button" data-toggle="dropdown" aria-haspopup="menu" aria-expanded="false" class="dropdown-item dropdown-toggle">${el.parent}</a>
 
-            <ul aria-labelledby="dropdownMenuSub-${i}" class="dropdown-menu border-0 shadow">
+            <ul aria-labelledby="dropdownMenuSub-${i}" class="dropdown-menu shadow">
                 ${
                     el.sub.reduce((accSub,elSub,iSub) => {
                         accSub += `
@@ -65,12 +65,27 @@ async function initMenu() {
         $(this).siblings().toggleClass("show");
 
 
-        if (!$(this).next().hasClass('show')) {
-        $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-        }
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-        $('.dropdown-submenu .show').removeClass("show");
-        });
+        document.querySelectorAll('.dropdown-menu a').forEach(function(element){
+            element.addEventListener('click', function (e) {
+                let nextEl = this.nextElementSibling;
+                if(nextEl && nextEl.classList.contains('submenu')) {
+                  // prevent opening link if link needs to open dropdown
+                  e.preventDefault();
+                  if(nextEl.style.display == 'block'){
+                    nextEl.style.display = 'none';
+                  } else {
+                    nextEl.style.display = 'block';
+                  }
+        
+                }
+            });
+          })
+        // if (!$(this).next().hasClass('show')) {
+        // $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+        // }
+        // $(this).parents('li.dropdown-menu.show').on('hidden.bs.dropdown', function(e) {
+        // $('.dropdown-submenu .show').removeClass("show");
+        // });
 
     });
 
