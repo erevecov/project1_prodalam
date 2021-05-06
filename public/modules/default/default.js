@@ -74,8 +74,6 @@ async function initMenu() {
         //   element.addEventListener('click', function (e) {
             
             if (dropPressed !== '') {
-                console.log("aaaaa",dropPressed);
-
                 if ($(dropPressed).hasClass('show')) {
                     if (dropPressed !== this.nextElementSibling) {
                         $(dropPressed).removeClass("show");

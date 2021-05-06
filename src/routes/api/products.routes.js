@@ -176,7 +176,7 @@ module.exports = [
                                         a.data = a.data.split(',')
                                     }
                                 }
-                                if (a.name == "doc") {
+                                if (a.name == "pdf") {
                                     if (a.data.includes(',')) {
                                         a.data = a.data.split(',')
                                     }
