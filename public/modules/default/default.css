@@ -270,7 +270,7 @@ body {
 
 .navbar-search button {
     margin-left: -40px;
-    z-index: 1000 !important;
+    /* z-index: 1000 !important; */
 }
 
 #navbar-search-input {

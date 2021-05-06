@@ -96,6 +96,7 @@ function changeImg(productData) {
 const handleModal = async (originalProductData, showrels) => {
     let el = originalProductData
     let findProductImg
+    let findProductPdf
 
     el.info.forEach(a => {
         if (a.name == "Imagen") {
@@ -107,6 +108,19 @@ const handleModal = async (originalProductData, showrels) => {
             }
         }
     });
+    el.info.forEach(a => {
+        if (a.name == "pdf") {
+            if (a.data.includes(",")) {
+                findProductPdf = a.data.split(",")
+                findProductPdf = '<a id="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
+            } else {
+                findProductPdf = '<a id="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
+            }
+        }
+    });
+    if (!findProductPdf){
+        findProductPdf = ''
+    }
 
     let findProductTitle = el.title
     let findProductDescription = el.description
@@ -145,7 +159,7 @@ const handleModal = async (originalProductData, showrels) => {
                         <tbody id="product-info-container"></tbody>
                     </table>
                 </div>
-                <a id="aPdf" href="${productData.pdf}">Descargar ficha técnica</a>
+                ${findProductPdf}
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
