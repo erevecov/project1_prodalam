@@ -64,28 +64,31 @@ async function initMenu() {
 
         $(this).siblings().toggleClass("show");
 
-
-        document.querySelectorAll('.dropdown-menu a').forEach(function(element){
+        // Array.from(querySelectorAll('.viewMore')).forEach(el => {
+        Array.from(document.querySelectorAll('.dropdown-menu a')).forEach(function(element){
+            console.log(element,'aeaeae');
             element.addEventListener('click', function (e) {
                 let nextEl = this.nextElementSibling;
-                if(nextEl && nextEl.classList.contains('submenu')) {
-                  // prevent opening link if link needs to open dropdown
-                  e.preventDefault();
-                  if(nextEl.style.display == 'block'){
-                    nextEl.style.display = 'none';
-                  } else {
-                    nextEl.style.display = 'block';
-                  }
+                
+                if (!$(this).next().hasClass('show')) {
+                    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+                    }
+                    $(this).parents('li.dropdown-menu.show').on('hidden.bs.dropdown', function(e) {
+                    $('.dropdown-submenu .show').removeClass("show");
+                    });
+                // if(nextEl && nextEl.classList.contains('submenu')) {
+                //   // prevent opening link if link needs to open dropdown
+                //   e.preventDefault();
+                //   if(nextEl.style.display == 'block'){
+                //     nextEl.style.display = 'none';
+                //   } else {
+                //     nextEl.style.display = 'block';
+                //   }
         
-                }
+                // }
             });
           })
-        // if (!$(this).next().hasClass('show')) {
-        // $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-        // }
-        // $(this).parents('li.dropdown-menu.show').on('hidden.bs.dropdown', function(e) {
-        // $('.dropdown-submenu .show').removeClass("show");
-        // });
+        
 
     });
 
