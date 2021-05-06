@@ -264,73 +264,79 @@ async function uploadBanner(ban) {
 	$('#uploadPhoto').on('click', async function () {
 		let confirm = await selectSave()
 
-		if (confirm) {
-			let varUlr
-			if (!$('#modUrl').val()) { //se envia url
-				varUlr = ''
-			} else {
-				varUlr = $('#modUrl').val()
-			}
-			if (!b64img) { //se envia imagen
-				b64img = ''
-				nameBan = ''
-			}
-
-			if (b64img == '' && ban == undefined ) {
-				toastr.warning('Debe seleccionar una imagen')
-			} else {
-
-				let dataImg =
-				{
-					img: b64img,
-					filename: nameBan,
-					urlBanner: varUlr,
-					mod: ban
-				}
-
-				let saveImage = await axios.post('/api/uploadImg', dataImg)
-
-				console.log("save imagee", saveImage);
-
-				if (saveImage.data.ok) {
-					let newBanData = saveImage.data.ok
-
-					newBanData.modificar = '-'
-					newBanData.eliminar = '-'
-
-					loadDataToBannersTable()
-					// if (newBanData.nameFileM == '') {
-					// 	let newBannerAdded = internals.tables.banners.datatable
-					// 	.row.add(newBanData)
-					// 	.draw()
-					// 	.node();
-		
-					// 	$(newBannerAdded).css('color', '#1abc9c');
-					// 	setTimeout(() => {
-					// 		$(newBannerAdded).css('color', '#484848');
-					// 	}, 5000);
-					// } else {
-					// 	// internals.tables.banners.datatable
-					// 	// .row(newBanData)
-					// 	// .remove()
-					// 	// .draw();
-
-					// 	let newBannerAdded = internals.tables.banners.datatable
-					// 	.row.add(newBanData)
-					// 	.draw()
-					// 	.node();
-		
-					// 	$(newBannerAdded).css('color', '#1abc9c');
-					// 	setTimeout(() => {
-					// 		$(newBannerAdded).css('color', '#484848');
-					// 	}, 5000);
-					// }
-					toastr.success('Datos cargados correctamente')
-					$('#modal').modal('hide')
+		if (internals.tables.banners.datatable.rows().data().length < 6) {
+			if (confirm) {
+				let varUlr
+				if (!$('#modUrl').val()) { //se envia url
+					varUlr = ''
 				} else {
-					toastr.warning(saveImage.data.err)
+					varUlr = $('#modUrl').val()
+				}
+				if (!b64img) { //se envia imagen
+					b64img = ''
+					nameBan = ''
+				}
+	
+				if (b64img == '' && ban == undefined ) {
+					toastr.warning('Debe seleccionar una imagen')
+				} else {
+	
+					let dataImg =
+					{
+						img: b64img,
+						filename: nameBan,
+						urlBanner: varUlr,
+						mod: ban
+					}
+	
+					let saveImage = await axios.post('/api/uploadImg', dataImg)
+	
+					console.log("save imagee", saveImage);
+	
+					if (saveImage.data.ok) {
+						let newBanData = saveImage.data.ok
+	
+						newBanData.modificar = '-'
+						newBanData.eliminar = '-'
+	
+						loadDataToBannersTable()
+						// if (newBanData.nameFileM == '') {
+						// 	let newBannerAdded = internals.tables.banners.datatable
+						// 	.row.add(newBanData)
+						// 	.draw()
+						// 	.node();
+			
+						// 	$(newBannerAdded).css('color', '#1abc9c');
+						// 	setTimeout(() => {
+						// 		$(newBannerAdded).css('color', '#484848');
+						// 	}, 5000);
+						// } else {
+						// 	// internals.tables.banners.datatable
+						// 	// .row(newBanData)
+						// 	// .remove()
+						// 	// .draw();
+	
+						// 	let newBannerAdded = internals.tables.banners.datatable
+						// 	.row.add(newBanData)
+						// 	.draw()
+						// 	.node();
+			
+						// 	$(newBannerAdded).css('color', '#1abc9c');
+						// 	setTimeout(() => {
+						// 		$(newBannerAdded).css('color', '#484848');
+						// 	}, 5000);
+						// }
+						toastr.success('Datos cargados correctamente')
+						$('#modal').modal('hide')
+					} else {
+						toastr.warning(saveImage.data.err)
+					}
 				}
 			}
+		} else {
+			toastr.warning('No es posible ingresar mas de 6 banners, por favor elimine alguno')
 		}
+
+		
 	});
 }
