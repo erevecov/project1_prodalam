@@ -177,3 +177,12 @@ input {
     border-radius: .25rem;
     border: none;
 }
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    color: inherit;
+    margin: -5px;
+    margin-right: -5px;
+}

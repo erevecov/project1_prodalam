@@ -239,16 +239,16 @@ const handleModal = async (originalProductData, showrels) => {
 
     if (favorites.includes(productData.sku)) {
         // console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
-        $('#picStar').html("<i class=\"fas fa-star\"></i>")
+        $('#picStar').html("<i class=\"fas fa-star\"> Eliminar de Favoritos</i>")
     }
 
 
     $('#picStar').on('click', function () {
         if (this.innerHTML.includes("fas")) {
-            this.innerHTML = "<i class=\"far fa-star\"></i>"
+            this.innerHTML = "<i class=\"far fa-star\"> Agregar a Favoritos</i>"
         } else {
             favorites.push(productData.sku)
-            this.innerHTML = "<i class=\"fas fa-star\"></i>"
+            this.innerHTML = "<i class=\"fas fa-star\"> Eliminar de Favoritos</i>"
             localStorage.setItem('favor', JSON.stringify(favorites))
         }
 

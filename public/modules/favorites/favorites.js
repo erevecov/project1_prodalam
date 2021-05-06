@@ -49,6 +49,8 @@ async function initProducts() {
         <div class="col-md-6"><h2>Sin Productos seleccionados</h2></div>
         <div class="col-md-3"></div>
         <div class="col-md-12"></div>
+        
+        <br>
         `
         loadingHandler('stop')
     } else {
