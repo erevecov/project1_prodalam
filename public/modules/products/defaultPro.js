@@ -40,7 +40,8 @@ function changeImg(productData) {
                 })
                 modalVid = b
             } else {
-                modalVid = [a.data]
+                let c = a.data.split("=")
+                modalVid = [c[1]]
             }
             document.querySelector('#carrouselModal').innerHTML += modalVid.reduce((acc, el, i) => {
                 acc +=`
@@ -113,14 +114,16 @@ const handleModal = async (originalProductData, showrels) => {
             if (a.data.includes(",")) {
                 findProductPdf = a.data.split(",")
                 findProductPdf = '<a id="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
+            } else if (a.data == '') {
+                findProductPdf = ''
             } else {
                 findProductPdf = '<a id="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
             }
         }
     });
-    if (!findProductPdf){
-        findProductPdf = ''
-    }
+    // if (!findProductPdf){
+        
+    // }
 
     let findProductTitle = el.title
     let findProductDescription = el.description
