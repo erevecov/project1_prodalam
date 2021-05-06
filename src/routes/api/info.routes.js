@@ -36,6 +36,8 @@ module.exports = [
                 try {
                     let queryParams = request.query
 
+                    console.log(queryParams)
+
                     const options = {
                         page: queryParams.page || 1,
                         limit: queryParams.limit || 4,
@@ -44,7 +46,16 @@ module.exports = [
                         },
                     }
 
-                    let result = await Info.paginate({}, options)
+                    let query = {}
+
+                    if (queryParams.search) {
+                        query.$text = {
+                            $search: queryParams.search,
+                            $diacriticSensitive: false
+                        }
+                    }
+
+                    let result = await Info.paginate(query, options)
 
                     return result
                 } catch (error) {

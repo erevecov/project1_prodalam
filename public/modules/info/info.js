@@ -27,6 +27,8 @@ async function initInfos() {
         }
     }
 
+    console.log(infoApiURL)
+
     let infos = await axios.get(infoApiURL)
 
     console.log(infos)
@@ -39,21 +41,34 @@ async function initInfos() {
     let infonumPage0 = document.querySelector('#numPage0')
 
     if (infos.data.page) {
-        infonumPage0.innerHTML= infos.data.page
+        infonumPage0.innerHTML = infos.data.page
     }
     if (infos.data.page) {
-        infonumPage.innerHTML= infos.data.page
+        infonumPage.innerHTML = infos.data.page
     }
+
     if (infos.data.prevPage) {
-        infosUpSelector.setAttribute('href', `?page=${infos.data.prevPage}`)
+        let prevPageURL = `?page=${infos.data.prevPage}`
+
+        if (search) {
+            prevPageURL += `&search=${search}`
+        }
+
+        infosUpSelector.setAttribute('href', prevPageURL)
     }
 
     if (infos.data.nextPage) {
-        infosDownSelector.setAttribute('href', `?page=${infos.data.nextPage}`)
+        let nextPageURL = `?page=${infos.data.nextPage}`
+
+        if (search) {
+            nextPageURL += `&search=${search}`
+        }
+
+        infosDownSelector.setAttribute('href', nextPageURL)
     }
 
     document.querySelector('#info-it-container').innerHTML = infos.data.docs.reduce((acc,el,i)=> {
-        
+
         console.log(el.phone.split('/'));
         acc += `
         <div class="card col-md-12 info-card">
