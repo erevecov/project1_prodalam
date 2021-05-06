@@ -123,13 +123,60 @@ footer {
     background-color: #f8f8f8;
     padding-top: 10px;
 }
-@media (min-width: 768px){
+@media (max-width: 768px){
+    .col-md-12.social {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: xx-large;
+    }
     .col-md-12 {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;
         padding-top: 5px;
         padding-bottom: 5px;
+    }
+
+    .dropdown-menu .show{
+        display: block;
+        margin-left: -75px;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+        margin-left: -75px !important;
+    }
+    .navbar-nav .dropdown-menu {
+        position: absolute;
+        float: none;
+    }
+
+    li.nav-item .dropdown .show{
+        padding-top: 20px;
+        height: 80px !important;
+        margin-left: -25px !important;
+    }
+    .navbar {
+        font-family: SFProDisplay-Medium;
+        background-color: #005EB8 !important;
+        padding: 0;
+        min-height: 80px;
+        padding-left: 16px;
+        padding-right: 16px;
+        box-shadow: 0 5px 9px rgb(0 0 0 / 30%);
+    }
+
+    .navbar .nav-item {
+        padding-top: 20px;
+        height: 80px !important;
+        margin-left: -25px !important;
     }
 }
 .col-md-12.social{
@@ -169,14 +216,7 @@ body {
     font-family: SFProDisplay-Bold !important;
 }
 @media (min-width: 768px) {
-    .col-md-12.social {
-        -ms-flex: 0 0 100%;
-        flex: 0 0 100%;
-        max-width: 100%;
-        display: flex;
-        justify-content: center;
-        font-size: xx-large;
-    }
+    
 }
 .backToTop {
     width: 100%;
@@ -219,6 +259,7 @@ body {
         padding-left: 150px;
         padding-right: 150px;
     }
+    
 }
 
 .navbar .nav-item {
@@ -270,7 +311,7 @@ body {
 
 .navbar-search button {
     margin-left: -40px;
-    z-index: 1000 !important;
+    /* z-index: 1000 !important; */
 }
 
 #navbar-search-input {

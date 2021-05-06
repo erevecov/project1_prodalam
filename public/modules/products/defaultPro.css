@@ -97,7 +97,8 @@
     height: 400px;
     /* border-radius: 30px; */
     padding: 0;
-    /* margin-top: 15px; */
+    margin-top: 15px;
+    margin-bottom: 25px;
 }
 
 #categories-left {
@@ -351,6 +352,8 @@
         border-radius: 20px !important;
         padding-top: 10px;
         margin-left: 26px;
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
 
     .col-sm-7 {
