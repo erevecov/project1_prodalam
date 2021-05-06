@@ -77,9 +77,11 @@ async function findUserByRutAndPassword(userRut, userPassword) {
         }
     }).lean();
 
+    if (!userExist[0]) {
+        return null
+    }
+
     if (validatePassword(userExist[0].password, userPassword)) {
         return userExist[0]
     }
-
-    return null
 }
