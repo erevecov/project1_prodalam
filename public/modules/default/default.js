@@ -58,36 +58,47 @@ async function initMenu() {
         return acc
     }, '')
 
-    $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
+    let dropPressed = ''
+
+    $("ul.dropdown-menu [data-toggle='dropdown']").on("mouseover", function(event) {
         event.preventDefault();
         event.stopPropagation();
 
         $(this).siblings().toggleClass("show");
-
-        // Array.from(querySelectorAll('.viewMore')).forEach(el => {
-        Array.from(document.querySelectorAll('.dropdown-menu a')).forEach(function(element){
-            console.log(element,'aeaeae');
-            element.addEventListener('click', function (e) {
-                let nextEl = this.nextElementSibling;
-                
-                if (!$(this).next().hasClass('show')) {
-                    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-                    }
-                    $(this).parents('li.dropdown-menu.show').on('hidden.bs.dropdown', function(e) {
-                    $('.dropdown-submenu .show').removeClass("show");
-                    });
-                // if(nextEl && nextEl.classList.contains('submenu')) {
-                //   // prevent opening link if link needs to open dropdown
-                //   e.preventDefault();
-                //   if(nextEl.style.display == 'block'){
-                //     nextEl.style.display = 'none';
-                //   } else {
-                //     nextEl.style.display = 'block';
-                //   }
         
-                // }
-            });
-          })
+        // Array.from(querySelectorAll('.viewMore')).forEach(el => {
+        // Array.from(document.querySelectorAll('.dropdown-menu a')).forEach(function(element){
+        //     // console.log('aeaeae',element.attributes,);
+            
+        //   })
+        //   element.addEventListener('click', function (e) {
+            
+            if (dropPressed !== '') {
+                console.log("aaaaa",dropPressed);
+
+                if ($(dropPressed).hasClass('show')) {
+                    if (dropPressed !== this.nextElementSibling) {
+                        $(dropPressed).removeClass("show");
+                    }
+                }
+            }
+            dropPressed = this.nextElementSibling
+
+            
+        //         $(this).parents('li.dropdown-menu.show').on('hidden.bs.dropdown', function(e) {
+        //         $('.dropdown-submenu .show').removeClass("show");
+        //         });
+            // if(nextEl && nextEl.classList.contains('show')) {
+            //   // prevent opening link if link needs to open dropdown
+            //   e.preventDefault();
+            //   if(nextEl.style.display == 'block'){
+            //     nextEl.style.display = 'none';
+            //   } else {
+            //     nextEl.style.display = 'block';
+            //   }
+    
+            // }
+        // });
         
 
     });
@@ -95,19 +106,19 @@ async function initMenu() {
     // console.log(categories, subCategories)
 
 
-    let sub = '/api/subCategories'
+    // let sub = '/api/subCategories'
 
-    if (page) {
-        sub += `?page=${page}`
+    // if (page) {
+    //     sub += `?page=${page}`
 
-        if (search) {
-            sub += `&search=${search}`
-        }
-    } else {
-        if (search) {
-            sub += `?search=${search}`
-        }
-    }
+    //     if (search) {
+    //         sub += `&search=${search}`
+    //     }
+    // } else {
+    //     if (search) {
+    //         sub += `?search=${search}`
+    //     }
+    // }
 
 
     // let stars = await axios.get(starApiURL)
