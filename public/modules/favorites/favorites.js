@@ -206,7 +206,7 @@ const handleModal = (originalProductData) => {
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i></button>
+                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> </button>
             </div>
 
             <div class="col-lg-6 dos">
