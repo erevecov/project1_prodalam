@@ -44,11 +44,18 @@ async function initProducts() {
     if (itemStar == null || itemStar.length == 0) {
         document.querySelector('#product-star-container').innerHTML = `
         <br>
-        
+
         <div class="col-md-3"></div>
-        <div class="col-md-6"><h2>Sin Productos seleccionados</h2></div>
+        <div class="col-md-6" style="
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-top: 167px;
+            padding-bottom: 180px;
+        "><h2>Sin Productos seleccionados</h2></div>
         <div class="col-md-3"></div>
         <div class="col-md-12"></div>
+
+        <br>
         `
         loadingHandler('stop')
     } else {

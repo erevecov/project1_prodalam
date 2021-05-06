@@ -36,7 +36,7 @@ module.exports = [
                 try {
                     let queryParams = request.query
 
-                    console.log(queryParams)
+                    // console.log(queryParams)
 
                     const options = {
                         page: queryParams.page || 1,
