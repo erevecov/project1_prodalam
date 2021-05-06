@@ -371,8 +371,8 @@
     }
 }
 .aPdf{
-    color: #616161;
-    text-decoration: none;
-    background-color: transparent;
-    padding-left: 19px;
+    color: #616161 !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+    padding-left: 19px !important;
 }
