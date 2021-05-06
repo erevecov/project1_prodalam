@@ -40,18 +40,22 @@ function changeImg(productData) {
                 })
                 modalVid = b
             } else {
-                let c = a.data.split("=")
-                modalVid = [c[1]]
+                if (a.data !== ''){
+                    let c = a.data.split("=")
+                    modalVid = [c[1]]
+                }
             }
-            document.querySelector('#carrouselModal').innerHTML += modalVid.reduce((acc, el, i) => {
-                acc +=`
-                <div class="carousel-item">
-                    <div class="youtube-player" data-id="${el}"></div>
-                </div>
-                `
-                return acc
+            if (a.data !== ''){
+                document.querySelector('#carrouselModal').innerHTML += modalVid.reduce((acc, el, i) => {
+                    acc +=`
+                    <div class="carousel-item">
+                        <div class="youtube-player" data-id="${el}"></div>
+                    </div>
+                    `
+                    return acc
 
-            }, '')
+                }, '')
+            }
         }
     });
 
@@ -121,9 +125,6 @@ const handleModal = async (originalProductData, showrels) => {
             }
         }
     });
-    // if (!findProductPdf){
-        
-    // }
 
     let findProductTitle = el.title
     let findProductDescription = el.description

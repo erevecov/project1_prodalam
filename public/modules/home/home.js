@@ -23,14 +23,16 @@ function changeBannerImg() {
             if (i == 0) {
                 isa = "active"
             }
-            acc +=`
-            <div class="carousel-item ${isa}">
-                <a href='${el.urlBan}' >
-                    <img src="${el.bannerMovil}" class="d-block w-100">
-                </a>
-            </div>
-
-            `
+            if (i < 5) {
+                acc +=`
+                <div class="carousel-item ${isa}">
+                    <a href='${el.urlBan}' >
+                        <img src="${el.bannerMovil}" class="d-block w-100">
+                    </a>
+                </div>
+                `
+            }
+            
             return acc
         }, '')
     } else {
@@ -39,15 +41,15 @@ function changeBannerImg() {
             if (i == 0) {
                 isa = "active"
             }
-
-            acc +=`
-            <div class="carousel-item ${isa}">
-                <a href='${el.urlBan}' >
-                    <img src="${el.banner}" class="d-block w-100">
-                </a>
-            </div>
-
-            `
+            if (i < 5) {
+                acc +=`
+                <div class="carousel-item ${isa}">
+                    <a href='${el.urlBan}' >
+                        <img src="${el.banner}" class="d-block w-100">
+                    </a>
+                </div>
+                `
+            }
             return acc
         }, '')
     }
@@ -56,7 +58,7 @@ function changeBannerImg() {
     //     el.style.height = `${window.innerWidth / 2}px`
         
     // })
-// :^) iwi :c =D
+
     // console.log({
     //     width: window.innerWidth,
     //     height: window.innerHeight
@@ -65,10 +67,8 @@ function changeBannerImg() {
 
 async function banImg() {
     let res = await axios.get('/api/getBanner')
-    console.log("ress", res);
     banners = res.data.ok
     if (res.data.ok) {
-        // var span = document.createElement('span');
 
         document.querySelector('#carouselExampleControls').innerHTML = `
             <div id="carrouselId" class="carousel-inner">
@@ -83,20 +83,6 @@ async function banImg() {
                 <span class="sr-only">Next</span>
             </a>
         `
-
-        // document.querySelector('#carrouselId').innerHTML = `
-        // <div class="carousel-item active">
-        //     <a href='${banners[0].urlBan}' >
-        //         <img src="${banners[0].banner}" class="d-block w-100 carouselImg" alt=" ">
-        //     </a>
-        // </div>
-        // `
-        
-
-
-        // ['<img class="thumb" src="', res.data.ok[0], '" title=" photo"/>'].join('');
-
-        // $('#list').html(span)
 
         changeBannerImg()
     } else {
