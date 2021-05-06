@@ -101,7 +101,7 @@ function changeImg(productData) {
 const handleModal = async (originalProductData, showrels) => {
     let el = originalProductData
     let findProductImg
-    let findProductPdf
+    let findProductPdf = ''
 
     el.info.forEach(a => {
         if (a.name == "Imagen") {
