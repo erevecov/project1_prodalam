@@ -117,11 +117,11 @@ const handleModal = async (originalProductData, showrels) => {
         if (a.name == "pdf") {
             if (a.data.includes(",")) {
                 findProductPdf = a.data.split(",")
-                findProductPdf = '<a id="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
+                findProductPdf = '<a class="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
             } else if (a.data == '') {
                 findProductPdf = ''
             } else {
-                findProductPdf = '<a id="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
+                findProductPdf = '<a class="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
             }
         }
     });
