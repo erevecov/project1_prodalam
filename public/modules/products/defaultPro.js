@@ -167,7 +167,7 @@ const handleModal = async (originalProductData, showrels) => {
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> Agregar a Favoritos</button>
+                <button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> Agregar a Favoritos</button>
             </div>
 
             <div class="col-lg-6 dos">

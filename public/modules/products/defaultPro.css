@@ -178,7 +178,7 @@
 
 .product-item h2 {
     /* font-size: x-large; */
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 25px;
     text-align: left;
     margin-left: 25px;
@@ -370,10 +370,36 @@
         font-size: x-large;
         margin-bottom: 20px;
     }
+    .btn-custom {
+        color: var(--grey1);
+        border: 1px solid var(--grey1);
+        border-radius: 50px;
+        font-size: 20px;
+        float: left;
+        margin-left: auto;
+    }
 }
 .aPdf{
     color: #616161 !important;
     text-decoration: none !important;
     background-color: transparent !important;
     padding-left: 19px !important;
+}
+
+#star-up {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+
+#star-down {
+    color: var(--orange);
+    display: flex;
+    justify-content: center;
+}
+h2.tituloFav {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
 }

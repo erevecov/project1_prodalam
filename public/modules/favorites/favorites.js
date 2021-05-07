@@ -106,22 +106,21 @@ async function initProducts() {
             acc += `
             <div class="col-md-6 product-item-container">
                 <div class="product-item">
-                    <div class="row" style="padding-top: 15px;">
-                        <div class="col-7">
-                            <h2>${cutText(productData.title, 23)}</h2>
+                    <div class="row" style="padding-top: 25px; padding-bottom: 15px;">
+                    <div class="col-sm-7">
+                    <h2>${cutText(productData.title, 23)}</h2>
 
-                            <h5>SKU: ${productData.sku}</h5>
+                    <h5>SKU: ${productData.sku}</h5>
 
-                            <p class="text-product">${cutText(productData.description, 70)}</p>
+                    <p class="text-product">${cutText(productData.description, 70)}</p>
+                    <div  style="padding-bottom: 10px;">
+                    <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                    </div>
+                </div>
 
-                        </div>
-
-                        <div class="col-5 product-img-container" style="padding-top: 30px;">
-                            <img src="${productData.img}" alt="">
-                        </div>
-                        <div class="col-12" style="padding-bottom: 10px;">
-                        <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
-                        </div>
+                <div class="col-sm-5 product-img-container">
+                    <img src="${productData.img}" alt="">
+                </div>
                     </div>
                 </div>
             </div>
@@ -315,7 +314,7 @@ const handleModal = (originalProductData) => {
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> </button>
+                <button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> </button>
             </div>
 
             <div class="col-lg-6 dos">

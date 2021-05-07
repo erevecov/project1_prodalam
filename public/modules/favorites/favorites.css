@@ -164,7 +164,7 @@ h2 {
     padding-left: 20px;
     padding-right: 20px; */
     float: left;
-    margin-left: 25px;
+    margin-left: 20px;
     margin-bottom: 10px;
 }
 
@@ -189,7 +189,7 @@ h2 {
     color: #444444;
     font-size: small;
     text-align: left;
-    margin-left: 29px;
+    margin-left: 25px;
     min-height: 60px;
     float: left;
 }
@@ -212,7 +212,7 @@ h2 {
 .product-item h5 {
     font-family: SFProDisplay-Light;
     text-align: left;
-    margin-left: 29px;
+    margin-left: 25px;
     color: #444444;
     float: left;
 }
@@ -257,11 +257,12 @@ h2 {
 }
 
 .product-item img {
-    width: 90%;
-    height: 150px;
+    width: 100%;
+    height: 200px;
     border-radius: 30px;
     padding: 0;
-    padding-right: inherit;
+    padding-right: unset;
+    margin-right: 10px;
 }
 
 #star-up {
@@ -344,4 +345,37 @@ h2 {
         margin-right: -15px;
         margin-left: unset;
     }
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .product-item img {
+        margin-bottom: 5px;
+        max-height: 200px;
+        max-width: 220px;
+        border-radius: 20px !important;
+        padding-top: 10px;
+        margin-left: 26px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .col-sm-7 {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    .btn-custom2 {
+        color: var(--grey1);
+        border: 1px solid var(--grey1);
+        border-radius: 50px;
+        font-size: x-large;
+        margin-bottom: 20px;
+    }
+}
+.aPdf{
+    color: #616161 !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+    padding-left: 19px !important;
 }
