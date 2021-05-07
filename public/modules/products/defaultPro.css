@@ -364,6 +364,50 @@
         margin-top: 20px;
     }
 
+    .addToFavBtn {
+        background: #025DB8;
+        text-align: center;
+        color: white;
+        border: none;
+        margin-bottom: 10px;
+        position: static;
+        right: 30px;
+        display: block;
+        /* margin-top: 50px; */
+        /* font-family: SFProDisplay-Regular; */
+    }
+    .product-modal .col-lg-6.uno {
+        font-family: SFProDisplay-Medium;
+        width: 100%;
+        min-height: 200px;
+        max-height: 745px;
+        
+        border-radius: 30px;
+        background-color: #e4e4e4;
+        padding-bottom: 20px;
+        padding: 10px;
+    }
+.col-lg-6{
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+    .btn-custom3 {
+        color: var(--grey1);
+        border: 1px solid var(--grey1);
+        border-radius: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        /* padding-left: 20px; */
+        /* padding-right: 20px; */
+        float: left;
+        margin-left: 0px;
+        margin-bottom: 20px;
+    }
     .col-sm-7 {
         display: flex;
         flex-flow: column;
@@ -409,4 +453,8 @@ h2.tituloFav {
     display: flex;
     justify-content: center;
     padding-top: 20px;
+}
+
+.col-lg-6.fav{
+    font-family: SFProDisplay-Light;
 }

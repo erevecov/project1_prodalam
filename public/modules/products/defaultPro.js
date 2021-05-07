@@ -165,9 +165,10 @@ const handleModal = async (originalProductData, showrels) => {
                 </div>
                 ${findProductPdf}
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
-
-                <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> Agregar a Favoritos</button>
+                <div class="row">
+                <div class="col-lg-6"><a target="_blank" href="/info" class="btn btn-custom3">Contacto</a></div>
+                <div class="col-lg-6 fav"><button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> Agregar a Favoritos</button></div>
+                </div>
             </div>
 
             <div class="col-lg-6 dos">
