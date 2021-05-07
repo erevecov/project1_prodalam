@@ -77,6 +77,7 @@ h5{
     position: absolute;
     right: 30px;
     /* display: none; */
+    font-family: SFProDisplay-Regular;
 }
 
 .addToFavBtn:hover {
@@ -192,7 +193,7 @@ h5{
     padding: 1rem;
     padding-left: 50px;
     padding-right: 50px;
-    padding-top: 50px;
+    padding-top: 15px;
 }
 
 .product-modal .textDescription{
@@ -232,7 +233,8 @@ h5{
     height: 400px;
     /* border-radius: 30px; */
     padding: 0;
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 25px;
 }
 .table td {
     padding: .30rem;
