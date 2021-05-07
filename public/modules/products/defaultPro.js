@@ -137,7 +137,7 @@ const handleModal = async (originalProductData, showrels) => {
         sku: el.sku,
         description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
         img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
-        info: (findProductInfo),
+        info: (findProductInfo)
     }
 
 	const modalSelector = {
@@ -171,19 +171,18 @@ const handleModal = async (originalProductData, showrels) => {
             </div>
 
             <div class="col-lg-6 dos">
-            <div id="controlsCarrousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                <div id="carrouselModal" class="carousel-inner">
-                </div>
+                <div id="controlsCarrousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div id="carrouselModal" class="carousel-inner"></div>
 
-                <a class="carousel-control-prev" id="products-left" href="#controlsCarrousel" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" id="products-left" href="#controlsCarrousel" role="button" data-slide="prev">
                         <i class="fas fa-chevron-left fa-2x"></i>
-                <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" id="products-right" href="#controlsCarrousel" role="button" data-slide="next">
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" id="products-right" href="#controlsCarrousel" role="button" data-slide="next">
                         <i class="fas fa-chevron-right fa-2x"></i>
-                <span class="sr-only">Next</span>
-                </a>
-          </div>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

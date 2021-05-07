@@ -35,11 +35,6 @@ async function initProducts() {
 
     // console.log(productApiURL)
     let itemStar = JSON.parse(localStorage.getItem("favor"))
- console.log("star", itemStar);
-
-
-
-   
 
     if (itemStar == null || itemStar.length == 0) {
         document.querySelector('#product-star-container').innerHTML = `
@@ -148,20 +143,134 @@ async function initProducts() {
     }
 }
 
-// ------------------------------------------------------------------------
+function changeImg(productData) {
+    let modalImg
+    let modalVid
+
+    productData.info.forEach(a => {
+        if (a.name == "Imagen") {
+            if (a.data.includes(",")) {
+                modalImg = a.data.split(",")
+            } else {
+                modalImg = [a.data]
+            }
+        }
+    });
+    if (!modalImg) {
+        modalImg = ['/public/img/NOFOTO_PRODALAM.jpg']
+    }
+    document.querySelector('#carrouselModal').innerHTML = modalImg.reduce((acc, el, i) => {
+        let isa = ''
+        if (i == 0) {
+            isa = "active"
+        }
+        acc +=`
+        <div class="carousel-item ${isa}">
+            <a href='#' >
+                <img src="${el}" class="d-block w-100">
+            </a>
+        </div>
+        `
+        return acc
+    }, '')
+
+    productData.info.forEach(a => {
+        if (a.name == "video") {
+            if (a.data.includes(",")) {
+                modalVid = a.data.split(",")
+                let b = []
+                modalVid.forEach(ey=> {
+                    let c = ey.split("=")
+                    b.push(c[1])
+                })
+                modalVid = b
+            } else {
+                if (a.data !== ''){
+                    let c = a.data.split("=")
+                    modalVid = [c[1]]
+                }
+            }
+            if (a.data !== ''){
+                document.querySelector('#carrouselModal').innerHTML += modalVid.reduce((acc, el, i) => {
+                    acc +=`
+                    <div class="carousel-item">
+                        <div class="youtube-player" data-id="${el}"></div>
+                    </div>
+                    `
+                    return acc
+
+                }, '')
+            }
+        }
+    });
+
+    initYouTubeVideos()
+    function labnolIframe(div) {
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute(
+            'src',
+            'https://www.youtube.com/embed/' + div.dataset.id + '?autoplay=1&rel=0&controls=0'
+        );
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowfullscreen', '1');
+        iframe.setAttribute(
+            'allow',
+            'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+        );
+        div.parentNode.replaceChild(iframe, div);
+    }
+    
+    function initYouTubeVideos() {
+    var playerElements = document.getElementsByClassName('youtube-player');
+        for (var n = 0; n < playerElements.length; n++) {
+            var videoId = playerElements[n].dataset.id;
+            var div = document.createElement('div');
+            div.setAttribute('data-id', videoId);
+            var thumbNode = document.createElement('img');
+            thumbNode.src = '//i.ytimg.com/vi/ID/hqdefault.jpg'.replace(
+            'ID',
+            videoId
+            );
+            div.appendChild(thumbNode);
+            var playButton = document.createElement('div');
+            playButton.setAttribute('class', 'play');
+            div.appendChild(playButton);
+            div.onclick = function () {
+            labnolIframe(this);
+            };
+            playerElements[n].appendChild(div);
+        }
+    }
+}
 
 
 const handleModal = (originalProductData) => {
     let el = originalProductData
     let findProductImg
+    let findProductPdf = ''
 
-    console.log(el)
     el.info.forEach(a => {
         if (a.name == "Imagen") {
-            findProductImg = a.data
+            if (a.data.includes(",")) {
+                findProductImg = a.data.split(",")
+                findProductImg = findProductImg[0]
+            } else {
+                findProductImg = a.data
+            }
         }
     });
-
+    el.info.forEach(a => {
+        if (a.name == "pdf") {
+            if (a.data.includes(",")) {
+                findProductPdf = a.data.split(",")
+                findProductPdf = '<a class="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
+            } else if (a.data == '') {
+                findProductPdf = ''
+            } else {
+                findProductPdf = '<a class="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
+            }
+        }
+    });
 
     let findProductTitle = el.title
     let findProductDescription = el.description
@@ -170,6 +279,7 @@ const handleModal = (originalProductData) => {
     let productData = {
         _id: el._id,
         title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+        category: el.category,
         sku: el.sku,
         description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
         img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
@@ -201,7 +311,7 @@ const handleModal = (originalProductData) => {
                         <tbody id="product-info-container"></tbody>
                     </table>
                 </div>
-
+                ${findProductPdf}
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
 
                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
@@ -209,26 +319,23 @@ const handleModal = (originalProductData) => {
             </div>
 
             <div class="col-lg-6 dos">
-                <div class="row">
+                <div id="controlsCarrousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div id="carrouselModal" class="carousel-inner"></div>
 
-                <div class="col-lg-1 flecha">
-
-                </div>
-
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 product-img-modal">
-                    <img src="${productData.img}" alt="">
-                </div>
-
-                <div class="col-lg-1 flecha">
-
-                </div>
-
+                    <a class="carousel-control-prev" id="products-left" href="#controlsCarrousel" role="button" data-slide="prev">
+                        <i class="fas fa-chevron-left fa-2x"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" id="products-right" href="#controlsCarrousel" role="button" data-slide="next">
+                        <i class="fas fa-chevron-right fa-2x"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 	`
-
+    changeImg(productData)
     let productInfo = ''
 
     // console.log(el)
@@ -239,6 +346,8 @@ const handleModal = (originalProductData) => {
 
         if (elInfoKey.name === 'Imagen') {
         } else if (elInfoKey.name === 'Título SAP') {
+        } else if (elInfoKey.name === 'video') {
+        } else if (elInfoKey.name === 'pdf') {
         } else {
             productInfo += `
                 <tr>
