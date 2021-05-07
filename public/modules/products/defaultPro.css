@@ -343,7 +343,14 @@
     -webkit-overflow-scrolling: touch;
     margin-left: 16px;
 }
-
+@media only screen and (max-width: 992px) {
+    .modal-body .row {
+        display: flex;
+        flex-flow: row wrap-reverse;
+        margin-right: -15px;
+        margin-left: unset;
+    }
+}
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .product-item img {
