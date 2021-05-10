@@ -197,7 +197,7 @@ async function initProducts() {
 
                 <div class="card-footer card-footer-custom">
                     <div class="d-grid gap-2">
-                    <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                    <a class="btn btn-custom4 viewMore" data-productid="${productData._id}">Ver más</a>
                     </div>
                 </div>
             </div>

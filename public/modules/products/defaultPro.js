@@ -239,17 +239,29 @@ const handleModal = async (originalProductData, showrels) => {
 
     if (favorites.includes(productData.sku)) {
         // console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
-        $('#picStar').html("<i class=\"fas fa-star\"> Eliminar de Favoritos</i>")
+        $('#picStar').html("<span><i class=\"fas fa-star\"> Eliminar de Favoritos</i></span>")
     }
 
+    // function changeFont() {
+    //     var fon = document.getElementById("posts");
+    //     if (fon.className == "amatic") {
+    //       fon.className = 'roman';
+    //     } else {
+    //       
+    //     }
+    //   }
+
+    // 
 
     $('#picStar').on('click', function () {
         if (this.innerHTML.includes("fas")) {
             this.innerHTML = "<i class=\"far fa-star\"> Agregar a Favoritos</i>"
+            this.innerHTML.fon.className = 'SFProDisplay-Light';
         } else {
             favorites.push(productData.sku)
             this.innerHTML = "<i class=\"fas fa-star\"> Eliminar de Favoritos</i>"
             localStorage.setItem('favor', JSON.stringify(favorites))
+            this.innerHTML.fon.className = 'SFProDisplay-Light';
         }
 
     });
