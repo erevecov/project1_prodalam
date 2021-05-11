@@ -240,7 +240,7 @@ const handleModal = async (originalProductData, showrels) => {
 
     if (favorites.includes(productData.sku)) {
         // console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
-        $('#picStar').html("<span><i class=\"fas fa-star\"> Eliminar de Favoritos</i></span>")
+        $('#picStar').html("<i class=\"fas fa-star\"></i> Eliminar de Favoritos")
     }
 
     // function changeFont() {
