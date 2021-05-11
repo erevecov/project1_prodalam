@@ -403,10 +403,7 @@ h5{
 }
 
 
-.w-100 {
-    width: 334px !important;
-    height: inherit;
-}
+
 @media (max-width: 768px){
     
     .col-dos {
@@ -503,15 +500,7 @@ h5{
     width: 100%!important;
     height: inherit;
 } */
-.carousel-inner.modal1{
-    position: relative;
-    max-width: 400px;
-    overflow: hidden;
-    margin: auto;
-    max-height: 410px;
-    /* padding-top: 10px;*/
-    margin-top: 75px;
-}
+
 /* ------------css banner --------------- */
 
 /* .carousel-item {
