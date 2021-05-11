@@ -22,7 +22,7 @@ function changeImg(productData) {
         acc +=`
         <div class="carousel-item ${isa}">
             <a href='#' >
-                <img src="${el}" class="d-block w-100">
+                <img src="${el}" class="d-block w-100 ant">
             </a>
         </div>
         `
