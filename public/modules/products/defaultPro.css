@@ -463,3 +463,7 @@ h2.tituloFav {
 .col-lg-6.fav{
     font-family: SFProDisplay-Light;
 }
+
+#picStar {
+    font-family: SFProDisplay-Light !important;
+}
