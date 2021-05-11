@@ -173,7 +173,7 @@ const handleModal = async (originalProductData, showrels) => {
 
             <div class="col-lg-6 dos">
                 <div id="controlsCarrousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                    <div id="carrouselModal" class="carousel-inner"></div>
+                    <div id="carrouselModal" class="carousel-inner modal1"></div>
 
                     <a class="carousel-control-prev" id="products-left" href="#controlsCarrousel" role="button" data-slide="prev">
                         <i class="fas fa-chevron-left fa-2x"></i>

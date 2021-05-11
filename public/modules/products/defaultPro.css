@@ -467,3 +467,11 @@ h2.tituloFav {
 #picStar {
     font-family: SFProDisplay-Light !important;
 }
+.carousel-inner.modal1{
+    position: relative;
+    max-width: 400px;
+    overflow: hidden;
+    margin: auto;
+    max-height: 410px;
+    padding-top: 10px;
+}

@@ -396,7 +396,14 @@ h5{
     width: 100%!important;
     height: inherit;
 }
-
+.carousel-inner.modal1{
+    position: relative;
+    max-width: 400px;
+    overflow: hidden;
+    margin: auto;
+    max-height: 410px;
+    padding-top: 10px;
+}
 /* ------------css banner --------------- */
 
 /* .carousel-item {
@@ -409,7 +416,7 @@ h5{
 } */
 
 /* @media only screen and (min-width: 768px) and (max-width: 985px) {
-    
+
 } */
 
 /* @media (max-width: 768px) {

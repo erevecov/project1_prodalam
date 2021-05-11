@@ -282,8 +282,8 @@ body {
         margin-bottom: .5rem!important;
         display: flex !important;
         justify-content: center !important;
+        margin-left: 20px;
     }
-
     .dropdown-menu {
         top: -39%;
         left: 0;
@@ -365,10 +365,12 @@ body {
     font-style: italic;
     font-family: SFProDisplay-Light;
 }
+
 /* #navbarSupportedContent{
     display: flex;
     flex-wrap: wrap;
 } */
+
 @media (min-width: 992px){
     .navbar-expand-lg .navbar-nav {
         -ms-flex-direction: row;
