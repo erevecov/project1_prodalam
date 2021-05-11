@@ -264,7 +264,7 @@ async function uploadBanner(ban) {
 	$('#uploadPhoto').on('click', async function () {
 		let confirm = await selectSave()
 
-		if (internals.tables.banners.datatable.rows().data().length < 6) {
+		if (internals.tables.banners.datatable.rows().data().length < 6 || ban) {
 			if (confirm) {
 				let varUlr
 				if (!$('#modUrl').val()) { //se envia url
