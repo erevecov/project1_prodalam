@@ -133,8 +133,9 @@ async function initProducts() {
                         <h5>SKU: ${productData.sku}</h5>
 
                         <p class="text-product">${cutText(productData.description, 70)}</p>
+
                         <div  style="padding-bottom: 10px;">
-                        <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                            <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
                         </div>
                     </div>
 

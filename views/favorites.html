@@ -6,11 +6,11 @@
 
 <h2 class="tituloFav">Lista de Favoritos</h2>
     <hr>
-<div class="container-fluid">
-    
+
+<div class="container products-container">
     <div class="row">
-        <div class="col-md-1"></div>
-            <div class="col-md-10 text-center">
+
+            <div class="col-md-12 text-center">
                 <a id="star-up" href="#">
                     <i class="fas fa-chevron-up fa-2x"></i>
                 </a>
@@ -18,11 +18,11 @@
                 <div class="row" id="product-star-container"> <!--  AQUI ITERAR  -->
                 </div>
 
+
                 <a id="star-down" href="#">
                     <i class="fas fa-chevron-down fa-2x"></i>
                 </a>
             </div>
-        <div class="col-md-1"></div>
     </div>
 </div>
 
@@ -43,5 +43,6 @@
 
 {{#extend "js"}}
 <script src="/public/modules/favorites/favorites.js"></script>
+<script src="/public/modules/products/defaultPro.js"></script>
 
 {{/extend}}

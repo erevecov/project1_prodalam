@@ -99,10 +99,11 @@ function changeImg(productData) {
 }
 
 const handleModal = async (originalProductData, showrels) => {
+    loadingHandler('start')
     let el = originalProductData
     let findProductImg
     let findProductPdf = ''
-
+    loadingHandler('stop')
     el.info.forEach(a => {
         if (a.name == "Imagen") {
             if (a.data.includes(",")) {
@@ -167,7 +168,7 @@ const handleModal = async (originalProductData, showrels) => {
                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
                 <div class="row">
                 <div class="col-lg-6"><a target="_blank" href="/info" class="btn btn-custom3">Contacto</a></div>
-                <div class="col-lg-6 fav"><button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> Agregar a Favoritos</button></div>
+                <div class="col-lg-6 fav" style="font-family: SFProDisplay-Light !important;"><button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> Agregar a Favoritos</button></div>
                 </div>
             </div>
 
@@ -335,4 +336,5 @@ const handleModal = async (originalProductData, showrels) => {
     }
 
     $('#modal').modal('show')
+    
 }

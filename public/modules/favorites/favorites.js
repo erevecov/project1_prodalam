@@ -4,11 +4,11 @@ let internals = {
 
 initProducts()
 
-Array.from(querySelectorAll('.viewMore')).forEach(el => {
-    el.addEventListener('click', () => {
-        handleModal()
-    })
-})
+// Array.from(querySelectorAll('.viewMore')).forEach(el => {
+//     el.addEventListener('click', () => {
+//         handleModal()
+//     })
+// })
 
 async function initProducts() {
     loadingHandler('start')
@@ -41,12 +41,12 @@ async function initProducts() {
         <br>
 
         <div class="col-md-3"></div>
-        <div class="col-md-6" style="
-            flex: 0 0 50%;
-            max-width: 50%;
-            padding-top: 167px;
-            padding-bottom: 180px;
-        "><h2>Sin Productos seleccionados</h2></div>
+        <div class="col-md-6" style="flex: 0 0 50%;
+                                    max-width: 50%;
+                                    padding-top: 167px;
+                                    padding-bottom: 180px;">
+            <h2>Sin Productos seleccionados</h2>
+        </div>
         <div class="col-md-3"></div>
         <div class="col-md-12"></div>
         <br>
@@ -107,20 +107,21 @@ async function initProducts() {
             <div class="col-md-6 product-item-container">
                 <div class="product-item">
                     <div class="row" style="padding-top: 25px; padding-bottom: 15px;">
-                    <div class="col-sm-7">
-                    <h2>${cutText(productData.title, 23)}</h2>
+                        <div class="col-sm-7">
+                            <h2>${cutText(productData.title, 23)}</h2>
 
-                    <h5>SKU: ${productData.sku}</h5>
+                            <h5>SKU: ${productData.sku}</h5>
 
-                    <p class="text-product">${cutText(productData.description, 70)}</p>
-                    <div  style="padding-bottom: 10px;">
-                    <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
-                    </div>
-                </div>
+                            <p class="text-product">${cutText(productData.description, 70)}</p>
 
-                <div class="col-sm-5 product-img-container">
-                    <img src="${productData.img}" alt="">
-                </div>
+                            <div  style="padding-bottom: 10px;">
+                                <a class="btn btn-custom viewMore" data-productid="${productData._id}">Ver más</a>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5 product-img-container">
+                            <img src="${productData.img}" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,141 +244,141 @@ function changeImg(productData) {
 }
 
 
-const handleModal = (originalProductData) => {
-    let el = originalProductData
-    let findProductImg
-    let findProductPdf = ''
+// const handleModal = (originalProductData) => {
+//     let el = originalProductData
+//     let findProductImg
+//     let findProductPdf = ''
 
-    el.info.forEach(a => {
-        if (a.name == "Imagen") {
-            if (a.data.includes(",")) {
-                findProductImg = a.data.split(",")
-                findProductImg = findProductImg[0]
-            } else {
-                findProductImg = a.data
-            }
-        }
-    });
-    el.info.forEach(a => {
-        if (a.name == "pdf") {
-            if (a.data.includes(",")) {
-                findProductPdf = a.data.split(",")
-                findProductPdf = '<a class="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
-            } else if (a.data == '') {
-                findProductPdf = ''
-            } else {
-                findProductPdf = '<a class="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
-            }
-        }
-    });
+//     el.info.forEach(a => {
+//         if (a.name == "Imagen") {
+//             if (a.data.includes(",")) {
+//                 findProductImg = a.data.split(",")
+//                 findProductImg = findProductImg[0]
+//             } else {
+//                 findProductImg = a.data
+//             }
+//         }
+//     });
+//     el.info.forEach(a => {
+//         if (a.name == "pdf") {
+//             if (a.data.includes(",")) {
+//                 findProductPdf = a.data.split(",")
+//                 findProductPdf = '<a class="aPdf" href="'+findProductPdf[0]+'">Descargar ficha técnica</a>'
+//             } else if (a.data == '') {
+//                 findProductPdf = ''
+//             } else {
+//                 findProductPdf = '<a class="aPdf" href="'+a.data+'">Descargar ficha técnica</a>'
+//             }
+//         }
+//     });
 
-    let findProductTitle = el.title
-    let findProductDescription = el.description
-    let findProductInfo = el.info
+//     let findProductTitle = el.title
+//     let findProductDescription = el.description
+//     let findProductInfo = el.info
 
-    let productData = {
-        _id: el._id,
-        title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
-        category: el.category,
-        sku: el.sku,
-        description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
-        img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
-        info: (findProductInfo)
-    }
-
-
-
-	const modalSelector = {
-        title: document.querySelector('#modal_title'),
-        body: document.querySelector('#modal_body'),
-        footer: document.querySelector('#modal_footer'),
-
-    }
-
-	modalSelector.title.innerHTML = productData.title
-	modalSelector.body.innerHTML=`
-    <div class="product-modal">
-        <div class="row">
-            <div class="col-lg-6 uno">
-                <h2>${productData.title}</h2>
-
-                <h5>SKU: ${productData.sku}</h5>
-
-                <p class="textDescription">${productData.description}</p>
-
-                <div class="table-responsive">
-                    <table class="table">
-                        <tbody id="product-info-container"></tbody>
-                    </table>
-                </div>
-                ${findProductPdf}
-                <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
-
-                <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
-                <button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> </button>
-            </div>
-
-            <div class="col-lg-6 dos">
-                <div id="controlsCarrousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                    <div id="carrouselModal" class="carousel-inner"></div>
-
-                    <a class="carousel-control-prev" id="products-left" href="#controlsCarrousel" role="button" data-slide="prev">
-                        <i class="fas fa-chevron-left fa-2x"></i>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" id="products-right" href="#controlsCarrousel" role="button" data-slide="next">
-                        <i class="fas fa-chevron-right fa-2x"></i>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-	`
-    changeImg(productData)
-    let productInfo = ''
-
-    // console.log(el)
-
-    el.info.forEach(elInfoKey=> {
-        // console.log(el.info[0][elInfoKey])
-        // console.log("a",elInfoKey)
-
-        if (elInfoKey.name === 'Imagen') {
-        } else if (elInfoKey.name === 'Título SAP') {
-        } else if (elInfoKey.name === 'video') {
-        } else if (elInfoKey.name === 'pdf') {
-        } else {
-            productInfo += `
-                <tr>
-                    <td>${elInfoKey.name}:</td>
-                    <td>${elInfoKey.data}</td>
-                </tr>
-            `
-        }
-    })
-
-    document.querySelector('#product-info-container').innerHTML = productInfo
-
-    let favorites = JSON.parse(localStorage.getItem('favor')) || [];
-    if (favorites.includes(productData.sku)) {
-        $('#picStar').html("<i class=\"fas fa-star\"> Eliminar de Favoritos</i>")
-    }
+//     let productData = {
+//         _id: el._id,
+//         title: (findProductTitle) ? findProductTitle : 'SIN TÍTULO',
+//         category: el.category,
+//         sku: el.sku,
+//         description: (findProductDescription) ? findProductDescription : 'SIN DESCRIPCIÓN',
+//         img: (findProductImg) ? findProductImg : '/public/img/NOFOTO_PRODALAM.jpg',
+//         info: (findProductInfo)
+//     }
 
 
-    $('#picStar').on('click', function () {
-        if (this.innerHTML.includes("fas")) {
-            this.innerHTML = "<i class=\"far fa-star\"> Agregar a Favoritos</i>"
-            favorites = favorites.filter(e => e !== productData.sku);
-            localStorage.setItem('favor', JSON.stringify(favorites))
-            initProducts()
-        } else {
-            favorites.push(productData.sku)
-            this.innerHTML = "<i class=\"fas fa-star\"> Eliminar de Favoritos</i>"
-            localStorage.setItem('favor', JSON.stringify(favorites))
-            initProducts()
-        }
-    });
 
-    $('#modal').modal('show')
-}
+// 	const modalSelector = {
+//         title: document.querySelector('#modal_title'),
+//         body: document.querySelector('#modal_body'),
+//         footer: document.querySelector('#modal_footer'),
+
+//     }
+
+// 	modalSelector.title.innerHTML = productData.title
+// 	modalSelector.body.innerHTML=`
+//     <div class="product-modal">
+//         <div class="row">
+//             <div class="col-lg-6 uno">
+//                 <h2>${productData.title}</h2>
+
+//                 <h5>SKU: ${productData.sku}</h5>
+
+//                 <p class="textDescription">${productData.description}</p>
+
+//                 <div class="table-responsive">
+//                     <table class="table">
+//                         <tbody id="product-info-container"></tbody>
+//                     </table>
+//                 </div>
+//                 ${findProductPdf}
+//                 <h5><span class="spanUno">Para mayor información contacta a tu ejecutivo.<span></h5>
+
+//                 <a target="_blank" href="/info" class="btn btn-custom3">Contacto</a>
+//                 <button style="font-family: SFProDisplay-Light !important;" id="picStar" class="btn addToFavBtn"><i class="far fa-star"></i> </button>
+//             </div>
+
+//             <div class="col-lg-6 dos">
+//                 <div id="controlsCarrousel" class="carousel slide" data-ride="carousel" data-interval="false">
+//                     <div id="carrouselModal" class="carousel-inner"></div>
+
+//                     <a class="carousel-control-prev" id="products-left" href="#controlsCarrousel" role="button" data-slide="prev">
+//                         <i class="fas fa-chevron-left fa-2x"></i>
+//                         <span class="sr-only">Previous</span>
+//                     </a>
+//                     <a class="carousel-control-next" id="products-right" href="#controlsCarrousel" role="button" data-slide="next">
+//                         <i class="fas fa-chevron-right fa-2x"></i>
+//                         <span class="sr-only">Next</span>
+//                     </a>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+// 	`
+//     changeImg(productData)
+//     let productInfo = ''
+
+//     // console.log(el)
+
+//     el.info.forEach(elInfoKey=> {
+//         // console.log(el.info[0][elInfoKey])
+//         // console.log("a",elInfoKey)
+
+//         if (elInfoKey.name === 'Imagen') {
+//         } else if (elInfoKey.name === 'Título SAP') {
+//         } else if (elInfoKey.name === 'video') {
+//         } else if (elInfoKey.name === 'pdf') {
+//         } else {
+//             productInfo += `
+//                 <tr>
+//                     <td>${elInfoKey.name}:</td>
+//                     <td>${elInfoKey.data}</td>
+//                 </tr>
+//             `
+//         }
+//     })
+
+//     document.querySelector('#product-info-container').innerHTML = productInfo
+
+//     let favorites = JSON.parse(localStorage.getItem('favor')) || [];
+//     if (favorites.includes(productData.sku)) {
+//         $('#picStar').html("<i class=\"fas fa-star\"> Eliminar de Favoritos</i>")
+//     }
+
+
+//     $('#picStar').on('click', function () {
+//         if (this.innerHTML.includes("fas")) {
+//             this.innerHTML = "<i class=\"far fa-star\"> Agregar a Favoritos</i>"
+//             favorites = favorites.filter(e => e !== productData.sku);
+//             localStorage.setItem('favor', JSON.stringify(favorites))
+//             initProducts()
+//         } else {
+//             favorites.push(productData.sku)
+//             this.innerHTML = "<i class=\"fas fa-star\"> Eliminar de Favoritos</i>"
+//             localStorage.setItem('favor', JSON.stringify(favorites))
+//             initProducts()
+//         }
+//     });
+
+//     $('#modal').modal('show')
+// }
