@@ -40,7 +40,7 @@ h5{
     cursor: pointer;
 }
 
-.btn-custom {
+.btn-custom4 {
     color: var(--grey1);
     border: 1px solid var(--grey1);
     border-radius: 20px;
@@ -77,12 +77,13 @@ h5{
     position: absolute;
     right: 30px;
     /* display: none; */
+    margin-top: 5px;
     font-family: SFProDisplay-Regular;
 }
 
-.addToFavBtn:hover {
+/* .addToFavBtn:hover {
     color: white;
-}
+} */
 
 .card-body-custom {
     text-align: center !important;
@@ -236,6 +237,17 @@ h5{
     margin-top: 10px;
     margin-bottom: 25px;
 }
+.aPdf{
+    color: #616161 !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+    padding-left: 19px !important;
+}
+
+.col-lg-6.fav{
+    font-family: SFProDisplay-Light;
+}
+
 .table td {
     padding: .30rem;
     vertical-align: top;
@@ -272,9 +284,105 @@ h5{
     padding-bottom: 20px;
 }
 
-@media (min-width: 768px){
+@media only screen and (max-width: 992px) {
+    .modal-body .row {
+        display: flex;
+        flex-flow: row wrap-reverse;
+        margin-right: -15px;
+        margin-left: unset;
+    }
+    .addToFavBtn {
+        background: #025DB8;
+        text-align: center;
+        color: white;
+        border: none;
+        position: absolute;
+        right: 30px;
+        /* display: none; */
+        margin-top: 5px;
+        font-family: SFProDisplay-Regular;
+    }
+}
+@media (max-width: 768px){
     .col-dos {
         flex: inherit;
+    }
+    /* For mobile phones: */
+    .product-item img {
+        margin-bottom: 5px;
+        max-height: 200px;
+        max-width: 220px;
+        border-radius: 20px !important;
+        padding-top: 10px;
+        margin-left: 26px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .addToFavBtn {
+        background: #025DB8;
+        text-align: center;
+        color: white;
+        border: none;
+        margin-bottom: 10px;
+        position: static;
+        right: 30px;
+        display: block;
+        /* margin-top: 50px; */
+        /* font-family: SFProDisplay-Regular; */
+    }
+    .product-modal .col-lg-6.uno {
+        font-family: SFProDisplay-Medium;
+        width: 100%;
+        min-height: 200px;
+        max-height: 745px;
+        
+        border-radius: 30px;
+        background-color: #e4e4e4;
+        padding-bottom: 20px;
+        padding: 10px;
+    }
+    .col-lg-6{
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .btn-custom3 {
+        color: var(--grey1);
+        border: 1px solid var(--grey1);
+        border-radius: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        /* padding-left: 20px; */
+        /* padding-right: 20px; */
+        float: left;
+        margin-left: 0px;
+        margin-bottom: 20px;
+    }
+    .col-sm-7 {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+
+    .btn-custom2 {
+        color: var(--grey1);
+        border: 1px solid var(--grey1);
+        border-radius: 50px;
+        font-size: x-large;
+        margin-bottom: 20px;
+    }
+    .btn-custom {
+        color: var(--grey1);
+        border: 1px solid var(--grey1);
+        border-radius: 50px;
+        font-size: 20px;
+        float: left;
+        margin-left: auto;
     }
 }
 .table-responsive {

@@ -124,6 +124,32 @@ footer {
     padding-top: 10px;
 }
 @media (max-width: 768px){
+    .my-2 {
+        margin-bottom: .5rem!important;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .dropdown-menu {
+        top: -39%;
+        left: 0;
+        z-index: 1000;
+        min-width: 10rem;
+        padding: .5rem 0;
+        margin: .125rem 0 0;
+        font-size: 1rem;
+        color: #212529;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border-radius: .25rem;
+    }
+    .navbar .nav-link {
+        height: 80px;
+        display: flex;
+        justify-content: center;
+    }
     .col-md-12.social {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
@@ -157,7 +183,7 @@ footer {
         position: absolute;
         float: none;
     }
-
+    
     li.nav-item .dropdown .show{
         padding-top: 20px;
         height: 80px !important;
@@ -215,9 +241,6 @@ footer {
 body {
     font-family: SFProDisplay-Bold !important;
 }
-@media (min-width: 768px) {
-    
-}
 .backToTop {
     width: 100%;
     background-color: var(--blue);
@@ -254,12 +277,34 @@ body {
     box-shadow: 0 5px 9px rgb(0 0 0 / 30%);
 }
 
-@media (min-width: 992px) {
-    .navbar {
-        padding-left: 150px;
-        padding-right: 150px;
+@media (max-width: 992px) {
+    .my-2 {
+        margin-bottom: .5rem!important;
+        display: flex !important;
+        justify-content: center !important;
     }
-    
+
+    .dropdown-menu {
+        top: -39%;
+        left: 0;
+        z-index: 1000;
+        min-width: 10rem;
+        padding: .5rem 0;
+        margin: .125rem 0 0;
+        font-size: 1rem;
+        color: #212529;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border-radius: .25rem;
+    }
+    .navbar .nav-link {
+        height: 80px;
+        display: flex;
+        justify-content: center;
+    }
+
 }
 
 .navbar .nav-item {
@@ -270,6 +315,7 @@ body {
 
 .navbar .nav-link {
     height: 80px;
+
 }
 
 .navbar .active {

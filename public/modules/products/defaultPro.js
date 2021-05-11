@@ -239,16 +239,27 @@ const handleModal = async (originalProductData, showrels) => {
 
     if (favorites.includes(productData.sku)) {
         // console.log("favorites: ", favorites, "includes: ",favorites.includes(productData.sku));
-        $('#picStar').html("<i class=\"fas fa-star\"> Eliminar de Favoritos</i>")
+        $('#picStar').html("<span><i class=\"fas fa-star\"> Eliminar de Favoritos</i></span>")
     }
 
+    // function changeFont() {
+    //     var fon = document.getElementById("posts");
+    //     if (fon.className == "amatic") {
+    //       fon.className = 'roman';
+    //     } else {
+    //       
+    //     }
+    //   }
+
+    // 
 
     $('#picStar').on('click', function () {
+
         if (this.innerHTML.includes("fas")) {
-            this.innerHTML = "<i class=\"far fa-star\"> Agregar a Favoritos</i>"
+            this.innerHTML = "<i class=\"far fa-star\"> </i> Agregar a Favoritos"
         } else {
             favorites.push(productData.sku)
-            this.innerHTML = "<i class=\"fas fa-star\"> Eliminar de Favoritos</i>"
+            this.innerHTML = "<i class=\"fas fa-star\"></i> Eliminar de Favoritos"
             localStorage.setItem('favor', JSON.stringify(favorites))
         }
 
