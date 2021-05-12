@@ -465,7 +465,20 @@ span{
         float: left;
         margin-left: auto;
     }
-   
+    .product-item img {
+        margin-bottom: 5px;
+        max-height: 200px;
+        max-width: 250px;
+    }
+    .product-img-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 0;
+        padding: 11px;
+        padding-left: 18px;
+        /* height: 250px; */
+    }
 }
 .aPdf{
     color: #616161 !important;
