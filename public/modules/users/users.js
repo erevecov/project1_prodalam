@@ -183,7 +183,7 @@ function modNewUser(modUserData) {   //NEW AND MOD USER
             <input id="newUserPassword" type="password" placeholder="Contraseña del usuario" class="form-control border-input">
         </div>
 
-        <div class="col-md-1" style="margin-top:43px; font-size: 16px;">
+        <div class="col-md-1" style="margin-top:14px; font-size: 16px;">
         <i class="fas fa-eye"></i>
         <input type="checkbox" onclick="showPass()">
         </div>
