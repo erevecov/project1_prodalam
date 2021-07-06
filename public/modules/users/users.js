@@ -122,7 +122,7 @@ async function deleteUser(_id, name, rol) {
         });
     
         if (result.value) {
-            //let delUser = await axios.delete(`api/users/${_id}`);
+            let delUser = await axios.delete(`api/users/${_id}`);
     
             if (delUser.data.ok) {
                 $('#optionModUser').prop('disabled', true)
@@ -137,9 +137,9 @@ async function deleteUser(_id, name, rol) {
                 toastr.warning(`Ha ocurrido un error al intentar eliminar`);
             }
         }
+    } else {
+        toastr.warning(`Usuario "${name}" no puede ser eliminado`);
     }
-    toastr.warning(`Usuario "${name}" no puede ser eliminado`);
-
 }
 
 
